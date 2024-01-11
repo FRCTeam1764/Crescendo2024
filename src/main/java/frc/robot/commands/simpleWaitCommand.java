@@ -5,9 +5,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 
-public class simpleWaitCommand extends CommandBase {
+public class simpleWaitCommand extends Command {
   /** Creates a new simpleWaitCommand. */
   double time;
   Timer timer;

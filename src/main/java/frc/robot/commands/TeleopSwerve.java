@@ -14,11 +14,11 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.hal.ThreadsJNI;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.LimelightSubsystem;
 
 
-public class TeleopSwerve extends CommandBase {    
+public class TeleopSwerve extends Command {    
     static final double kOffBalanceAngleThresholdDegrees = 10;
     static final double kOonBalanceAngleThresholdDegrees  = 5;
     double offsetToleranceProprtion;

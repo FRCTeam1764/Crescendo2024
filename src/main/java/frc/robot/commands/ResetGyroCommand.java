@@ -4,11 +4,11 @@
 
 // package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj2.command.CommandBase;
+// import edu.wpi.first.wpilibj2.command.Command;
 // import frc.robot.libraries.external.math.Rotation2;
 // import frc.robot.subsystems.DrivetrainSubsystem;
 
-// public class ResetGyroCommand extends CommandBase {
+// public class ResetGyroCommand extends Command {
 //   /** Creates a new ResetGyroCommand. */
 //   DrivetrainSubsystem drivetrainSubsystem;
 //   public ResetGyroCommand(DrivetrainSubsystem drivetrainSubsystem) {

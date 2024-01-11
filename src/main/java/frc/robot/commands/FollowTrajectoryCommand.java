@@ -1,10 +1,10 @@
 // package frc.robot.commands;
 
-// import edu.wpi.first.wpilibj2.command.CommandBase;
+// import edu.wpi.first.wpilibj2.command.Command;
 // import frc.robot.subsystems.DrivetrainSubsystem;
 // import frc.robot.libraries.external.control.Trajectory;
 
-// public class FollowTrajectoryCommand extends CommandBase {
+// public class FollowTrajectoryCommand extends Command {
 //   private DrivetrainSubsystem drivetrain;
 //   private Trajectory trajectory;
   

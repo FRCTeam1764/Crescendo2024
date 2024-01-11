@@ -6,14 +6,14 @@ package frc.robot.commands;
 
 
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.state.LimelightState;
 import frc.robot.state.SwerveState;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Swerve;
 
-public class LimelightCommand extends CommandBase {
+public class LimelightCommand extends Command {
   LimelightState limelightState;
   private LimelightSubsystem limelight;
   private int pipeline;
