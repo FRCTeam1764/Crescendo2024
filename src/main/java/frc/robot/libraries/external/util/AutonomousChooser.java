@@ -6,11 +6,12 @@ import java.util.List;
 
 import com.pathplanner.lib.PathConstraints;
 import com.pathplanner.lib.PathPlanner;
-import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.PathPlannerTrajectory;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.PIDConstants;
 import com.pathplanner.lib.auto.SwerveAutoBuilder;
 import com.pathplanner.lib.commands.FollowPathWithEvents;
-
+import com.pathplanner.lib.util.*;
 import edu.wpi.first.hal.simulation.RoboRioDataJNI;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,7 +25,7 @@ import frc.robot.RobotContainer;
 public class AutonomousChooser {
     private final Trajectory[] trajectories;
     private final  HashMap<String, Command> eventMap;
-    private final SwerveAutoBuilder autoBuilder;
+    private final AutoBuilder autoBuilder;
     
     private SendableChooser<AutonomousMode> autonomousModeChooser = new SendableChooser<>();
 
@@ -44,7 +45,7 @@ public class AutonomousChooser {
       //  eventMap.put("PlacePieceCone", new AutoIntakeCommand(robotContainer.getIntake(),false,"Cone"));
 
 
-        autoBuilder = new SwerveAutoBuilder(
+        AutoBuilder = new SwerveAutoBuilder(
     robotContainer.getDrivetrainSubsystem()::getPose, // Pose2d supplier
     robotContainer.getDrivetrainSubsystem()::resetOdometry, // Pose2d consumer, used to reset odometry at the beginning of auto
     robotContainer.getDrivetrainSubsystem().kinematics, // SwerveDriveKinematics
