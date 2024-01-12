@@ -59,7 +59,7 @@ public class Robot extends TimedRobot {
          robotContainer = new RobotContainer();
   
 
-        robotContainer.getDrivetrainSubsystem().getNavx().calibrate();
+       // robotContainer.getDrivetrainSubsystem().getNavx().calibrate(); TO DO: FIND OUT WHY THIS WAS HERE 
         robotContainer.getDrivetrainSubsystem().zeroGyro();
 
        updateManager.startLoop(5.0e-3);

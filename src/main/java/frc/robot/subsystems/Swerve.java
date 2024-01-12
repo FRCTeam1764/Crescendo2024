@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.libraries.NewSwerve.SwerveModule;
+import frc.robot.libraries.external.robot.drivers.NavX;
 
 public class Swerve extends SubsystemBase {
     public SwerveDriveOdometry swerveOdometry;
@@ -27,8 +28,8 @@ public class Swerve extends SubsystemBase {
 
     public Swerve() {
         kinematics = SwerveConstants.Swerve.swerveKinematics;
-        //gyro = new NavX(SwerveConstants.Swerve.pigeonID);
-        gyro = new AHRS(SPI.Port.kMXP); // find out wich port it is 
+      //  gyro = new NavX(SwerveConstants.Swerve.pigeonID);
+      gyro = new AHRS(SPI.Port.kMXP); // find out wich port it is 
       //  gyro.calibrate();
         zeroGyro();
 
