@@ -1,6 +1,6 @@
 package frc.robot.libraries.external.robot.input;
 
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.libraries.external.robot.Utilities;
 
