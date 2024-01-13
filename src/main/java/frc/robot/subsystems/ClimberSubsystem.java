@@ -11,7 +11,7 @@ import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
 
 
-public class Climber extends SubsystemBase {
+public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new Climber. */
 
   public LazyTalonFX climberMotor1;
@@ -22,7 +22,7 @@ public class Climber extends SubsystemBase {
   public DigitalInput lowerRightLimitSwitch;
   public DigitalInput lowerLeftLimitSwitch;
 
-  public Climber() {
+  public ClimberSubsystem() {
     climberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     climberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR2.busName);
   }
