@@ -45,10 +45,6 @@ public class RobotContainer {
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-<<<<<<< HEAD
-=======
-    private final JoystickButton intakeOut = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
->>>>>>> origin/M&M
     private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
     
@@ -97,15 +93,15 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
     }
-//do new button bindings
-   private void configureCoPilotButtonBindings() {
+    //do new button bindings
+    private void configureCoPilotButtonBindings() {
 
         climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
 
 
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
-     
+
     }
 
      public Command getAutonomousCommand() {
