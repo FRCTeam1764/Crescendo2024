@@ -23,7 +23,9 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    intake.intakeOn();
+    
+    
+    //intake.intakeTakeRing();
   }
 
   // Called once the command ends or is interrupted.
