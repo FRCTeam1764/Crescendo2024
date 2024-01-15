@@ -58,7 +58,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   // extend, doesn't need one and two so fetch from 1.0
 
-  // version 1.0
+  // version 1.0, remove later
   public void climberOff() {
     climberMotor1.set(0); // ignore warning, it'll last till next year
     climberMotor2.set(0);
