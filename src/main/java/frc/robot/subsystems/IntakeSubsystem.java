@@ -6,21 +6,29 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
+
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public CANSparkMax intakeMotor;
+  public DigitalInput breakBeam;
   
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   }
 
-  public void intakeOn() {
-    intakeMotor.set(1); // edit speed?
+  public void intakeTakeRing() {
+    if (!breakBeam.get()) {
+      intakeMotor.set(1); // edit speed?
+    } else {
+      intakeMotor.set(0);
+    }
   }
 
+  // wrist stuff?!? I have no clue :D
   public void intakeOff() {
     intakeMotor.set(0);
   }
