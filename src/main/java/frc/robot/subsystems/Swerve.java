@@ -69,7 +69,24 @@ public class Swerve extends SubsystemBase {
             mod.setDesiredState(swerveModuleStates[mod.moduleNumber], isOpenLoop);
         }
     }    
+public void drive(ChassisSpeeds speed){ //TODO: figure out if field relative and other is needed 
+           SwerveModuleState[] swerveModuleStates =
+            SwerveConstants.Swerve.swerveKinematics.toSwerveModuleStates(
+                true ? ChassisSpeeds.fromFieldRelativeSpeeds(
+speed.vxMetersPerSecond,
+speed.vyMetersPerSecond,
+speed.omegaRadiansPerSecond,
 
+                                    getYaw()
+                                )
+                                : speed
+                                );
+        SwerveDriveKinematics.desaturateWheelSpeeds(swerveModuleStates, SwerveConstants.Swerve.maxSpeed);
+
+        for(SwerveModule mod : mSwerveMods){
+            mod.setDesiredState(swerveModuleStates[mod.moduleNumber], true);
+        } 
+}
     /* Used by SwerveControllerCommand in Auto */
     public void setModuleStates(SwerveModuleState[] desiredStates) {
         SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, SwerveConstants.Swerve.maxSpeed);
@@ -123,6 +140,9 @@ public class Swerve extends SubsystemBase {
         return gyro;
     }
 
+    public ChassisSpeeds getSpeeds(){ //TODO: FIX
+          return kinematics.toChassisSpeeds(getModuleStates());
+    }
     @Override
     public void periodic(){
         swerveOdometry.update(getYaw(), getModulePositions());  

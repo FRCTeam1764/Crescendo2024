@@ -10,6 +10,7 @@ public final class NullButton extends Trigger {
 	}
 
 	public NullButton(boolean initialValue) {
+		super(null); //TODO: FIX
 		value = initialValue;
 	}
 
