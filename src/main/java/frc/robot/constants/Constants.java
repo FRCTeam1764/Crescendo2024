@@ -9,8 +9,8 @@ public final class Constants {
 
 
      public static final CanPort CLIMBER_MOTOR1 =     new CanPort(21);
-         public static final CanPort CLIMBER_MOTOR2 =     new CanPort(21);
- 
+     public static final CanPort CLIMBER_MOTOR2 =     new CanPort(21);
+     public static final CanPort INTAKE_MOTOR =     new CanPort(21);
     // public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
     // public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);
 
