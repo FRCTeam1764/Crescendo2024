@@ -43,11 +43,11 @@ public class RobotContainer {
 
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-    private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
     
+    private final JoystickButton intake = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
@@ -55,7 +55,8 @@ public class RobotContainer {
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
+    //Hunter was here
 
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
     // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
@@ -97,7 +98,7 @@ public class RobotContainer {
    private void configureCoPilotButtonBindings() {
 
         climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-
+        intake.toggleOnTrue(new IntakeCommand(intakeSubsystem));
 
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
@@ -142,11 +143,5 @@ public class RobotContainer {
  public AutonomousChooser getAutonomousChooser() {
          return autonomousChooser;
      }
-
-
-
-
-
-
 
 }
