@@ -5,13 +5,18 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.constants.swerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
-import frc.robot.libraries.external.util.AutonomousChooser;
 
 import frc.robot.state.RobotState;
+
+import java.io.File;
+
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -52,7 +57,8 @@ public class RobotContainer {
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
-    private final Swerve s_Swerve = new Swerve();
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
+                                                                         "swerve/falcon"));
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
@@ -63,7 +69,6 @@ public class RobotContainer {
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
     private Trajectory[] trajectories;
-     private final AutonomousChooser autonomousChooser;
 
 
     public RobotContainer() {
@@ -72,21 +77,28 @@ public class RobotContainer {
 
 
         // CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
-        
+        // AbsoluteDrive drive = new AbsoluteDrive(s_Swerve,
+        // MathUtil.applyDeadband(()-> driver.getRawAxis(translationAxis).getAsDouble(),swerveConstants.OperatorConstants.LEFT_X_DEADBAND),
+        //  MathUtil.applyDeadband(()-> driver.getRawAxis(strafeAxis).getAsDouble(),swerveConstants.OperatorConstants.LEFT_Y_DEADBAND),
+        //    MathUtil.applyDeadband(()-> driver.getRawAxis(rotationAxis).getAsDouble(),swerveConstants.OperatorConstants.RIGHT_X_DEADBAND), 
+        //   null)
+
+
+
+
         s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
+            new TeleopDrive(
                 s_Swerve, 
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean(),
-                robotState
+                () -> robotCentric.getAsBoolean()
             )
         );
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-         autonomousChooser = new AutonomousChooser(trajectories, this);
+       //  autonomousChooser = new AutonomousChooser(trajectories, this);
     }
 
 
@@ -110,13 +122,13 @@ public class RobotContainer {
     // }
     // // public Command getAutonomousCommand() {
          // An ExampleCommand will run in autonomous
-         return new AutoBalance(s_Swerve, robotState);
+         return null; //new AutoBalance(s_Swerve, robotState);
      // return new AutoBalance(s_Swerve, robotState);
 // return autonomousChooser.getCommand(this);
      }
 
 
-     public Swerve getDrivetrainSubsystem() {
+     public SwerveSubsystem getDrivetrainSubsystem() {
          return s_Swerve;
      }
 
@@ -140,8 +152,8 @@ public class RobotContainer {
    }
 
 
- public AutonomousChooser getAutonomousChooser() {
-         return autonomousChooser;
-     }
+//  public AutonomousChooser getAutonomousChooser() {
+//          return autonomousChooser;
+//      }
 
 }
