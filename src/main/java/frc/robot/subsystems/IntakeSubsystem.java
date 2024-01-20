@@ -24,10 +24,10 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
   private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
-  private PIDController m_flexPidController;
+  // private PIDController m_flexPidController;
   private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
-  private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
-  private ArmFeedforward up_Feedforward = new ArmFeedforward(0.15245, 0.16345, 1.9801);
+  // private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
+  // private ArmFeedforward up_Feedforward = new ArmFeedforward(0.15245, 0.16345, 1.9801);
   private DigitalInput breakBeamIntake;
   
   public IntakeSubsystem(IntakeState intakeState) {
@@ -70,6 +70,7 @@ public class IntakeSubsystem extends SubsystemBase {
   double pidValue;
   double setpoint;
   public void flexClosedLoop(double desired) {
+    //todo: t une
     pid = new PIDController(12, 0, 0.001);
     
     double upfeedForward = m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);

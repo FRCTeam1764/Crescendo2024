@@ -35,6 +35,9 @@ public class Shooter extends SubsystemBase {
   public void roller(double speed){
     holderRoller.set(speed);
   }
+  public void rollerOff(){
+    holderRoller.set(0);
+  }
   /* public void roller() {
     if (!breakBeamHolder.get()) {
     holderRoller.set(0);

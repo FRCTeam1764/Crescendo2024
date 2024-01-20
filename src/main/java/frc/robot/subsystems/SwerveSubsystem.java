@@ -34,19 +34,19 @@ import swervelib.telemetry.SwerveDriveTelemetry.TelemetryVerbosity;
 public class SwerveSubsystem extends SubsystemBase
 {
 
-  /**
-   * Swerve drive object.
-   */
+  
+  //Swerve drive object.
+   
   private final SwerveDrive swerveDrive;
-  /**
-   * Maximum speed of the robot in meters per second, used to limit acceleration.
-   */
-  public        double      maximumSpeed = Units.feetToMeters(14.5);
+  
+   //Maximum speed of the robot in meters per second, used to limit acceleration.
+   
+  public double maximumSpeed = Units.feetToMeters(14.5);
 
   /**
-   * Initialize {@link SwerveDrive} with the directory provided.
-   *
-   * @param directory Directory of swerve drive config files.
+   Initialize {@link SwerveDrive} with the directory provided.
+  
+    @param directory Directory of swerve drive config files.
    */
   public SwerveSubsystem(File directory)
   {

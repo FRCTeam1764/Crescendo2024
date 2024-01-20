@@ -5,31 +5,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.ClimberSubsystem;
+import frc.robot.subsystems.Shooter;
 
-public class ClimberDescendCommand extends Command {
-  /** Creates a new ClimberCommand. */
-  ClimberSubsystem climber;
-
-  public ClimberDescendCommand(ClimberSubsystem climber) {
+public class RollerCommand extends Command {
+  /** Creates a new RollerCommand. */
+  Shooter shooter;
+  double speed;
+  public RollerCommand(Shooter shooter, double speed) {
+this.shooter = shooter;
+this.speed = speed;
     // Use addRequirements() here to declare subsystem dependencies.
-    this.climber = climber;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    shooter.roller(speed);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.descend();
+       shooter.roller(speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.climberOff();
+           shooter.roller(0);
+
   }
 
   // Returns true when the command should end.
@@ -37,4 +41,5 @@ public class ClimberDescendCommand extends Command {
   public boolean isFinished() {
     return false;
   }
+  
 }

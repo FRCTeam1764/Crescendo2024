@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
+import frc.robot.commands.Climber.ClimberClimb1Command;
 import frc.robot.constants.swerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -63,10 +64,11 @@ public class RobotContainer {
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
     //Hunter was here
+//Limelights
+    private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
+     private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
 
-    private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
-    // private final DrivetrainSubsystem drivetrainSubsystem = new DrivetrainSubsystem();
-    // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
+
 
     private Trajectory[] trajectories;
 
