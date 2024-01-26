@@ -1,3 +1,4 @@
+
 package swervelib.parser;
 
 import static swervelib.math.SwerveMath.calculateMaxAngularVelocity;

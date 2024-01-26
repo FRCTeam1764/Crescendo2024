@@ -10,7 +10,7 @@ import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
-
+import frc.robot.libraries.external.robot.input.JoystickAxis;
 import frc.robot.state.RobotState;
 
 import java.io.File;
@@ -34,7 +34,8 @@ public class RobotContainer {
 
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kBack.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickAxis LeftTrigger = new JoystickAxis(driver,XboxController.Axis.kLeftTrigger.value);
     // private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
@@ -117,6 +118,10 @@ public class RobotContainer {
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
      
+    }
+
+    public void TriggerCheck(){
+
     }
 
      public Command getAutonomousCommand() {
