@@ -11,10 +11,12 @@ public class WristCommand extends Command {
   /** Creates a new WristCommand. */
   IntakeState state;
   int desired;
-  public WristCommand(IntakeState intakeState, int desiredEncoderValue) {
+  boolean finish;
+  public WristCommand(IntakeState intakeState, int desiredEncoderValue, boolean finish) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.state = intakeState;
     this.desired = desiredEncoderValue;
+    this.finish = finish;
   }
 
 
@@ -33,12 +35,18 @@ public class WristCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-     state.setEncoderValue(0);
+    if(!finish) { 
+      state.setEncoderValue(0);
+    }
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    if(finish){
+      return this.state.getEncoderValue() <= this.desired+4000 && this.state.getEncoderValue() >= this.desired-4000;
+    } else {
+      return false;
+   }
   }
 }

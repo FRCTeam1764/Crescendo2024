@@ -10,7 +10,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.swerveConstants;
+import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 import java.util.List;
@@ -117,7 +117,7 @@ public class AbsoluteDriveAdv extends Command
     // Limit velocity to prevent tippy
     Translation2d translation = SwerveController.getTranslation2d(desiredSpeeds);
     translation = SwerveMath.limitVelocity(translation, swerve.getFieldVelocity(), swerve.getPose(),
-                                           swerveConstants.LOOP_TIME, swerveConstants.ROBOT_MASS, List.of(swerveConstants.CHASSIS),
+                                           SwerveConstants.LOOP_TIME, SwerveConstants.ROBOT_MASS, List.of(SwerveConstants.CHASSIS),
                                            swerve.getSwerveDriveConfiguration());
     SmartDashboard.putNumber("LimitedTranslation", translation.getX());
     SmartDashboard.putString("Translation", translation.toString());
@@ -125,7 +125,7 @@ public class AbsoluteDriveAdv extends Command
     // Make the robot move
     if(headingX == 0 && headingY == 0 && Math.abs(headingAdjust.getAsDouble()) > 0){
       resetHeading = true;
-      swerve.drive(translation, (swerveConstants.OperatorConstants.TURN_CONSTANT * -headingAdjust.getAsDouble()), true);
+      swerve.drive(translation, (SwerveConstants.OperatorConstants.TURN_CONSTANT * -headingAdjust.getAsDouble()), true);
     }
     else{
       swerve.drive(translation, desiredSpeeds.omegaRadiansPerSecond, true);

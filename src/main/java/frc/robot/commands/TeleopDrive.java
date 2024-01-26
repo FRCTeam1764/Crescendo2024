@@ -10,7 +10,7 @@ import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.constants.swerveConstants;
+import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.SwerveSubsystem;
 
 import java.util.function.BooleanSupplier;
@@ -58,9 +58,9 @@ public class TeleopDrive extends Command
   @Override
   public void execute()
   {
-    double xVelocity   = Math.pow(MathUtil.applyDeadband(vX.getAsDouble(),swerveConstants.OperatorConstants.LEFT_X_DEADBAND), 3);
-    double yVelocity   = Math.pow(MathUtil.applyDeadband(vY.getAsDouble(),swerveConstants.OperatorConstants.LEFT_Y_DEADBAND), 3);
-    double angVelocity = Math.pow(MathUtil.applyDeadband(omega.getAsDouble(),swerveConstants.OperatorConstants.TURN_CONSTANT), 3);
+    double xVelocity   = Math.pow(MathUtil.applyDeadband(vX.getAsDouble(),SwerveConstants.OperatorConstants.LEFT_X_DEADBAND), 3);
+    double yVelocity   = Math.pow(MathUtil.applyDeadband(vY.getAsDouble(),SwerveConstants.OperatorConstants.LEFT_Y_DEADBAND), 3);
+    double angVelocity = Math.pow(MathUtil.applyDeadband(omega.getAsDouble(),SwerveConstants.OperatorConstants.TURN_CONSTANT), 3);
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);
     SmartDashboard.putNumber("omega", angVelocity);
