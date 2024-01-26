@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 import frc.robot.commands.Climber.ClimberClimb1Command;
-import frc.robot.constants.swerveConstants;
+import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
@@ -112,7 +112,7 @@ public class RobotContainer {
    private void configureCoPilotButtonBindings() {
 
         climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-        intake.toggleOnTrue(new IntakeCommand(intakeSubsystem));
+     //   intake.toggleOnTrue(new IntakeCommand(intakeSubsystem));
 
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 

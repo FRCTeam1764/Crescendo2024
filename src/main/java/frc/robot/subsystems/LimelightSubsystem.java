@@ -25,6 +25,7 @@ public class LimelightSubsystem extends SubsystemBase {
   private NetworkTableEntry tv;
   private boolean aprilTagViable;
   private RobotContainer m_robotContainer;
+
   Alliance alliance;
   private Boolean enable = true;
   private Pose2d botpose;
@@ -52,6 +53,8 @@ public class LimelightSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
      //read values periodically
+
+     
     double x = this.tx.getDouble(0.0);
     double y = this.ty.getDouble(0.0);
     double area = this.ta.getDouble(0.0);
