@@ -5,7 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.SparkMaxAbsoluteEncoder;
+import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -24,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
   private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id, MotorType.kBrushless);
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
-  private final SparkMaxAbsoluteEncoder m_angleEncoder1 = m_flexMotor1.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
+  private final SparkAbsoluteEncoder m_angleEncoder1 = m_flexMotor1.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
   private final SparkMaxAbsoluteEncoder m_angleEncoder2 = m_flexMotor2.getAbsoluteEncoder(SparkMaxAbsoluteEncoder.Type.kDutyCycle);
   private PIDController m_flexPidController;
   private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
@@ -62,12 +62,12 @@ public class IntakeSubsystem extends SubsystemBase {
   //      negative=1;
   //  }
 
-  //SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
-    //  if(!breakBeamIntake.get()) {
-      //    m_intakeMotor.set(.04*negative);
-    //  } else {
-      //    m_intakeMotor.set(speed);
-    //  }
+    SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
+      if(!breakBeamIntake.get()) {
+          m_intakeMotor.set(.04*negative);
+      } else {
+          m_intakeMotor.set(speed);
+      }
   }
   public void run(double speed) {
     m_intakeMotor.set(speed);
