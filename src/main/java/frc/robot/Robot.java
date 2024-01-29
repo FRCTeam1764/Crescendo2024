@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.util.RootNameLookup;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
 // import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -23,6 +24,7 @@ import frc.robot.libraries.NewSwerve.CTREConfigs;
 // import frc.robot.libraries.external.math.RigidTransform2;
 // import frc.robot.libraries.external.math.Rotation2;
 import frc.robot.libraries.external.robot.UpdateManager;
+import frc.robot.state.IntakeState;
 // import frc.robot.libraries.external.robot.drivers.Limelight;
 import frc.robot.constants.Constants;
 
@@ -30,8 +32,8 @@ import frc.robot.constants.Constants;
 public class Robot extends TimedRobot {
    private static Robot instance = null;
    Spark blinkin;
-   
-  
+   private DigitalInput breakBeamIntake;
+
 
     public static CTREConfigs ctreConfigs;
 
@@ -70,9 +72,10 @@ public class Robot extends TimedRobot {
 
    @Override
    public void robotPeriodic() {
-
+    
         CommandScheduler.getInstance().run();
-
+  
+        
    }
 
 

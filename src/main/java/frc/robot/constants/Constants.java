@@ -16,7 +16,8 @@ public final class Constants {
     public static final CanPort HOLDER_MOTOR =     new CanPort(21);
 
     public static final CanPort INTAKE_MOTOR =     new CanPort(21);
-    public static final CanPort WRIST_MOTOR =     new CanPort(21);
+    public static final CanPort WRIST_MOTOR1 =     new CanPort(21);
+    public static final CanPort WRIST_MOTOR2 =     new CanPort(21);
 
 
     public static final int HOLDER_BREAK_BEAM = 1;
