@@ -6,11 +6,12 @@ package frc.robot.commands.ComplexCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.RollerCommand;
-import frc.robot.commands.WristCommand;
 import frc.robot.commands.simpleWaitCommand;
+import frc.robot.commands.SimpleCommands.IntakeCommand;
+import frc.robot.commands.SimpleCommands.RollerCommand;
+import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -25,28 +26,21 @@ public class GoToAmpPositionCommand extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(intake, shooter);
-        ParallelDeadlineGroup rollInPiece = new ParallelDeadlineGroup(
-new simpleWaitCommand(.1),
-new ParallelCommandGroup(
-new IntakeCommand(intake, 0.1),
-new RollerCommand(shooter, -0.1)
-)
+    ParallelRaceGroup rollInPiece = new ParallelRaceGroup(
+      new simpleWaitCommand(.2),
+
+      new IntakeCommand(intake, 0.1,true),
+      new RollerCommand(shooter, -0.1,false)
+    
         );
-    ParallelDeadlineGroup intakeUp = new ParallelDeadlineGroup(
-      new WristCommand(intakeState, 100, true, false), 
-      
-      new IntakeCommand(intake,-0.1)
-    );
 
 
     addCommands(
       rollInPiece,
-    new  ParallelCommandGroup(
-       new WristCommand(intakeState, 100, false, false),
-       new IntakeCommand(intake,0.05)
-    )
-
-
-    );
+      new ParallelCommandGroup(
+        new WristCommand(intakeState, 100, false, false),
+        new IntakeCommand(intake,0.05,false)
+      )
+    ); 
   }
 }

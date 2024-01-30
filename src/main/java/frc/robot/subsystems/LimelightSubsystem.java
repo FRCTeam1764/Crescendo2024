@@ -23,12 +23,10 @@ public class LimelightSubsystem extends SubsystemBase {
   private NetworkTableEntry ty;
   private NetworkTableEntry ta;
   private NetworkTableEntry tv;
-  private boolean aprilTagViable;
-  private RobotContainer m_robotContainer;
 
-  Alliance alliance;
-  private Boolean enable = true;
-  private Pose2d botpose;
+
+
+
   public LimelightSubsystem(String name) {
     /**
      * tx - Horizontal Offset
@@ -38,9 +36,6 @@ public class LimelightSubsystem extends SubsystemBase {
      */
 
     this.table = NetworkTableInstance.getDefault().getTable(name);
-
-    this.aprilTagViable = aprilTagViable;
-
     this.tx = table.getEntry("tx");
     this.ty = table.getEntry("ty");
     this.ta = table.getEntry("ta");
@@ -51,35 +46,14 @@ public class LimelightSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-     //read values periodically
-
-     
-    double x = this.tx.getDouble(0.0);
-    double y = this.ty.getDouble(0.0);
-    double area = this.ta.getDouble(0.0);
-
-
-    //post to smart dashboard periodically
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
-
-    
   }
 
-
-  public void setAlliance(Alliance alliance) {
-    this.alliance = alliance;
-  }
   public double getHorizontalAngleOfErrorDegrees(){
-    //+1 is a fudge factor cor camera mounting
-    return getTx().getDouble(0.0) +0; //Constants.HORIZONTAL_OFFSET;
+    return getTx().getDouble(0.0) +0;
   }
 
   public double getVerticalAngleOfErrorDegrees(){
-    //+1 is a fudge factor cor camera mounting
-    return getTy().getDouble(0.0) +0;//Constants.VERTICAL_OFFSET;
+    return getTy().getDouble(0.0) +0;
   }
 
 
@@ -100,10 +74,9 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public double getTargetAngleRadians() {
-    return getTxAngleRadians();//+m_robotContainer.getDrivetrain().getHeadingRadians();
+    return getTxAngleRadians();
   }
   public boolean hasTarget(){
-    SmartDashboard.putNumber("tv; ", tv.getDouble(0));
     return tv.getDouble(0) != 0;
   }
 }

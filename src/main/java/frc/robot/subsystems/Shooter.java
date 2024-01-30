@@ -51,7 +51,7 @@ public class Shooter extends SubsystemBase {
   }
   **/
 
-  public boolean isInputBroken(){
+  public boolean RollerBreakBeamBroken(){
     return !breakBeamHolder.get();
   }
   @Override

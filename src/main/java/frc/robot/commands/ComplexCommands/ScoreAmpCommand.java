@@ -6,10 +6,11 @@ package frc.robot.commands.ComplexCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.WristCommand;
 import frc.robot.commands.simpleWaitCommand;
+import frc.robot.commands.SimpleCommands.IntakeCommand;
+import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
+import frc.robot.constants.Constants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
 
@@ -22,14 +23,14 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
     addRequirements(intake);
     ParallelDeadlineGroup score = new ParallelDeadlineGroup(
       new simpleWaitCommand(0.5),
-new IntakeCommand(intake,0.5)
+      new IntakeCommand(intake,0.5, false)
     );
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       score,
-      new WristCommand(state,CommandConstants.INTAKE_UP,true,false)
+      new WristCommand(state,CommandConstants.INTAKE_AMP_ENCODERVALUE,true,false)
     );
   }
 }

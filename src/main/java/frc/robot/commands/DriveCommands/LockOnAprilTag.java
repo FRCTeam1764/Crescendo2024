@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
@@ -15,14 +15,14 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class LockOnAprilTag extends Command {
   /** Creates a new LockOnAprilTag. */
    
-  private LimelightSubsystem m_LimeLight;
-  private SwerveSubsystem m_Drivetrain;
+  private LimelightSubsystem LimeLight;
+  private SwerveSubsystem Drivetrain;
 
   private PIDController thetaController = new PIDController(SwerveConstants.Auton.angleAutoPID.p, SwerveConstants.Auton.angleAutoPID.i, SwerveConstants.Auton.angleAutoPID.d);
   public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, String pipeline) {
     addRequirements(drivetrain);
-    m_Drivetrain = drivetrain;
-    this.m_LimeLight = limelight;
+    this.Drivetrain = drivetrain;
+    this.LimeLight = limelight;
   }
 
   // Called when the command is initially scheduled.
@@ -38,27 +38,21 @@ public class LockOnAprilTag extends Command {
     double thetaOutput = 0;
     double xOutput = 0;
     double yOutput = 0;
-		if (m_LimeLight.hasTarget()){
-			double vertical_angle = m_LimeLight.getVerticalAngleOfErrorDegrees();
-			double horizontal_amgle = -m_LimeLight.getHorizontalAngleOfErrorDegrees() ;
-			double setpoint = Math.toRadians(horizontal_amgle)+ m_Drivetrain.getPose().getRotation().getRadians();
+		if (LimeLight.hasTarget()){
+			double horizontal_amgle = -LimeLight.getHorizontalAngleOfErrorDegrees() ;
+			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
-
 			if (!thetaController.atSetpoint() ){
-				thetaOutput = thetaController.calculate(m_Drivetrain.getPose().getRotation().getRadians(), setpoint);
-			} else {
-
-      }
-		} else {
-			System.out.println("NO TARGET");
-		}
-    m_Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,true);
+				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);
+			}
+		} 
+    Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Drivetrain.drive(new Translation2d(0,0),0,true);
+    Drivetrain.drive(new Translation2d(0,0),0,true);
   }
 
   // Returns true when the command should end.

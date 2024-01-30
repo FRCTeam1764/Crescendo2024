@@ -4,13 +4,15 @@
 
 package frc.robot.commands.ComplexCommands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.IntakeCommand;
-import frc.robot.commands.RollerCommand;
-import frc.robot.commands.WristCommand;
 import frc.robot.commands.simpleWaitCommand;
+import frc.robot.commands.SimpleCommands.IntakeCommand;
+import frc.robot.commands.SimpleCommands.RollerCommand;
+import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -26,18 +28,17 @@ public class returnGroundPickUp extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(intake, shooter);
   ParallelDeadlineGroup intakeBack = new ParallelDeadlineGroup(
-      new WristCommand(intakeState,CommandConstants.INTAKE_UP,true,false)
+      new WristCommand(intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false)
     , 
-      new IntakeCommand(intake,0.1)
+      new IntakeCommand(intake,CommandConstants.INTAKE_STALL_SPEED,false)
     );
 
-ParallelDeadlineGroup movePiece = new ParallelDeadlineGroup(
-  new simpleWaitCommand(0.1),
-      
-    new ParallelCommandGroup(
-      new IntakeCommand(intake, -.1),
-      new RollerCommand(shooter, .1)
-    ) );
+ParallelRaceGroup movePiece =  new ParallelRaceGroup(
+
+new simpleWaitCommand(0.2),
+      new IntakeCommand(intake, CommandConstants.INTAKE_SLOW_SPEED,false),
+      new RollerCommand(shooter, CommandConstants.SHOOTER_INTAKE_SPEED,true)
+    );
     addCommands(
 intakeBack,
 movePiece

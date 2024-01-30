@@ -6,8 +6,8 @@ package frc.robot.commands.ComplexCommands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.commands.ClimberCommand;
 import frc.robot.commands.simpleWaitCommand;
+import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
