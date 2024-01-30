@@ -33,7 +33,11 @@ public class Shooter extends SubsystemBase {
     flyWheel2.set(0);
   }
   public void roller(double speed){
-    holderRoller.set(speed);
+    double newspeed = speed;
+        if (!breakBeamHolder.get()) {
+          newspeed =0;
+        }
+    holderRoller.set(newspeed);
   }
   public void rollerOff(){
     holderRoller.set(0);
@@ -46,6 +50,10 @@ public class Shooter extends SubsystemBase {
     }
   }
   **/
+
+  public boolean isInputBroken(){
+    return !breakBeamHolder.get();
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

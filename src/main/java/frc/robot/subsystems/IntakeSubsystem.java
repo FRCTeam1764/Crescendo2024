@@ -22,7 +22,7 @@ public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR1.id, MotorType.kBrushless);
     private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id, MotorType.kBrushless);
-
+private final IntakeState intakeState;
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
 
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
@@ -42,6 +42,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setIdleMode(IdleMode.kBrake);
     m_flexMotor.setInverted(true);
     m_flexMotor2.follow(m_flexMotor);
+this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
     m_angleEncoder.setZeroOffset(140);//150
@@ -65,6 +66,10 @@ public class IntakeSubsystem extends SubsystemBase {
       } else {
           m_intakeMotor.set(speed);
       }
+  }
+
+  public boolean getIntakeBreakbeam(){
+    return !breakBeamIntake.get();
   }
   public void run(double speed) {
     m_intakeMotor.set(speed);
@@ -106,6 +111,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     m_angleEncoder.setZeroOffset(140);
-    flexClosedLoop(5);
+    flexClosedLoop(intakeState.getEncoderValue());
   }
 }
