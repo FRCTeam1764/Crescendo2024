@@ -43,7 +43,7 @@ public class ShooterCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-  //  shooter.shooterOff();
+    shooter.shooterOff();
   }
 
   // Returns true when the command should end.

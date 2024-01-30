@@ -5,7 +5,12 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.commands.Climber.ClimberClimb1Command;
+import frc.robot.commands.ComplexCommands.ClimberRelease;
+import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
+import frc.robot.commands.ComplexCommands.GroundPickup;
+import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
+import frc.robot.commands.ComplexCommands.Shoot;
+import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -36,34 +41,27 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickAxis LeftTrigger = new JoystickAxis(driver,XboxController.Axis.kLeftTrigger.value);
-    // private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
-    // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
-    // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
-    // private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
-    // private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
+    private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
+     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
+private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
     
     /* CoPilot Buttons */
 
-    // private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton Shoot = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
+    private final JoystickButton groundPickup = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
 
-    private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
-    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-    private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
-    private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
-    
-    private final JoystickButton intake = new JoystickButton(secondaryController, XboxController.Button.kA.value);
-    private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton climbDown = new JoystickButton(secondaryController, XboxController.Button.kA.value);
+    private final JoystickButton scoreAmp = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
-    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
-                                                                         "swerve/falcon"));
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
+    private final Shooter shooter = new Shooter();
     //Hunter was here
 //Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
@@ -75,17 +73,7 @@ public class RobotContainer {
 
 
     public RobotContainer() {
-        // secondaryController.getLeftXAxis().setInverted(true);
-        // secondaryController.getRightXAxis().setInverted(true);
-
-
-        // CommandScheduler.getInstance().setDefaultCommand(drivetrainSubsystem, new DriveCommand(drivetrainSubsystem, getDriveForwardAxis(), getDriveStrafeAxis(), getDriveRotationAxis()));
-        // AbsoluteDrive drive = new AbsoluteDrive(s_Swerve,
-        // MathUtil.applyDeadband(()-> driver.getRawAxis(translationAxis).getAsDouble(),swerveConstants.OperatorConstants.LEFT_X_DEADBAND),
-        //  MathUtil.applyDeadband(()-> driver.getRawAxis(strafeAxis).getAsDouble(),swerveConstants.OperatorConstants.LEFT_Y_DEADBAND),
-        //    MathUtil.applyDeadband(()-> driver.getRawAxis(rotationAxis).getAsDouble(),swerveConstants.OperatorConstants.RIGHT_X_DEADBAND), 
-        //   null)
-
+  
 
 
 
@@ -101,7 +89,6 @@ public class RobotContainer {
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-       //  autonomousChooser = new AutonomousChooser(trajectories, this);
     }
 
 
@@ -109,15 +96,19 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
     }
-//do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-     //   intake.toggleOnTrue(new IntakeCommand(intakeSubsystem));
 
-       //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
+        groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
+        groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
 
-     
+        Shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+
+        scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
+        scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
+
+        climb.onTrue(new ClimberRelease(climberSubsystem));
+        climbDown.toggleOnTrue(new ClimberCommand(climberSubsystem,-.7));
     }
 
     public void TriggerCheck(){
@@ -125,13 +116,9 @@ public class RobotContainer {
     }
 
      public Command getAutonomousCommand() {
-    //     return autonomousChooser.getCommand(this);
-    // }
-    // // public Command getAutonomousCommand() {
-         // An ExampleCommand will run in autonomous
-         return null; //new AutoBalance(s_Swerve, robotState);
-     // return new AutoBalance(s_Swerve, robotState);
-// return autonomousChooser.getCommand(this);
+
+         return null; 
+
      }
 
 
@@ -157,10 +144,4 @@ public class RobotContainer {
    public Trajectory[] getTrajectories() {
        return trajectories;
    }
-
-
-//  public AutonomousChooser getAutonomousChooser() {
-//          return autonomousChooser;
-//      }
-
 }

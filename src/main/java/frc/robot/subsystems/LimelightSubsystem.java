@@ -74,12 +74,12 @@ public class LimelightSubsystem extends SubsystemBase {
   }
   public double getHorizontalAngleOfErrorDegrees(){
     //+1 is a fudge factor cor camera mounting
-    return getTx().getDouble(0.0) + Constants.HORIZONTAL_OFFSET;
+    return getTx().getDouble(0.0) +0; //Constants.HORIZONTAL_OFFSET;
   }
 
   public double getVerticalAngleOfErrorDegrees(){
     //+1 is a fudge factor cor camera mounting
-    return getTy().getDouble(0.0) +Constants.VERTICAL_OFFSET;
+    return getTy().getDouble(0.0) +0;//Constants.VERTICAL_OFFSET;
   }
 
 

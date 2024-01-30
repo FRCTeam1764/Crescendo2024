@@ -20,8 +20,11 @@ import frc.robot.state.IntakeState;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR.id, MotorType.kBrushless);
+  private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR1.id, MotorType.kBrushless);
+    private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id, MotorType.kBrushless);
+
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
+
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
   private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
   // private PIDController m_flexPidController;
@@ -37,6 +40,9 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setInverted(false);
     // m_flexMotor.setInverted(true);
     m_flexMotor.setIdleMode(IdleMode.kBrake);
+    m_flexMotor.setInverted(true);
+    m_flexMotor2.follow(m_flexMotor);
+
     m_angleEncoder.setPositionConversionFactor(360);
     m_angleEncoder.setZeroOffset(140);//150
     m_angleEncoder.setInverted(true);

@@ -5,22 +5,30 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
+import frc.robot.subsystems.IntakeSubsystem;
 
 public class WristCommand extends Command {
   /** Creates a new WristCommand. */
   IntakeState state;
   int desired;
   boolean finish;
-  public WristCommand(IntakeState intakeState, int desiredEncoderValue, boolean finish) {
+  boolean returns;
+  public WristCommand(IntakeState intakeState, int desiredEncoderValue, boolean finish, boolean returns) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.state = intakeState;
     this.desired = desiredEncoderValue;
     this.finish = finish;
+    this.returns = returns;
   }
 
 
-  // Called when the command is initially scheduled.
+    //TODO Auto-generated constructor stub
+
+
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
     state.setEncoderValue(desired);
@@ -35,8 +43,8 @@ public class WristCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    if(!finish) { 
-      state.setEncoderValue(0);
+    if(returns) {
+     state.setEncoderValue(CommandConstants.INTAKE_UP);
     }
   }
 
@@ -44,7 +52,7 @@ public class WristCommand extends Command {
   @Override
   public boolean isFinished() {
     if(finish){
-      return this.state.getEncoderValue() <= this.desired+4000 && this.state.getEncoderValue() >= this.desired-4000;
+      return this.state.getEncoderValue() <= this.desired+2000 && this.state.getEncoderValue() >= this.desired-2000;
     } else {
       return false;
    }

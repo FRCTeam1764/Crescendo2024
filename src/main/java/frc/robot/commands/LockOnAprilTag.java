@@ -6,13 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
-public class LockOnAprilTag extends CommandBase {
-  /** Creates a new AllignOnGamePiece. */
+public class LockOnAprilTag extends Command {
+  /** Creates a new LockOnAprilTag. */
    
   private LimelightSubsystem m_LimeLight;
   private SwerveSubsystem m_Drivetrain;

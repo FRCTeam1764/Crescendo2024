@@ -1,6 +1,5 @@
 package frc.robot.constants;
 
-import edu.wpi.first.math.util.Units;
 import frc.robot.common.CanPort;
 
 public final class Constants {
@@ -17,18 +16,18 @@ public final class Constants {
     public static final CanPort HOLDER_MOTOR =     new CanPort(21);
 
     public static final CanPort INTAKE_MOTOR =     new CanPort(21);
-    public static final CanPort WRIST_MOTOR =     new CanPort(21);
+    public static final CanPort WRIST_MOTOR1 =     new CanPort(21);
+    public static final CanPort WRIST_MOTOR2 =     new CanPort(21);
 
 
     public static final int HOLDER_BREAK_BEAM = 1;
     public static final int INTAKE_BREAK_BEAM = 2;
 
-    
-    //limelight
-    public static final double HORIZONTAL_OFFSET = 0;
-    public static final double VERTICAL_OFFSET = 0;
-    public static final double ALLIGNMENT_TOLLERANCE_RADIANS = Units.degreesToRadians(3);
+    public static final int CLIMBER_LIMITSWITCH_LEFT = 4;
+    public static final int CLIMBER_LIMITSWITCH_RIGHT = 3;
 
+    
+    
  
     // public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);
     // public static final CanPort INTAKE_OPENER_MOTOR =   new CanPort(23);

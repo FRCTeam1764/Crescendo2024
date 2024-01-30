@@ -12,6 +12,7 @@ public class IntakeCommand extends Command {
   IntakeSubsystem intake;
 double speed;
   public IntakeCommand(IntakeSubsystem intake, double speed) {
+   // addRequirements(intake);
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
     this.speed = speed;

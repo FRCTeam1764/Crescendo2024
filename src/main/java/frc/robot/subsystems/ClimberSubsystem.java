@@ -17,44 +17,19 @@ public class ClimberSubsystem extends SubsystemBase {
   public LazyTalonFX climberMotor1;
   public LazyTalonFX climberMotor2;
   public PIDController pidController;
-  public DigitalInput upperRightLimitSwitch;
-  public DigitalInput upperLeftLimitSwitch;
-  public DigitalInput lowerRightLimitSwitch;
-  public DigitalInput lowerLeftLimitSwitch;
+
+  public DigitalInput RightLimitSwitch;
+  public DigitalInput LeftLimitSwitch;
 
   public ClimberSubsystem() {
+    LeftLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_LEFT);
+        RightLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_RIGHT);
     climberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     climberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR2.busName);
+
+    
   }
 
-  // version 2.0
-  public void climb1(double climberSpeed) {
-    if(!lowerLeftLimitSwitch.get()){
-      double newClimberSpeed = climberSpeed < 0 ? 0 : climberSpeed;
-      climberMotor1.set(newClimberSpeed); // ignore warning, it'll last till next year
-    }
-  }
-
-  public void climb2(double climberSpeed) {
-    if(!lowerRightLimitSwitch.get()){
-      double newClimberSpeed = climberSpeed < 0 ? 0 : climberSpeed;
-      climberMotor1.set(newClimberSpeed); // ignore warning, it'll last till next year
-    }
-  }
-
-  public void descend1(double climberSpeed) {
-    if(!upperLeftLimitSwitch.get()){
-      double newClimberSpeed = climberSpeed < 0 ? 0 : climberSpeed;
-      climberMotor1.set(newClimberSpeed); // ignore warning, it'll last till next year
-    }
-  }
-
-  public void descend2(double climberSpeed) {
-    if(!upperRightLimitSwitch.get()){
-      double newClimberSpeed = climberSpeed < 0 ? 0 : climberSpeed;
-      climberMotor2.set(newClimberSpeed); // ignore warning, it'll last till next year
-    }
-  }
 
   // extend, doesn't need one and two so fetch from 1.0
 
@@ -64,25 +39,17 @@ public class ClimberSubsystem extends SubsystemBase {
     climberMotor2.set(0);
   }
 
-  public void extend() {
-    climberOn(1);  // fast speed
-  }
-
-  public void climb() {
-    climberOn(-0.9); // slow-er speed
-  }
-
-  public void descend() {
-    climberOn(0.1); // slow speed
-  }
 
   public void climberOn(double climberSpeed) {
-    if(!upperRightLimitSwitch.get() || !upperLeftLimitSwitch.get() || !lowerRightLimitSwitch.get() || !lowerLeftLimitSwitch.get()){
-      double newClimberSpeed = climberSpeed < 0 ? 0 : climberSpeed;
+         double newClimberSpeed = climberSpeed;  //< 0 ? 0 : climberSpeed; just a note for the future, speed can be negative
+
+    if(!RightLimitSwitch.get() || !LeftLimitSwitch.get()){
+      newClimberSpeed = newClimberSpeed *.1;
+    }
       climberMotor1.set(newClimberSpeed); // ignore warning, it'll last till next year
       climberMotor2.set(newClimberSpeed);
     }
-  }
+  
 
   @Override
   public void periodic() {
