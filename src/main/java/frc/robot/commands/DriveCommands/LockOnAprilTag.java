@@ -19,10 +19,11 @@ public class LockOnAprilTag extends Command {
   private SwerveSubsystem Drivetrain;
 
   private PIDController thetaController = new PIDController(SwerveConstants.Auton.angleAutoPID.p, SwerveConstants.Auton.angleAutoPID.i, SwerveConstants.Auton.angleAutoPID.d);
-  public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, String pipeline) {
+  public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline) {
     addRequirements(drivetrain);
     this.Drivetrain = drivetrain;
     this.LimeLight = limelight;
+    limelight.setPipeline(pipeline);
   }
 
   // Called when the command is initially scheduled.

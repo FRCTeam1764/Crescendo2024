@@ -10,30 +10,42 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class ClimberCommand extends Command {
   /** Creates a new ClimberCommand. */
   ClimberSubsystem climber;
-  double speed;
-  public ClimberCommand(ClimberSubsystem climber,double speed) {
+  double encoderValue;
+  boolean whichSide;
+  public ClimberCommand(ClimberSubsystem climber,int encoderValue,boolean whichSide) {
     addRequirements(climber);
 this.climber = climber;
-this.speed =speed;
+this.encoderValue =encoderValue;
+this.whichSide = whichSide;
+
     // Use addRequirements() here to declare subsystem dependencies.
   }
-
+// hi
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.climberOn(speed);
+if(whichSide == true ){
+    climber.ClimberOnRight(encoderValue);
+}else{
+      climber.ClimberOnLeft(encoderValue);
+
+}
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        climber.climberOn(speed);
-  }
+if(whichSide == true ){
+    climber.ClimberOnRight(encoderValue);
+}else{
+      climber.ClimberOnLeft(encoderValue);
+
+}  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.climberOff();
+    climber.ClimberOff();
   }
 
   // Returns true when the command should end.

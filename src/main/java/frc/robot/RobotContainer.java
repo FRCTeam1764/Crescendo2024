@@ -2,15 +2,18 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
-import frc.robot.commands.ComplexCommands.ClimberRelease;
+import frc.robot.commands.ComplexCommands.ClimbToPosition;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
+import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.constants.SwerveConstants;
@@ -54,8 +57,13 @@ private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxCo
     private final JoystickButton groundPickup = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
 
-    private final JoystickButton climbDown = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton scoreAmp = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+
+    private final POVButton climbRight = new POVButton(secondaryController,90);
+    private final POVButton climbLeft = new POVButton(secondaryController,270);
+    private final POVButton climbCenter = new POVButton(secondaryController,0);
+    private final POVButton climbDown = new POVButton(secondaryController,180);
+
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
@@ -96,25 +104,31 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
 
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
+        //limelighs
+        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
+        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
+        AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
 
     }
    private void configureCoPilotButtonBindings() {
 
-
+        //left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
         groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
-
+        //right bumper
         Shoot.onTrue(new Shoot(shooter,intakeSubsystem));
-
+        //x button
         scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
         scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
-
-        climb.onTrue(new ClimberRelease(climberSubsystem));
-        climbDown.toggleOnTrue(new ClimberCommand(climberSubsystem,-.7));
-    }
-
-    public void TriggerCheck(){
-
+        
+        //dpad (bane of humanity) 1 = left 2 = right 
+        climbLeft.toggleOnTrue(new ClimbToPosition(climberSubsystem,100000,50000)
+         );
+        climbRight.toggleOnTrue( new ClimbToPosition(climberSubsystem,50000,100000)
+         );
+        climbCenter.toggleOnTrue(new ClimbToPosition(climberSubsystem,50000,50000)
+        );
+         climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
     }
 
      public Command getAutonomousCommand() {

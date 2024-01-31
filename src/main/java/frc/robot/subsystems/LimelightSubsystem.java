@@ -69,6 +69,14 @@ public class LimelightSubsystem extends SubsystemBase {
     return ta;
   }
 
+  public void setPipeline(int pipe){
+
+table.getEntry("pipeline").setNumber(pipe);
+
+
+
+  }
+
   public double getTxAngleRadians() {
     return Units.degreesToRadians(tx.getDouble(0));
   }

@@ -4,23 +4,24 @@
 
 package frc.robot.commands.ComplexCommands;
 
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
-import frc.robot.commands.simpleWaitCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ClimberRelease extends ParallelDeadlineGroup {
-  /** Creates a new ClimberRelease. */
-  public ClimberRelease(ClimberSubsystem climber) {
-    // Add the deadline command in the super() call. Add other commands using
-    // addCommands().
-    super(new simpleWaitCommand(0.1));
-//addRequirements(climber);
-    addCommands(new ClimberCommand(climber,.4));
+public class ClimbToPosition extends ParallelCommandGroup {
+  /** Creates a new ClimbToPosition. */
+  public ClimbToPosition(ClimberSubsystem climber, int encoder1, int encoder2) {
+    // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    // true = right
+    // false = left
+    addRequirements(climber);
+    addCommands( new ClimberCommand(climber,encoder2,true),
+         new ClimberCommand(climber,encoder1,false)
+
+    );
   }
 }

@@ -14,7 +14,6 @@ public class RollerCommand extends Command {
   Shooter shooter;
   double speed;
   public LazyTalonFX holderRoller;
-  private DigitalInput breakBeamHolder;
   boolean EndWithBreakBeam;
 
   public RollerCommand(Shooter shooter, double speed, boolean EndWithBreakBeam) {
