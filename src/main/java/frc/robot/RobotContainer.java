@@ -25,17 +25,23 @@ import frc.robot.state.RobotState;
 
 import java.io.File;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
     private final Joystick secondaryController = new Joystick(1);
+
+    //auto choosa
+    private final SendableChooser<Command> autoChooser;
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -83,7 +89,7 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
 
 
     public RobotContainer() {
-  
+  autoChooser =  AutoBuilder.buildAutoChooser();
 
 
 
@@ -120,7 +126,7 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         //x button
         scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
         scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
-        
+
         //dpad (bane of humanity) 1 = left 2 = right 
         climbLeft.toggleOnTrue(new ClimbToPosition(climberSubsystem,100000,50000)
          );
@@ -133,8 +139,8 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
 
      public Command getAutonomousCommand() {
 
-         return null; 
-
+         return s_Swerve.getAutonomousCommand("Test", false);
+ //return autoChooser.getSelected();
      }
 
 

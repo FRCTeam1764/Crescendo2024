@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ComplexCommands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.IntakeSubsystem;
@@ -28,7 +29,7 @@ public class GroundPickup extends SequentialCommandGroup {
     new WristCommand(intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
 
     new ParallelCommandGroup(
-        new IntakeCommand(intakeSubsystem, 0.5,false),
+        new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false),
         new WristCommand(intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,false,false)
     )
 

@@ -23,14 +23,14 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
     addRequirements(intake);
     ParallelDeadlineGroup score = new ParallelDeadlineGroup(
       new simpleWaitCommand(0.5),
-      new IntakeCommand(intake,0.5, false)
+      new IntakeCommand(intake,-CommandConstants.INTAKE_FAST_SPEED, false)
     );
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       score,
-      new WristCommand(state,CommandConstants.INTAKE_AMP_ENCODERVALUE,true,false)
+      new WristCommand(state,CommandConstants.INTAKE_AMP_ENCODERVALUE,false,false)
     );
   }
 }

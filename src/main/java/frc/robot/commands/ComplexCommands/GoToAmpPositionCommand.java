@@ -4,6 +4,7 @@
 
 package frc.robot.commands.ComplexCommands;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
@@ -29,17 +30,18 @@ public class GoToAmpPositionCommand extends SequentialCommandGroup {
     ParallelRaceGroup rollInPiece = new ParallelRaceGroup(
       new simpleWaitCommand(.2),
 
-      new IntakeCommand(intake, 0.1,true),
-      new RollerCommand(shooter, -0.1,false)
+      new IntakeCommand(intake, -CommandConstants.INTAKE_SLOW_SPEED,true),// THIS MAY BE BAD
+      new RollerCommand(shooter, -CommandConstants.SHOOTER_INTAKE_SPEED,false)
     
         );
 
 
     addCommands(
       rollInPiece,
+
       new ParallelCommandGroup(
-        new WristCommand(intakeState, 100, false, false),
-        new IntakeCommand(intake,0.05,false)
+        new WristCommand(intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE, false, false),
+        new IntakeCommand(intake,CommandConstants.INTAKE_STALL_SPEED,false)
       )
     ); 
   }
