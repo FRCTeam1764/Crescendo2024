@@ -17,9 +17,9 @@ public class GroundPickup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands (
-    new WristCommand(intakeState, 10000), 
+    new WristCommand(intakeState, 10000,false), 
     new IntakeCommand(intakeSubsystem, 0.5), 
-    new WristCommand(intakeState, -10000));
+    new WristCommand(intakeState, -10000,false));
     
   }
 }
