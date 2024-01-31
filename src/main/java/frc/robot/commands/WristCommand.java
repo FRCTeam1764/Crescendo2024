@@ -24,8 +24,9 @@ public class WristCommand extends Command {
   @Override
   public void initialize() {
     state.setEncoderValue(desired);
-  }
+    
 
+  }
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {

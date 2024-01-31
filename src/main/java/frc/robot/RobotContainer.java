@@ -22,7 +22,6 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
     private final Joystick secondaryController = new Joystick(1);
@@ -54,9 +53,12 @@ public class RobotContainer {
     private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
     
+
     private final JoystickButton intake = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-
+    private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+    private final JoystickButton wrist1 = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton wrist2 = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
     private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
@@ -113,8 +115,14 @@ public class RobotContainer {
    private void configureCoPilotButtonBindings() {
 
         climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-     //   intake.toggleOnTrue(new IntakeCommand(intakeSubsystem));
 
+        intake.toggleOnTrue(new IntakeCommand(intakeSubsystem, 0.2));
+
+        shoot.toggleOnTrue(new ShooterCommand(null, true));
+        
+        //need to find encoder values
+        wrist1.toggleOnTrue(new WristCommand(null, 1, false));
+        wrist2.toggleOnTrue(new WristCommand(null, 1, false));
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
      

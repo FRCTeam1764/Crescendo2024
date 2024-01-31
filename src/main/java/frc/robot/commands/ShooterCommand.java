@@ -20,7 +20,8 @@ public class ShooterCommand extends Command {
     this.OnOff = OnOff;
   }
 
-  // Called when the command is initially scheduled.
+
+// Called when the command is initially scheduled.
   @Override
   public void initialize() {
     if (OnOff == true){

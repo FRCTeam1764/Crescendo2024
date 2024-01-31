@@ -20,10 +20,12 @@ import frc.robot.state.IntakeState;
 
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
-  private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR.id, MotorType.kBrushless);
+  private final CANSparkMax m_flexMotor1 = new CANSparkMax(Constants.WRIST_MOTOR1.id, MotorType.kBrushless);
+  private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id, MotorType.kBrushless);
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
-  private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
+  private final SparkAbsoluteEncoder m_angleEncoder1 = m_flexMotor1.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
+  private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor2.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
   // private PIDController m_flexPidController;
   private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
   // private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
@@ -33,16 +35,28 @@ public class IntakeSubsystem extends SubsystemBase {
   public IntakeSubsystem(IntakeState intakeState) {
     super();
     m_intakeMotor.restoreFactoryDefaults();
-    m_flexMotor.restoreFactoryDefaults();
-    m_flexMotor.setInverted(false);
+    m_flexMotor1.restoreFactoryDefaults();
+    m_flexMotor2.restoreFactoryDefaults();
+    m_flexMotor1.setInverted(false);
+    m_flexMotor2.setInverted(false);
     // m_flexMotor.setInverted(true);
-    m_flexMotor.setIdleMode(IdleMode.kBrake);
+    m_flexMotor1.setIdleMode(IdleMode.kBrake);
+    m_flexMotor2.setIdleMode(IdleMode.kBrake);
     m_angleEncoder.setPositionConversionFactor(360);
     m_angleEncoder.setZeroOffset(140);//150
     m_angleEncoder.setInverted(true);
     breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM);
     
   }
+
+  public void wrist1On(double speed) {
+    m_flexMotor1.set(speed);
+  }  
+  public void wrist2On(double speed) {
+    m_flexMotor2.set(speed);
+  }
+  
+
 
   double negative;
   public void wheelsIntake(double speed) {
@@ -86,7 +100,8 @@ public class IntakeSubsystem extends SubsystemBase {
       }
     SmartDashboard.putNumber("intakePID", pidValue);
     SmartDashboard.putNumber("totalMotorSet", pidValue+upfeedForward);
-    m_flexMotor.setVoltage(Math.min(pidValue+upfeedForward,6));
+    m_flexMotor1.setVoltage(Math.min(pidValue+upfeedForward,6));
+    m_flexMotor2.setVoltage(Math.min(pidValue+upfeedForward,6));
     }
     //234902788.15639588
     //160, 0.4 - p, 0.005-d, 0.8 velo
