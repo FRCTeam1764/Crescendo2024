@@ -40,7 +40,7 @@ public class IntakeCommand extends Command {
   @Override
   public boolean isFinished() {
     if (stopatbreakbeam == true) {
-      return shooter.RollerBreakBeamBroken();
+      return intake.getIntakeBreakbeam();
     }
     return false;
   }
