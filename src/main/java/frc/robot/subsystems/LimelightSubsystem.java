@@ -72,15 +72,15 @@ public class LimelightSubsystem extends SubsystemBase {
   public void setAlliance(Alliance alliance) {
     this.alliance = alliance;
   }
-  public double getHorizontalAngleOfErrorDegrees(){
-    //+1 is a fudge factor cor camera mounting
-    return getTx().getDouble(0.0) + Constants.HORIZONTAL_OFFSET;
-  }
+  // public double getHorizontalAngleOfErrorDegrees(){
+  //   //+1 is a fudge factor cor camera mounting
+  //   return getTx().getDouble(0.0) + Constants.HORIZONTAL_OFFSET;
+  // }
 
-  public double getVerticalAngleOfErrorDegrees(){
-    //+1 is a fudge factor cor camera mounting
-    return getTy().getDouble(0.0) +Constants.VERTICAL_OFFSET;
-  }
+  // public double getVerticalAngleOfErrorDegrees(){
+  //   //+1 is a fudge factor cor camera mounting
+  //   return getTy().getDouble(0.0) +Constants.VERTICAL_OFFSET;
+  // }
 
 
  public NetworkTableEntry getTx() {

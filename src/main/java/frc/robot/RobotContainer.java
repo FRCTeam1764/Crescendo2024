@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-import frc.robot.commands.Climber.ClimberClimb1Command;
 import frc.robot.constants.SwerveConstants;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -59,13 +58,15 @@ public class RobotContainer {
     private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kB.value);
     private final JoystickButton wrist1 = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton wrist2 = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton roller = new JoystickButton(secondaryController,  XboxController.Button.kRightBumper.value);
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
     private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                          "swerve/falcon"));
     private final Superstructure superstructure = new Superstructure();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
+    // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    // private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
+    private final Shooter shooter = new Shooter();
     //Hunter was here
 //Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
@@ -114,15 +115,15 @@ public class RobotContainer {
 //do new button bindings
    private void configureCoPilotButtonBindings() {
 
-        climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
+      //  climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
 
-        intake.toggleOnTrue(new IntakeCommand(intakeSubsystem, 0.2));
+     //   intake.toggleOnTrue(new IntakeCommand(intakeSubsystem, 0.2));
 
-        shoot.toggleOnTrue(new ShooterCommand(null, true));
+        shoot.toggleOnTrue(new ShooterCommand(shooter, true));
         
         //need to find encoder values
-        wrist1.toggleOnTrue(new WristCommand(null, 1, false));
-        wrist2.toggleOnTrue(new WristCommand(null, 1, false));
+        // wrist1.toggleOnTrue(new WristCommand(null, 1, false));
+        // wrist2.toggleOnTrue(new WristCommand(null, 1, false));
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
      
