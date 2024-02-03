@@ -1,18 +1,18 @@
 {
   "drive": {
     "type": "talonfx",
-    "id": 50,
-    "canbus": null
+    "id": 7,
+    "canbus": "1764 canivore"
   },
   "angle": {
     "type": "talonfx",
-    "id": 8,
-    "canbus": null
+    "id": 11,
+    "canbus": "1764 canivore"
   },
   "encoder": {
     "type": "cancoder",
-    "id": 3,
-    "canbus": null
+    "id": 16,
+    "canbus": "1764 canivore"
   },
   "inverted": {
     "drive": false,
