@@ -62,7 +62,7 @@ this.intakeState = intakeState;
 
     SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
       if(!breakBeamIntake.get()) {
-          m_intakeMotor.set(.04*negative);
+          m_intakeMotor.set(.05*negative);
       } else {
           m_intakeMotor.set(speed);
       }

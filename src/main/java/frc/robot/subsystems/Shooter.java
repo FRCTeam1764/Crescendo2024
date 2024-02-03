@@ -33,9 +33,15 @@ public class Shooter extends SubsystemBase {
     flyWheel2.set(0);
   }
   public void roller(double speed){
+    int negative = 1;
+    if (speed > 0){
+      speed = 1;
+    }else{
+      speed = -1;
+    }
     double newspeed = speed;
         if (!breakBeamHolder.get()) {
-          newspeed =0;
+          newspeed = negative*.05; //stall
         }
     holderRoller.set(newspeed);
   }
