@@ -39,12 +39,12 @@ public class DPadButton extends Trigger {
 	private Direction direction;
 	private final int pov;
 
-	 public DPadButton(Joystick joystick, Direction direction, int pov) {
-		super(null);
-	 	this.joystick = joystick;
-	 	this.direction = direction;
-	 	this.pov = pov;
-	 }
+	public DPadButton(Joystick joystick, Direction direction, int pov) {
+		super(null); //TODO: FIX
+		this.joystick = joystick;
+		this.direction = direction;
+		this.pov = pov;
+	}
 
 	public DPadButton(Joystick joystick, Direction direction) {
 

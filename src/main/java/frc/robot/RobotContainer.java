@@ -28,33 +28,32 @@ public class RobotContainer {
     /* Driver Buttons */
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kBack.value);
-   // private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
+    // private final JoystickButton blinkinButton = new JoystickButton(driver, XboxController.Button.kB.value);
     // private final JoystickButton highButton = new JoystickButton(driver, XboxController.Button.kY.value);
     // private final JoystickButton lowButton = new JoystickButton(driver, XboxController.Button.kA.value);
     // private final JoystickButton midButton = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickButton limelight1 = new JoystickButton(driver, XboxController.Button.kA.value);
-    //private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
+    // private final JoystickButton limelight2 = new JoystickButton(driver, XboxController.Button.kB.value);
 
     
     /* CoPilot Buttons */
 
-    //    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    // private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
-
     private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-
     private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton intakeOut = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
-private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
+    private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
     private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+    
+    private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
-
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
@@ -92,15 +91,15 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
 
     }
-//do new button bindings
-   private void configureCoPilotButtonBindings() {
+    //do new button bindings
+    private void configureCoPilotButtonBindings() {
 
-      
+        climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
 
 
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
-     
+
     }
 
      public Command getAutonomousCommand() {
