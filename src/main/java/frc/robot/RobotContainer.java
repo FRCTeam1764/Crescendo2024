@@ -53,7 +53,7 @@ public class RobotContainer {
     public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
@@ -94,7 +94,7 @@ public class RobotContainer {
     //do new button bindings
     private void configureCoPilotButtonBindings() {
 
-        climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
+        // climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
 
 
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
