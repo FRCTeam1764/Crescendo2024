@@ -1,7 +1,7 @@
 {
   "conversionFactor": {
-	"angle":0.0001296296296 ,
-	"drive": 2.837207
+	"angle":21.4,
+	"drive": 0.01143
   },
   "currentLimit": {
     "drive": 40,
