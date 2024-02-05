@@ -8,7 +8,6 @@ import frc.robot.commands.*;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
-import frc.robot.libraries.external.util.AutonomousChooser;
 
 import frc.robot.state.RobotState;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -63,7 +62,6 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
     // private final VisionSubsystem visionSubsystem = new VisionSubsystem(drivetrainSubsystem);
 
     private Trajectory[] trajectories;
-     private final AutonomousChooser autonomousChooser;
 
 
     public RobotContainer() {
@@ -86,7 +84,7 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
-         autonomousChooser = new AutonomousChooser(trajectories, this);
+        //  autonomousChooser = new AutonomousChooser(trajectories, this);
     }
 
 
@@ -140,9 +138,9 @@ private final JoystickButton lowPickUp = new JoystickButton(secondaryController,
    }
 
 
- public AutonomousChooser getAutonomousChooser() {
-         return autonomousChooser;
-     }
+//  public AutonomousChooser getAutonomousChooser() {
+//          return autonomousChooser;
+//      }
 
 
 

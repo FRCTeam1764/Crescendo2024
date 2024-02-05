@@ -1,5 +1,7 @@
 package frc.robot.libraries.external.robot.input;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -37,13 +39,15 @@ public class DPadButton extends Trigger {
 	private Direction direction;
 	private final int pov;
 
-	public DPadButton(Joystick joystick, Direction direction, int pov) {
-		this.joystick = joystick;
-		this.direction = direction;
-		this.pov = pov;
-	}
+	 public DPadButton(Joystick joystick, Direction direction, int pov) {
+		super(null);
+	 	this.joystick = joystick;
+	 	this.direction = direction;
+	 	this.pov = pov;
+	 }
 
 	public DPadButton(Joystick joystick, Direction direction) {
+
 		this(joystick, direction, 0);
 	}
 

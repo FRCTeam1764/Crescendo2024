@@ -91,9 +91,9 @@ public final class SwerveConstants {
         /* Module Specific Constants */
         /* Front Left Module - Module 0 */
         public static final class Mod0 { //TODO: This must be tuned to specific robot
-            public static final  CanPort driveMotorID = new CanPort(6, Constants.CANIVORE_NAME);
-            public static final  CanPort angleMotorID = new CanPort(10, Constants.CANIVORE_NAME);
-            public static final  CanPort canCoderID = new CanPort(15, Constants.CANIVORE_NAME);
+            public static final  CanPort driveMotorID = new CanPort(8, Constants.CANIVORE_NAME);
+            public static final  CanPort angleMotorID = new CanPort(12, Constants.CANIVORE_NAME);
+            public static final  CanPort canCoderID = new CanPort(17, Constants.CANIVORE_NAME);
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(344.794921875);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
@@ -112,7 +112,7 @@ public final class SwerveConstants {
         /* Back Left Module - Module 2 */
         public static final class Mod2 { //TODO: This must be tuned to specific robot
             public static final CanPort driveMotorID = new CanPort(9, Constants.CANIVORE_NAME);
-            public static final  CanPort angleMotorID = new CanPort(13, Constants.CANIVORE_NAME);
+            public static final  CanPort angleMotorID = new CanPort(10, Constants.CANIVORE_NAME);
             public static final  CanPort canCoderID = new CanPort(18, Constants.CANIVORE_NAME);
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(164.619140625);
             public static final SwerveModuleConstants constants = 
@@ -121,9 +121,9 @@ public final class SwerveConstants {
 
         /* Back Right Module - Module 3 */
         public static final class Mod3 { //TODO: This must be tuned to specific robot
-            public static final CanPort driveMotorID = new CanPort(8, Constants.CANIVORE_NAME);
-            public static final CanPort angleMotorID = new CanPort(12, Constants.CANIVORE_NAME);
-            public static final CanPort canCoderID = new CanPort(17, Constants.CANIVORE_NAME);
+            public static final CanPort driveMotorID = new CanPort(6, Constants.CANIVORE_NAME);
+            public static final CanPort angleMotorID = new CanPort(13, Constants.CANIVORE_NAME);
+            public static final CanPort canCoderID = new CanPort(15, Constants.CANIVORE_NAME);
             public static final Rotation2d angleOffset = Rotation2d.fromDegrees(254.970703125+180);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
