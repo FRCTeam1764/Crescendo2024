@@ -10,20 +10,33 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class IntakeCommand extends Command {
   /** Creates a new ClimberCommand. */
   IntakeSubsystem intake;
-
-  public IntakeCommand(IntakeSubsystem intake) {
+double speed;
+boolean negative;
+  public IntakeCommand(IntakeSubsystem intake,boolean negative) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.intake = intake;
+    this.speed = speed;
+    this.negative = negative;
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() 
+  {if(negative){
+intake.intakeOutRing();
+  }else{
+    intake.intakeTakeRing();
+  }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+   if(negative){
+intake.intakeOutRing();
+  }else{
+    intake.intakeTakeRing();
+  }
     
     //intake.intakeTakeRing();
   }

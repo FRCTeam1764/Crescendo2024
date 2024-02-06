@@ -11,25 +11,27 @@ import frc.robot.libraries.internal.LazyTalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-   public LazyTalonFX flyWheel1;
+   public LazyTalonFX flyWheel;
    public LazyTalonFX flyWheel2;
    public LazyTalonFX holderRoller;
    private DigitalInput breakBeamHolder;
 
   public Shooter() {
    
-    flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
+    flyWheel = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
-    // breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
+
+  //flyWheel.setInverted(true);
+    breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
   public void shooterOn() {
-    flyWheel1.set(1);
-    flyWheel2.set(1);
+    flyWheel.set(-.17);//.18 prev
+    flyWheel2.set(.17);
   }
   public void shooterOff() {
-    flyWheel1.set(0);
+    flyWheel.set(0);
     flyWheel2.set(0);
   }
   public void roller(double speed){
@@ -45,6 +47,7 @@ public class Shooter extends SubsystemBase {
   **/
   @Override
   public void periodic() {
+  SmartDashboard.putBoolean("ShooterBreakbeam",breakBeamHolder.get());
     // This method will be called once per scheduler run
   }
 }

@@ -40,19 +40,22 @@ public class RobotContainer {
 
     // private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
-    private final JoystickButton highRung = new JoystickButton(secondaryController, XboxController.Button.kY.value);
-    private final JoystickButton midRung = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-    private final JoystickButton lowRung = new JoystickButton(secondaryController, XboxController.Button.kA.value);
+    
+    private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton Blinkin = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton lowPickUp = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
-    private final JoystickButton playerStation = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+    private final JoystickButton intakeOUT = new JoystickButton(secondaryController, XboxController.Button.kB.value);
     
+    private final JoystickButton intake = new JoystickButton(secondaryController, XboxController.Button.kA.value);
+    private final JoystickButton roller = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
     private final Swerve s_Swerve = new Swerve();
+    private final Shooter shooter = new Shooter();
     private final Superstructure superstructure = new Superstructure();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
     // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 
@@ -95,8 +98,10 @@ public class RobotContainer {
     private void configureCoPilotButtonBindings() {
 
         // climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-
-
+    shoot.whileTrue(new ShooterCommand(shooter, true));
+    roller.whileTrue(new RollerCommand(shooter, -.3));
+    intake.whileTrue(new IntakeCommand(intakeSubsystem,false));
+intakeOUT.whileTrue(new IntakeCommand(intakeSubsystem,true));
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
 
