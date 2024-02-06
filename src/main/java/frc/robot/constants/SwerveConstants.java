@@ -6,6 +6,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.util.Units;
 import frc.robot.common.CanPort;
 import frc.robot.libraries.lib.util.COTSFalconSwerveConstants;
 import frc.robot.libraries.lib.util.SwerveModuleConstants;
@@ -21,8 +22,8 @@ public final class SwerveConstants {
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = 1;//Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot - I believe its 1
-        public static final double wheelBase = 1;//Units.inchesToMeters(21.73); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = Units.inchesToMeters(26); //TODO: This must be tuned to specific robot - I believe its 1
+        public static final double wheelBase = Units.inchesToMeters(26); //TODO: This must be tuned to specific robot
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 

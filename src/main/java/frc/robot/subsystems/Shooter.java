@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
@@ -27,8 +28,8 @@ public class Shooter extends SubsystemBase {
 
   }
   public void shooterOn() {
-    flyWheel.set(-.17);//.18 prev
-    flyWheel2.set(.17);
+    flyWheel.set(-.7);//.18 prev
+    flyWheel2.set(.7);
   }
   public void shooterOff() {
     flyWheel.set(0);
