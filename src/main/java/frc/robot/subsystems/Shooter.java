@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
@@ -19,8 +20,11 @@ public class Shooter extends SubsystemBase {
   public Shooter() {
    
     flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
+    flyWheel1.setInverted(true);
+
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
+    holderRoller.setInverted(true);
     // breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
@@ -62,6 +66,7 @@ public class Shooter extends SubsystemBase {
   }
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("RollerBreakBeam", RollerBreakBeamBroken());
     // This method will be called once per scheduler run
   }
 }

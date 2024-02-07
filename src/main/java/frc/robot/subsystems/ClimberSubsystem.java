@@ -82,10 +82,10 @@ double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue)
   }
 
   public boolean getLimitSwitch(){
-    return limitSwitch.get();
+  return !limitSwitch.get();
   }
   public boolean getLimitSwitch2(){
-    return limitSwitch2.get();
+    return !limitSwitch2.get();
   }
   public void ClimberOff(){
      ClimberMotor1.set( 0);
@@ -111,6 +111,9 @@ double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue)
   @Override
   public void periodic() {
     // 1 = left 2 = right
+    SmartDashboard.putBoolean("LeftClimberSwitch", getLimitSwitch());
+    SmartDashboard.putBoolean("RightClimberSwitch", getLimitSwitch2());
+
     if (getLimitSwitch()){
       zeroEncoder1();
     }

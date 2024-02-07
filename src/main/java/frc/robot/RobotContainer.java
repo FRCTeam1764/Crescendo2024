@@ -16,7 +16,7 @@ import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
-import frc.robot.constants.SwerveConstants;
+import frc.robot.constants.SwerveConstantsYAGSL;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
 import frc.robot.libraries.external.control.Trajectory;
@@ -73,7 +73,8 @@ private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxCo
 
     /* Subsystems */
     public RobotState robotState = new RobotState(driver);
-    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+  //  private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+    private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
@@ -92,17 +93,29 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
   autoChooser =  AutoBuilder.buildAutoChooser();
 
 
+//teleop drive for yagsl
+// teleop swerve for 365
+        // s_Swerve.setDefaultCommand(
+        //     new TeleopDrive(
+        //         s_Swerve, 
+        //         () -> -driver.getRawAxis(translationAxis), 
+        //         () -> -driver.getRawAxis(strafeAxis), 
+        //         () -> -driver.getRawAxis(rotationAxis), 
+        //         () -> robotCentric.getAsBoolean()
+        //     )
+        // );
 
-        s_Swerve.setDefaultCommand(
-            new TeleopDrive(
+                s_Swerve.setDefaultCommand(
+            new TeleopSwerve(
                 s_Swerve, 
                 () -> -driver.getRawAxis(translationAxis), 
                 () -> -driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean()
+                () -> robotCentric.getAsBoolean(),
+                robotState
+                
             )
         );
-
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
     }
@@ -111,9 +124,10 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         //limelighs
-        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
-        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
-        AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
+        //todo: need to conert back and forth from bronco to out swer
+        // SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
+        // RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
+        // AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
 
     }
    private void configureCoPilotButtonBindings() {
@@ -128,26 +142,30 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
 
         //dpad (bane of humanity) 1 = left 2 = right 
-        climbLeft.toggleOnTrue(new ClimbToPosition(climberSubsystem,100000,50000)
-         );
-        climbRight.toggleOnTrue( new ClimbToPosition(climberSubsystem,50000,100000)
-         );
-        climbCenter.toggleOnTrue(new ClimbToPosition(climberSubsystem,50000,50000)
-        );
-         climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
+        //placeholder!
+        // climbLeft.toggleOnTrue(new ClimbToPosition(climberSubsystem,100000,50000)
+        //  );
+        // climbRight.toggleOnTrue( new ClimbToPosition(climberSubsystem,50000,100000)
+        //  );
+        // climbCenter.toggleOnTrue(new ClimbToPosition(climberSubsystem,50000,50000)
+        // );
+        //  climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
     }
 
      public Command getAutonomousCommand() {
-
-         return s_Swerve.getAutonomousCommand("Test", false);
+return null;
+      //   return s_Swerve.getAutonomousCommand("Test", false);
  //return autoChooser.getSelected();
      }
 
 
-     public SwerveSubsystem getDrivetrainSubsystem() {
-         return s_Swerve;
-     }
+    //  public SwerveSubsystem getDrivetrainSubsystem() {
+    //      return s_Swerve;
+    //  }
 
+     public Swerve getDrivetrainSubsystem(){
+        return s_Swerve;
+     }
 
    public Superstructure getSuperstructure() {
        return superstructure;

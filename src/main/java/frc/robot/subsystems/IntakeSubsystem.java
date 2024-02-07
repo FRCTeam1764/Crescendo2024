@@ -97,7 +97,7 @@ this.intakeState = intakeState;
       }
     SmartDashboard.putNumber("intakePID", pidValue);
     SmartDashboard.putNumber("totalMotorSet", pidValue+upfeedForward);
-    m_flexMotor.setVoltage(Math.min(pidValue+upfeedForward,6));
+   // m_flexMotor.setVoltage(Math.min(pidValue+upfeedForward,6)); remove 4 now
     }
     //234902788.15639588
     //160, 0.4 - p, 0.005-d, 0.8 velo
@@ -110,7 +110,8 @@ this.intakeState = intakeState;
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    m_angleEncoder.setZeroOffset(140);
+   // m_angleEncoder.setZeroOffset(140);
+   SmartDashboard.putBoolean("IntakeBreakbeam", getIntakeBreakbeam());
     flexClosedLoop(intakeState.getEncoderValue());
   }
 }
