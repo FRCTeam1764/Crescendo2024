@@ -36,13 +36,14 @@ private final IntakeState intakeState;
   public IntakeSubsystem(IntakeState intakeState) {
     super();
     m_intakeMotor.restoreFactoryDefaults();
+    m_intakeMotor.setInverted(true);
     m_flexMotor.restoreFactoryDefaults();
     m_flexMotor.setInverted(false);
     // m_flexMotor.setInverted(true);
     m_flexMotor.setIdleMode(IdleMode.kBrake);
     m_flexMotor.setInverted(true);
     m_flexMotor2.follow(m_flexMotor);
-this.intakeState = intakeState;
+    this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
     m_angleEncoder.setZeroOffset(140);//150
