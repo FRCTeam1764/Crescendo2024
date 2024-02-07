@@ -22,8 +22,8 @@ public final class SwerveConstants {
             COTSFalconSwerveConstants.SDSMK4i(COTSFalconSwerveConstants.driveGearRatios.SDSMK4i_L2);
 
         /* Drivetrain Constants */
-        public static final double trackWidth = Units.inchesToMeters(26); //TODO: This must be tuned to specific robot - I believe its 1
-        public static final double wheelBase = Units.inchesToMeters(26); //TODO: This must be tuned to specific robot
+        public static final double trackWidth = 1;//Units.inchesToMeters(26); //TODO: This must be tuned to specific robot - I believe its 1
+        public static final double wheelBase = 1;//Units.inchesToMeters(26); //TODO: This must be tuned to specific robot
         public static final double wheelCircumference = chosenModule.wheelCircumference;
 
         /* Swerve Kinematics 
@@ -90,45 +90,52 @@ public final class SwerveConstants {
         public static final NeutralMode driveNeutralMode = NeutralMode.Brake;
 
         /* Module Specific Constants */
-        /* Front Left Module - Module 0 */
-        public static final class Mod0 { //TODO: This must be tuned to specific robot
-            public static final  CanPort driveMotorID = new CanPort(8, Constants.CANIVORE_NAME);
-            public static final  CanPort angleMotorID = new CanPort(12, Constants.CANIVORE_NAME);
-            public static final  CanPort canCoderID = new CanPort(17, Constants.CANIVORE_NAME);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(128.232421875);
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
 
-        /* Front Right Module - Module 1 */
-        public static final class Mod1 { //TODO: This must be tuned to specific robot
+
+               /* Front Left Module - Module 0 */
+        public static final class Mod0 { //TODO: This must be tuned to specific robot
             public static final  CanPort driveMotorID = new CanPort(7, Constants.CANIVORE_NAME);
             public static final  CanPort angleMotorID = new CanPort(11, Constants.CANIVORE_NAME);
             public static final  CanPort canCoderID = new CanPort(16, Constants.CANIVORE_NAME);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(258.837890625);
-            public static final SwerveModuleConstants constants = 
-                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
-        }
-        
-        /* Back Left Module - Module 2 */
-        public static final class Mod2 { //TODO: This must be tuned to specific robot
-            public static final CanPort driveMotorID = new CanPort(9, Constants.CANIVORE_NAME);
-            public static final  CanPort angleMotorID = new CanPort(10, Constants.CANIVORE_NAME);
-            public static final  CanPort canCoderID = new CanPort(18, Constants.CANIVORE_NAME);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(165.498046875+180);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(81.38671875+180);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
 
-        /* Back Right Module - Module 3 */
-        public static final class Mod3 { //TODO: This must be tuned to specific robot
-            public static final CanPort driveMotorID = new CanPort(6, Constants.CANIVORE_NAME);
-            public static final CanPort angleMotorID = new CanPort(13, Constants.CANIVORE_NAME);
-            public static final CanPort canCoderID = new CanPort(15, Constants.CANIVORE_NAME);
-            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(342.59765625);
+               /* Front Right Module - Module 1 */
+  
+        public static final class Mod1 { //TODO: This must be tuned to specific robot
+            public static final  CanPort driveMotorID = new CanPort(8, Constants.CANIVORE_NAME);
+            public static final  CanPort angleMotorID = new CanPort(12, Constants.CANIVORE_NAME);
+            public static final  CanPort canCoderID = new CanPort(17, Constants.CANIVORE_NAME);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(128.49609375);
             public static final SwerveModuleConstants constants = 
                 new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
         }
+
+
+        
+        /* Back Left Module - Module 2 */
+
+                public static final class Mod2 { //TODO: This must be tuned to specific robot
+            public static final CanPort driveMotorID = new CanPort(9, Constants.CANIVORE_NAME);
+            public static final CanPort angleMotorID = new CanPort(13, Constants.CANIVORE_NAME);
+            public static final CanPort canCoderID = new CanPort(18, Constants.CANIVORE_NAME);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(250.751953125+90);
+            public static final SwerveModuleConstants constants = 
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+        }
+        /* Back Right Module - Module 3 */
+        public static final class Mod3 { //TODO: This must be tuned to specific robot
+            public static final CanPort driveMotorID = new CanPort(6, Constants.CANIVORE_NAME);
+            public static final  CanPort angleMotorID = new CanPort(10, Constants.CANIVORE_NAME);
+            public static final  CanPort canCoderID = new CanPort(15, Constants.CANIVORE_NAME);
+            public static final Rotation2d angleOffset = Rotation2d.fromDegrees(342.509765625); //inverted
+            public static final SwerveModuleConstants constants = 
+                new SwerveModuleConstants(driveMotorID, angleMotorID, canCoderID, angleOffset);
+        }
+
+
     }
 
     public static final class AutoConstants { //TODO: The below constants are used in the example auto, and must be tuned to specific robot

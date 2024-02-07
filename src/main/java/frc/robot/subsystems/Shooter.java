@@ -28,8 +28,8 @@ public class Shooter extends SubsystemBase {
 
   }
   public void shooterOn() {
-    flyWheel.set(-.7);//.18 prev
-    flyWheel2.set(.7);
+    flyWheel.set(-1);//.18 prev
+    flyWheel2.set(1);
   }
   public void shooterOff() {
     flyWheel.set(0);
