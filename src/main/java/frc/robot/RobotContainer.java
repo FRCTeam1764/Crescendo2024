@@ -56,7 +56,7 @@ public class RobotContainer {
     private final Shooter shooter = new Shooter();
     private final Superstructure superstructure = new Superstructure();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
-    // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
 
 
     private final LimelightSubsystem limelight = new LimelightSubsystem(NetworkTableInstance.getDefault().getTable("limelight"));
@@ -98,10 +98,10 @@ public class RobotContainer {
     private void configureCoPilotButtonBindings() {
 
         // climb.toggleOnTrue(new ClimberClimb1Command(climberSubsystem));
-    shoot.whileTrue(new ShooterCommand(shooter, true));
-    roller.whileTrue(new RollerCommand(shooter, -.3));
-    intake.whileTrue(new IntakeCommand(intakeSubsystem,false));
-intakeOUT.whileTrue(new IntakeCommand(intakeSubsystem,true));
+  //  shoot.whileTrue(new ShooterCommand(shooter, true));
+    //roller.whileTrue(new RollerCommand(shooter, -.3));
+    //intake.whileTrue(new IntakeCommand(intakeSubsystem,false));
+intakeOUT.whileTrue(new wristCommand(intakeSubsystem,-0.2)); //wrist rn
        //  limelight1.onTrue(new LimelightCommand(limelight, 1, s_Swerve, robotState.swerveState,robotState.limelightState)); // set it up for a toggleontrue later
 
 

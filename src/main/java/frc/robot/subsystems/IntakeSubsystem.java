@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -16,10 +17,16 @@ import frc.robot.constants.Constants;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   public CANSparkMax intakeMotor;
+  public CANSparkMax wristMotor;
+  public SparkAbsoluteEncoder angleCoder;
   public DigitalInput intakeBreakbeam;
   
   public IntakeSubsystem() {
     intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
+    // 2 goes towards ground w forward speed
+    // 1 goes towards robot
+    wristMotor = new CANSparkMax(Constants.WRIST_MOTOR1.id,MotorType.kBrushless);
+angleCoder = wristMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);
     intakeBreakbeam = new DigitalInput(Constants.INTAKE_BREAK_BEAM);
     }
 
@@ -40,6 +47,15 @@ intakeMotor.set(0.4);
     //   intakeMotor.set(0.1);
     // }
   }
+
+  public void wristOn(double speed){
+    wristMotor.set(speed);
+  }
+
+  public void wristOff(){
+wristMotor.set(0);
+  }
+
   // wrist stuff?!? I have no clue :D
   public void intakeOff() {
     intakeMotor.set(0);
@@ -48,6 +64,7 @@ intakeMotor.set(0.4);
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("IntakeBreakbem", intakeBreakbeam.get());
+    SmartDashboard.putNumber("Encoder Intake", angleCoder.getPosition());
     // This method will be called once per scheduler run
   }
 }
