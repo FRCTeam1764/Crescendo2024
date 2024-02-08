@@ -41,21 +41,23 @@ public class RobotContainer {
     private final Joystick secondaryController = new Joystick(1);
 
     //auto choosa
-   // private final SendableChooser<Command> autoChooser;
+    // private final SendableChooser<Command> autoChooser;
 
     /* Drive Controls */
+
     private final int translationAxis = XboxController.Axis.kLeftY.value;
     private final int strafeAxis = XboxController.Axis.kLeftX.value;
     private final int rotationAxis = XboxController.Axis.kRightX.value;
 
     /* Driver Buttons */
+
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
     private final JoystickAxis LeftTrigger = new JoystickAxis(driver,XboxController.Axis.kLeftTrigger.value);
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
-     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
-private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
+    private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
     
     /* CoPilot Buttons */
 
@@ -72,29 +74,31 @@ private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxCo
 
 
     /* Subsystems */
+
     public RobotState robotState = new RobotState(driver);
-  //  private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+    //private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
     //Hunter was here
-//Limelights
+
+    //Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
-     private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
-private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
+    private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
+    private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
 
 
     private Trajectory[] trajectories;
 
 
     public RobotContainer() {
-  //autoChooser =  AutoBuilder.buildAutoChooser();
+        //autoChooser =  AutoBuilder.buildAutoChooser();
 
 
-//teleop drive for yagsl
-// teleop swerve for 365
+    //teleop drive for yagsl
+    // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
         //     new TeleopDrive(
         //         s_Swerve, 
@@ -105,7 +109,7 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         //     )
         // );
 
-                s_Swerve.setDefaultCommand(
+        s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
                 () -> driver.getRawAxis(translationAxis), 
@@ -113,13 +117,12 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean(),
                 robotState
-                
             )
         );
+
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
     }
-
 
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
@@ -130,7 +133,8 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         // AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
 
     }
-   private void configureCoPilotButtonBindings() {
+    
+    private void configureCoPilotButtonBindings() {
 
         //left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
@@ -152,26 +156,24 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         //  climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
     }
 
-     public Command getAutonomousCommand() {
-return null;
-      //   return s_Swerve.getAutonomousCommand("Test", false);
- //return autoChooser.getSelected();
-     }
+    public Command getAutonomousCommand() {
+        return null;
+        //return s_Swerve.getAutonomousCommand("Test", false);
+        //return autoChooser.getSelected();
+    }
 
 
     //  public SwerveSubsystem getDrivetrainSubsystem() {
     //      return s_Swerve;
     //  }
 
-     public Swerve getDrivetrainSubsystem(){
+    public Swerve getDrivetrainSubsystem(){
         return s_Swerve;
-     }
+    }
 
-   public Superstructure getSuperstructure() {
-       return superstructure;
-   }
-
-
+    public Superstructure getSuperstructure() {
+        return superstructure;
+    }
 
     public Joystick getsecondaryController() {
         return secondaryController;
