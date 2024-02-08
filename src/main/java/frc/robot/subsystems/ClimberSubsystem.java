@@ -40,8 +40,8 @@ public class ClimberSubsystem extends SubsystemBase {
     ClimberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor2.follow(ClimberMotor1);
-    limitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_LEFT);
-    limitSwitch2 = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_RIGHT);
+    limitSwitch = new DigitalInput(Constants.CLIMBER_SWITCH_LEFT);
+    limitSwitch2 = new DigitalInput(Constants.CLIMBER_SWITCH_RIGHT);
     negative =1;
     pidController = new PIDController(0.00002, 0, 0);
 

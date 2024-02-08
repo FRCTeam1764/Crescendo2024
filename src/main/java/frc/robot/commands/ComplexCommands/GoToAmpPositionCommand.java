@@ -40,7 +40,7 @@ public class GoToAmpPositionCommand extends SequentialCommandGroup {
       rollInPiece,
 
       new ParallelCommandGroup(
-        new WristCommand(intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE, false, false),
+        new WristCommand(intake,intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE, false, false),
         new IntakeCommand(intake,CommandConstants.INTAKE_STALL_SPEED,false)
       )
     ); 

@@ -8,7 +8,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
-
+//168 up
+//
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -28,26 +29,35 @@ private final IntakeState intakeState;
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
   private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
   // private PIDController m_flexPidController;
-  private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
+ // private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
   // private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
   // private ArmFeedforward up_Feedforward = new ArmFeedforward(0.15245, 0.16345, 1.9801);
   private DigitalInput breakBeamIntake;
+
   
   public IntakeSubsystem(IntakeState intakeState) {
+    
     super();
     m_intakeMotor.restoreFactoryDefaults();
     m_flexMotor.restoreFactoryDefaults();
     m_flexMotor.setInverted(false);
     // m_flexMotor.setInverted(true);
     m_flexMotor.setIdleMode(IdleMode.kBrake);
-    m_flexMotor.setInverted(true);
-    m_flexMotor2.follow(m_flexMotor);
+    m_flexMotor2.setIdleMode(IdleMode.kCoast);
+   // m_flexMotor2.setInverted(false);
+  // m_flexMotor2.follow(m_flexMotor);
 this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
-    m_angleEncoder.setZeroOffset(140);//150
-    m_angleEncoder.setInverted(true);
+    m_angleEncoder.setZeroOffset(1);//2.07
+
+    m_intakeMotor.setInverted(true);
+    m_angleEncoder.setInverted(false);
     breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM);
+          SmartDashboard.putNumber("SetPointSet", setpoint);
+          SmartDashboard.putNumber("kP", 0);
+
+          SmartDashboard.putNumber("kD", 0);
     
   }
 
@@ -62,7 +72,7 @@ this.intakeState = intakeState;
 
     SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
       if(!breakBeamIntake.get()) {
-          m_intakeMotor.set(.05*negative);
+          m_intakeMotor.set(speed); // .1*negative
       } else {
           m_intakeMotor.set(speed);
       }
@@ -80,14 +90,22 @@ this.intakeState = intakeState;
   private PIDController pid;
   double pidValue;
   double setpoint;
+  double kP;
+  double ki;
+  double kd;
+  
   public void flexClosedLoop(double desired) {
     //todo: t une
-    pid = new PIDController(12, 0, 0.001);
-    
-    double upfeedForward = m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);
-    
+
+   // SmartDashboard.putNumber("kpIntake", kp);
+   //num: kp = 0.01, kD = 0.0001
+   // pid = new PIDController(SmartDashboard.getNumber("kP", 0), 0.0, SmartDashboard.getNumber("kD", 0));
+    pid = new PIDController(0.05, 0, 0.00001); //previouslt .05
+  //  double upfeedForward = m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);
     setpoint = desired;
-    SmartDashboard.putNumber("setpoint", setpoint*180/Math.PI);
+   
+ // setpoint =   SmartDashboard.getNumber("SetPointSet",300);
+SmartDashboard.putNumber("da point", setpoint);
     pid.setSetpoint(setpoint);
     SmartDashboard.putNumber("getPosition", m_angleEncoder.getPosition());
   
@@ -96,8 +114,8 @@ this.intakeState = intakeState;
         pidValue = 0;   
       }
     SmartDashboard.putNumber("intakePID", pidValue);
-    SmartDashboard.putNumber("totalMotorSet", pidValue+upfeedForward);
-   // m_flexMotor.setVoltage(Math.min(pidValue+upfeedForward,6)); remove 4 now
+    SmartDashboard.putNumber("totalMotorSet", pidValue);
+    m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
     }
     //234902788.15639588
     //160, 0.4 - p, 0.005-d, 0.8 velo
@@ -106,6 +124,9 @@ this.intakeState = intakeState;
         return (currentEncoder/140000)*(max-min)+min;
       }
 
+      public double getEncoderPos(){
+        return m_angleEncoder.getPosition();
+      }
 
   @Override
   public void periodic() {

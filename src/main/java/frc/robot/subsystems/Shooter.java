@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
     holderRoller.setInverted(true);
-    // breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
+     breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
   public void shooterOn() {
@@ -39,9 +39,9 @@ public class Shooter extends SubsystemBase {
   public void roller(double speed){
     int negative = 1;
     if (speed > 0){
-      speed = 1;
+      negative = 1;
     }else{
-      speed = -1;
+      negative = -1;
     }
     double newspeed = speed;
         if (!breakBeamHolder.get()) {

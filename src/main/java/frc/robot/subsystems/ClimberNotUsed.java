@@ -22,8 +22,8 @@ public class ClimberNotUsed extends SubsystemBase {
   public DigitalInput LeftLimitSwitch;
 
   public ClimberNotUsed() {
-    LeftLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_LEFT);
-        RightLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_RIGHT);
+    // LeftLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_LEFT);
+    //     RightLimitSwitch = new DigitalInput(Constants.CLIMBER_LIMITSWITCH_RIGHT);
     climberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     climberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR2.busName);
 

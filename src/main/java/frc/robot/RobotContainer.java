@@ -41,7 +41,7 @@ public class RobotContainer {
     private final Joystick secondaryController = new Joystick(1);
 
     //auto choosa
-    private final SendableChooser<Command> autoChooser;
+   // private final SendableChooser<Command> autoChooser;
 
     /* Drive Controls */
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -59,7 +59,7 @@ private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxCo
     
     /* CoPilot Buttons */
 
-    private final JoystickButton Shoot = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
+    private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton groundPickup = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
 
@@ -77,7 +77,7 @@ private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxCo
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(null);
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
     //Hunter was here
 //Limelights
@@ -90,7 +90,7 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
 
 
     public RobotContainer() {
-  autoChooser =  AutoBuilder.buildAutoChooser();
+  //autoChooser =  AutoBuilder.buildAutoChooser();
 
 
 //teleop drive for yagsl
@@ -108,8 +108,8 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
                 s_Swerve.setDefaultCommand(
             new TeleopSwerve(
                 s_Swerve, 
-                () -> -driver.getRawAxis(translationAxis), 
-                () -> -driver.getRawAxis(strafeAxis), 
+                () -> driver.getRawAxis(translationAxis), 
+                () -> driver.getRawAxis(strafeAxis), 
                 () -> -driver.getRawAxis(rotationAxis), 
                 () -> robotCentric.getAsBoolean(),
                 robotState
@@ -136,7 +136,7 @@ private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
         groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
         //right bumper
-        Shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+        shoot.onTrue(new Shoot(shooter,intakeSubsystem));
         //x button
         scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
         scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));

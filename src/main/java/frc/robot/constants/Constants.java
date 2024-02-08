@@ -20,12 +20,11 @@ public final class Constants {
     public static final CanPort WRIST_MOTOR2 =     new CanPort(26);
 
 
-    public static final int HOLDER_BREAK_BEAM = 1;
-    public static final int INTAKE_BREAK_BEAM = 2;
 
-    public static final int CLIMBER_LIMITSWITCH_LEFT = 4;
-    public static final int CLIMBER_LIMITSWITCH_RIGHT = 3;
-
+    public static final int HOLDER_BREAK_BEAM = 0;
+public static final int CLIMBER_SWITCH_LEFT = 6;
+public static final int CLIMBER_SWITCH_RIGHT = 7;
+public static final int INTAKE_BREAK_BEAM = 9;
     
     
  

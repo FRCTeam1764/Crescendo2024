@@ -30,7 +30,7 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       score,
-      new WristCommand(state,CommandConstants.INTAKE_AMP_ENCODERVALUE,false,false)
+      new WristCommand(intake,state,CommandConstants.INTAKE_AMP_ENCODERVALUE,false,false)
     );
   }
 }

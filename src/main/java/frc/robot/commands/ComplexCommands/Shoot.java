@@ -35,7 +35,7 @@ public class Shoot extends SequentialCommandGroup {
   new ParallelCommandGroup(
       new ShooterCommand(shooter, true),
       new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
-      new IntakeCommand(intake, CommandConstants.INTAKE_FAST_SPEED,false)
+      new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
 )
 
           );

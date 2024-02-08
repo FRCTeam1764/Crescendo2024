@@ -15,12 +15,14 @@ public class WristCommand extends Command {
   int desired;
   boolean finish;
   boolean returns;
-  public WristCommand(IntakeState intakeState, int desiredEncoderValue, boolean finish, boolean returns) {
+  IntakeSubsystem intake;
+  public WristCommand(IntakeSubsystem intake ,IntakeState intakeState, int desiredEncoderValue, boolean finish, boolean returns) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.state = intakeState;
     this.desired = desiredEncoderValue;
     this.finish = finish;
     this.returns = returns;
+    this.intake = intake;
   }
 
 
@@ -52,7 +54,7 @@ public class WristCommand extends Command {
   @Override
   public boolean isFinished() {
     if(finish){
-      return this.state.getEncoderValue() <= this.desired+2000 && this.state.getEncoderValue() >= this.desired-2000;
+      return this.intake.getEncoderPos() <= this.desired+3 && this.intake.getEncoderPos() >= this.desired-3;
     } else {
       return false;
    }
