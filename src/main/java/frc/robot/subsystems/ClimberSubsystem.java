@@ -24,50 +24,65 @@ public class ClimberSubsystem extends SubsystemBase {
 
   public LazyTalonFX ClimberMotor1;
   public LazyTalonFX ClimberMotor2;
-  public PIDController pidController;
+  public PIDController pidController1;
+  public PIDController pidController2;
   public DigitalInput limitSwitch;
   public ArmFeedforward feedforward; 
   public DigitalInput limitSwitch2;
   double ClimberOffset;
-  int MaxClimberEncoder =-120000;
+  int MaxClimberEncoderLeft =-120000;
+  int MaxClimberEncoderRight = 0;
+
   int negative;
 //30.5 inches
 
   public ClimberSubsystem() {
 
-    // 1 = left
-    // 2 = right
+    // 1 = right
+    // 2 = left
     ClimberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR1.busName);
-    ClimberMotor2.follow(ClimberMotor1);
+    ClimberMotor1.configFactoryDefault();
+    ClimberMotor2.configFactoryDefault();
+   // ClimberMotor2.follow(ClimberMotor1);
     limitSwitch = new DigitalInput(Constants.CLIMBER_SWITCH_LEFT);
     limitSwitch2 = new DigitalInput(Constants.CLIMBER_SWITCH_RIGHT);
     negative =1;
-    pidController = new PIDController(0.00002, 0, 0);
+    pidController1 = new PIDController(0.000015, 0, 0.001);
+pidController2 = new PIDController(0.000015, 0, 0.001);
+  SmartDashboard.putNumber("setypoint",100);
 
     //feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization maybe do this?
 
   }
-  public void ClimberOnRight(double desiredEncoderValue){
+  public void ClimberOnLeft(double desiredEncoderValue){
 
 
-double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue);
+double variable = pidController2.calculate(getEncoderValue(),desiredEncoderValue);
 
  variable = getSign(variable)*Math.min(7.2, Math.abs(variable));
+SmartDashboard.putNumber("RightClimba", variable);
 
-      ClimberMotor2.set(ControlMode.PercentOutput,variable);  
+      ClimberMotor2.setVoltage(variable);  
     
   }
 
- public void ClimberOnLeft(double desiredEncoderValue){
+ public void ClimberOnRight(double desiredEncoderValue){
 
-    double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue);
+    double variable = pidController1.calculate(getEncoderValue2(),desiredEncoderValue);
 
 
      variable = getSign(variable)*Math.min(7.2, Math.abs(variable));
-
-      ClimberMotor1.set(ControlMode.PercentOutput,variable);  
+SmartDashboard.putNumber("LeftClimba", variable);
+      ClimberMotor1.setVoltage(variable);  
     
+  }
+
+  public void ClimberRightTest(double speed){
+    ClimberMotor1.set(speed);
+  }
+    public void ClimberLefttTest(double speed){
+    ClimberMotor2.set(speed);
   }
   public double getDesiredEncoder(){
     return getDesiredEncoder();
@@ -94,7 +109,9 @@ double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue)
   public double getEncoderValue(){
      return ClimberMotor1.getSelectedSensorPosition();
    }
-
+  public double getEncoderValue2(){
+     return ClimberMotor2.getSelectedSensorPosition();
+   }
   public int getSign(int num){
     if (num < 0){
       return -1;
@@ -108,18 +125,30 @@ double variable = pidController.calculate(getEncoderValue(),desiredEncoderValue)
   return 1;
   }
 
+  double setypointy;
   @Override
   public void periodic() {
     // 1 = left 2 = right
+
+
+
+
     SmartDashboard.putBoolean("LeftClimberSwitch", getLimitSwitch());
     SmartDashboard.putBoolean("RightClimberSwitch", getLimitSwitch2());
-
+SmartDashboard.putNumber("rightEncoder", getEncoderValue());
+//-175000=right
+//158482 = left
+SmartDashboard.putNumber("leftEncoder", getEncoderValue2());
+setypointy = SmartDashboard.getNumber("setypoint",100);
+SmartDashboard.putNumber("somethin", setypointy);
     if (getLimitSwitch()){
+      zeroEncoder2();
+        }
+    if (getLimitSwitch2()){
       zeroEncoder1();
     }
-    if (getLimitSwitch2()){
-      zeroEncoder2();
-    }
+    ClimberOnLeft(setypointy);
+    ClimberOnRight(-setypointy);
     // This method will be called once per scheduler run
   }
 }

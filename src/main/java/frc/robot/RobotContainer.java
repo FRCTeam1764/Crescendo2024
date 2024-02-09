@@ -76,11 +76,12 @@ public class RobotContainer {
     /* Subsystems */
 
     public RobotState robotState = new RobotState(driver);
+    
     //private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
     private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
+  //  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
     //Hunter was here
 
@@ -137,13 +138,14 @@ public class RobotContainer {
     private void configureCoPilotButtonBindings() {
 
         //left bumper
-        groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
-        groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
+     //   groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
+     //   groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
         //right bumper
-        shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+     //   shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+
         //x button
-        scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
-        scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
+       // scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
+       // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
 
         //dpad (bane of humanity) 1 = left 2 = right 
         //placeholder!
@@ -153,7 +155,14 @@ public class RobotContainer {
         //  );
         // climbCenter.toggleOnTrue(new ClimbToPosition(climberSubsystem,50000,50000)
         // );
-        //  climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
+//climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
+//climbDown.toggleOnTrue(new InstantCommand(() -> System.out.println("got here")));
+       climbDown.whileTrue(new testClimberLeft(climberSubsystem,.1));
+       shoot.whileTrue( new testClimberRight(climberSubsystem, .1));
+       
+       groundPickup.whileTrue(new testClimberRight(climberSubsystem, -.2));
+              climbCenter.whileTrue(new testClimberLeft(climberSubsystem,-.2));
+
     }
 
     public Command getAutonomousCommand() {

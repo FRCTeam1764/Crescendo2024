@@ -115,7 +115,7 @@ SmartDashboard.putNumber("da point", setpoint);
       }
     SmartDashboard.putNumber("intakePID", pidValue);
     SmartDashboard.putNumber("totalMotorSet", pidValue);
-    m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
+   // m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
     }
     //234902788.15639588
     //160, 0.4 - p, 0.005-d, 0.8 velo
@@ -133,6 +133,6 @@ SmartDashboard.putNumber("da point", setpoint);
     // This method will be called once per scheduler run
    // m_angleEncoder.setZeroOffset(140);
    SmartDashboard.putBoolean("IntakeBreakbeam", getIntakeBreakbeam());
-    flexClosedLoop(intakeState.getEncoderValue());
+   // flexClosedLoop(intakeState.getEncoderValue());
   }
 }
