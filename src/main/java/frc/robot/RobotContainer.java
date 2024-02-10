@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
-import frc.robot.commands.ComplexCommands.ClimbToPosition;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
@@ -72,13 +71,16 @@ public class RobotContainer {
     private final POVButton climbCenter = new POVButton(secondaryController,0);
     private final POVButton climbDown = new POVButton(secondaryController,180);
 
+    private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
+    private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
+
 
     /* Subsystems */
 
     public RobotState robotState = new RobotState(driver);
     
-    //private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
-    private final Swerve s_Swerve = new Swerve();
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+   // private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
   //  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
@@ -100,26 +102,26 @@ public class RobotContainer {
 
     //teleop drive for yagsl
     // teleop swerve for 365
+         s_Swerve.setDefaultCommand(
+             new TeleopDrive(
+                 s_Swerve, 
+                 () -> -driver.getRawAxis(translationAxis), 
+                 () -> -driver.getRawAxis(strafeAxis), 
+                 () -> -driver.getRawAxis(rotationAxis), 
+                 () -> robotCentric.getAsBoolean()
+             )
+         );
+
         // s_Swerve.setDefaultCommand(
-        //     new TeleopDrive(
+        //     new TeleopSwerve(
         //         s_Swerve, 
-        //         () -> -driver.getRawAxis(translationAxis), 
-        //         () -> -driver.getRawAxis(strafeAxis), 
+        //         () -> driver.getRawAxis(translationAxis), 
+        //         () -> driver.getRawAxis(strafeAxis), 
         //         () -> -driver.getRawAxis(rotationAxis), 
-        //         () -> robotCentric.getAsBoolean()
+        //         () -> robotCentric.getAsBoolean(),
+        //         robotState
         //     )
         // );
-
-        s_Swerve.setDefaultCommand(
-            new TeleopSwerve(
-                s_Swerve, 
-                () -> driver.getRawAxis(translationAxis), 
-                () -> driver.getRawAxis(strafeAxis), 
-                () -> -driver.getRawAxis(rotationAxis), 
-                () -> robotCentric.getAsBoolean(),
-                robotState
-            )
-        );
 
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
@@ -146,23 +148,19 @@ public class RobotContainer {
         //x button
        // scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
        // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
-
+/* 
         //dpad (bane of humanity) 1 = left 2 = right 
-        //placeholder!
-        // climbLeft.toggleOnTrue(new ClimbToPosition(climberSubsystem,100000,50000)
-        //  );
-        // climbRight.toggleOnTrue( new ClimbToPosition(climberSubsystem,50000,100000)
-        //  );
-        // climbCenter.toggleOnTrue(new ClimbToPosition(climberSubsystem,50000,50000)
-        // );
-//climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
-//climbDown.toggleOnTrue(new InstantCommand(() -> System.out.println("got here")));
-       climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
-       shoot.whileTrue( new testClimberRight(climberSubsystem, .2));
-
-       groundPickup.whileTrue(new testClimberRight(climberSubsystem, -.2));
-    climbCenter.whileTrue(new testClimberLeft(climberSubsystem,-.2));
-
+        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem,-160000,-100000)
+        );
+        climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000,-160000)
+        );
+        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000,-100000)
+        );
+        climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
+        //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+       ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
+       ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
+*/
     }
 
     public Command getAutonomousCommand() {
@@ -172,13 +170,13 @@ public class RobotContainer {
     }
 
 
-    //  public SwerveSubsystem getDrivetrainSubsystem() {
-    //      return s_Swerve;
-    //  }
-
-    public Swerve getDrivetrainSubsystem(){
-        return s_Swerve;
+    public SwerveSubsystem getDrivetrainSubsystem() {
+      return s_Swerve;
     }
+
+    // public Swerve getDrivetrainSubsystem(){
+    //     return s_Swerve;
+    // }
 
     public Superstructure getSuperstructure() {
         return superstructure;

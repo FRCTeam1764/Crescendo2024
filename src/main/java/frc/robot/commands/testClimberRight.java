@@ -15,6 +15,7 @@ public class testClimberRight extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     this.speed = speed;
     this.climber = climber;
+    addRequirements(climber);
   }
 
   // Called when the command is initially scheduled.
@@ -38,7 +39,7 @@ climber.ClimberRightTest(speed);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
-   // return climber.getLimitSwitch2();
+   // return false;
+    return climber.getLimitSwitch2();
   }
 }

@@ -30,11 +30,12 @@ flyWheel1.setNeutralMode(NeutralMode.Coast);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
     flyWheel2.configFactoryDefault();
     flyWheel2.setNeutralMode(NeutralMode.Coast);
-
+/** 
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
     holderRoller.configFactoryDefault();
     holderRoller.setInverted(true);
     holderRoller.setNeutralMode(NeutralMode.Coast);
+    */
         breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
@@ -57,10 +58,10 @@ flyWheel1.setNeutralMode(NeutralMode.Coast);
         if (!breakBeamHolder.get()) {
           newspeed = negative*.05; //stall
         }
-    holderRoller.set(newspeed);
+    //holderRoller.set(newspeed);
   }
   public void rollerOff(){
-    holderRoller.set(0);
+    //holderRoller.set(0);
   }
   /* public void roller() {
     if (!breakBeamHolder.get()) {

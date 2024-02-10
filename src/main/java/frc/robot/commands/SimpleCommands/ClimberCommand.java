@@ -11,12 +11,12 @@ public class ClimberCommand extends Command {
   /** Creates a new ClimberCommand. */
   ClimberSubsystem climber;
   double encoderValue;
-  boolean whichSide;
-  public ClimberCommand(ClimberSubsystem climber,int encoderValue,boolean whichSide) {
+double encoderValue2;
+  public ClimberCommand(ClimberSubsystem climber,int encoderValue,int encoderValue2) {
     addRequirements(climber);
 this.climber = climber;
 this.encoderValue =encoderValue;
-this.whichSide = whichSide;
+this.encoderValue2 = encoderValue2;
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -24,28 +24,25 @@ this.whichSide = whichSide;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-if(whichSide == true ){
-    climber.ClimberOnRight(encoderValue);
-}else{
-      climber.ClimberOnLeft(encoderValue);
 
-}
+    climber.ClimberOnRight(encoderValue);
+
+      climber.ClimberOnLeft(encoderValue2);
+
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-if(whichSide == true ){
     climber.ClimberOnRight(encoderValue);
-}else{
-      climber.ClimberOnLeft(encoderValue);
-
-}  }
+    climber.ClimberOnLeft(encoderValue2);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    climber.ClimberOff();
+    climber.ClimberOff(); //TODO: MAKE BETTER
   }
 
   // Returns true when the command should end.

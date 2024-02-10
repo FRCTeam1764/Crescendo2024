@@ -64,7 +64,7 @@ public class ClimberSubsystem extends SubsystemBase {
 double variable = pidController2.calculate(getEncoderValue2(),desiredEncoderValue);
 SmartDashboard.putNumber("LeftClimb", variable);
 
- variable = getSign(variable)*Math.min(.9, Math.abs(variable));
+ variable = getSign(variable)*Math.min(1, Math.abs(variable));
 
       ClimberMotor2.set(variable);  
     
@@ -76,7 +76,7 @@ SmartDashboard.putNumber("LeftClimb", variable);
 
   SmartDashboard.putNumber("RightClimba", variable);
 
-     variable = getSign(variable)*Math.min(.9, Math.abs(variable)); //prev 7.2
+     variable = getSign(variable)*Math.min(1, Math.abs(variable)); //prev 7.2
       ClimberMotor1.set(variable);  
   SmartDashboard.putNumber("RightCurrent",     ClimberMotor1.getSupplyCurrent());
     
@@ -137,16 +137,16 @@ SmartDashboard.putNumber("rightEncoder", getEncoderValue());
 //-175000=right
 //158482 = left
 SmartDashboard.putNumber("leftEncoder", getEncoderValue2());
-setypointy = SmartDashboard.getNumber("setypoint",100);
-SmartDashboard.putNumber("somethin", setypointy);
+//setypointy = SmartDashboard.getNumber("setypoint",100);
+//SmartDashboard.putNumber("somethin", setypointy);
     if (getLimitSwitch()){
       zeroEncoder2();
         }
     if (getLimitSwitch2()){
       zeroEncoder1();
     }
-    ClimberOnLeft(-setypointy);
-    ClimberOnRight(-setypointy);
+//    ClimberOnLeft(-setypointy);
+  //  ClimberOnRight(-setypointy);
     // This method will be called once per scheduler run
   }
 }
