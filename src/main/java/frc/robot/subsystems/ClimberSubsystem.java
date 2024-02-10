@@ -43,13 +43,16 @@ public class ClimberSubsystem extends SubsystemBase {
     ClimberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor1.configFactoryDefault();
+    ClimberMotor1.setNeutralMode(NeutralMode.Brake);
+        ClimberMotor2.setNeutralMode(NeutralMode.Brake);
+
     ClimberMotor2.configFactoryDefault();
    // ClimberMotor2.follow(ClimberMotor1);
     limitSwitch = new DigitalInput(Constants.CLIMBER_SWITCH_LEFT);
     limitSwitch2 = new DigitalInput(Constants.CLIMBER_SWITCH_RIGHT);
     negative =1;
-    pidController1 = new PIDController(0.000015, 0, 0.001);
-pidController2 = new PIDController(0.000015, 0, 0.001);
+    pidController1 = new PIDController(0.00003, 0, 0.000005);//right
+    pidController2 = new PIDController(0.00003, 0, 0.000005);
   SmartDashboard.putNumber("setypoint",100);
 
     //feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization maybe do this?
@@ -58,23 +61,24 @@ pidController2 = new PIDController(0.000015, 0, 0.001);
   public void ClimberOnLeft(double desiredEncoderValue){
 
 
-double variable = pidController2.calculate(getEncoderValue(),desiredEncoderValue);
+double variable = pidController2.calculate(getEncoderValue2(),desiredEncoderValue);
+SmartDashboard.putNumber("LeftClimb", variable);
 
- variable = getSign(variable)*Math.min(7.2, Math.abs(variable));
-SmartDashboard.putNumber("RightClimba", variable);
+ variable = getSign(variable)*Math.min(.9, Math.abs(variable));
 
-      ClimberMotor2.setVoltage(variable);  
+      ClimberMotor2.set(variable);  
     
   }
 
  public void ClimberOnRight(double desiredEncoderValue){
 
-    double variable = pidController1.calculate(getEncoderValue2(),desiredEncoderValue);
+    double variable = pidController1.calculate(getEncoderValue(),desiredEncoderValue);
 
+  SmartDashboard.putNumber("RightClimba", variable);
 
-     variable = getSign(variable)*Math.min(7.2, Math.abs(variable));
-SmartDashboard.putNumber("LeftClimba", variable);
-      ClimberMotor1.setVoltage(variable);  
+     variable = getSign(variable)*Math.min(.9, Math.abs(variable)); //prev 7.2
+      ClimberMotor1.set(variable);  
+  SmartDashboard.putNumber("RightCurrent",     ClimberMotor1.getSupplyCurrent());
     
   }
 
@@ -112,12 +116,6 @@ SmartDashboard.putNumber("LeftClimba", variable);
   public double getEncoderValue2(){
      return ClimberMotor2.getSelectedSensorPosition();
    }
-  public int getSign(int num){
-    if (num < 0){
-      return -1;
-  }
-    return 1;
-  }
   public int getSign(double num){
     if (num < 0){
       return -1;
@@ -147,7 +145,7 @@ SmartDashboard.putNumber("somethin", setypointy);
     if (getLimitSwitch2()){
       zeroEncoder1();
     }
-    ClimberOnLeft(setypointy);
+    ClimberOnLeft(-setypointy);
     ClimberOnRight(-setypointy);
     // This method will be called once per scheduler run
   }

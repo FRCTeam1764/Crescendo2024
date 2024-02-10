@@ -4,6 +4,8 @@
 // :)))))))
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -19,13 +21,21 @@ public class Shooter extends SubsystemBase {
 
   public Shooter() {
    
-    flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
-    flyWheel1.setInverted(true);
 
+
+    flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
+    flyWheel1.configFactoryDefault();
+    flyWheel1.setInverted(true);
+flyWheel1.setNeutralMode(NeutralMode.Coast);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
+    flyWheel2.configFactoryDefault();
+    flyWheel2.setNeutralMode(NeutralMode.Coast);
+
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
+    holderRoller.configFactoryDefault();
     holderRoller.setInverted(true);
-     breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
+    holderRoller.setNeutralMode(NeutralMode.Coast);
+        breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
   public void shooterOn() {

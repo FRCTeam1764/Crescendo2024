@@ -157,11 +157,11 @@ public class RobotContainer {
         // );
 //climbDown.toggleOnTrue( new ClimbToPosition(climberSubsystem,0,0));
 //climbDown.toggleOnTrue(new InstantCommand(() -> System.out.println("got here")));
-       climbDown.whileTrue(new testClimberLeft(climberSubsystem,.1));
-       shoot.whileTrue( new testClimberRight(climberSubsystem, .1));
-       
+       climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+       shoot.whileTrue( new testClimberRight(climberSubsystem, .2));
+
        groundPickup.whileTrue(new testClimberRight(climberSubsystem, -.2));
-              climbCenter.whileTrue(new testClimberLeft(climberSubsystem,-.2));
+    climbCenter.whileTrue(new testClimberLeft(climberSubsystem,-.2));
 
     }
 
