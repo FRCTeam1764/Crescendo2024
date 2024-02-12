@@ -101,7 +101,7 @@ public class RobotContainer {
 
 
     //teleop drive for yagsl
-    // teleop swerve for 365
+
          s_Swerve.setDefaultCommand(
              new TeleopDrive(
                  s_Swerve, 
@@ -111,7 +111,7 @@ public class RobotContainer {
                  () -> robotCentric.getAsBoolean()
              )
          );
-
+    // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
         //     new TeleopSwerve(
         //         s_Swerve, 
@@ -150,11 +150,11 @@ public class RobotContainer {
        // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
 /* 
         //dpad (bane of humanity) 1 = left 2 = right 
-        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem,-160000,-100000)
+        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem,-160000/2048,-100000/2048)
         );
-        climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000,-160000)
+        climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000/2048 ,-160000/2048)
         );
-        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000,-100000)
+        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000/2048 ,-100000/2048)
         );
         climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
         //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));

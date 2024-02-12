@@ -4,12 +4,11 @@
 
 package frc.robot.subsystems;
 
-import org.ejml.equation.VariableMatrix;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
-import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.PositionVoltage;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
@@ -22,64 +21,68 @@ import frc.robot.libraries.internal.LazyTalonFX;
 public class ClimberSubsystem extends SubsystemBase {
   /** Creates a new Climber. */
 
-  public LazyTalonFX ClimberMotor1;
-  public LazyTalonFX ClimberMotor2;
+  public TalonFX ClimberMotor1;
+  public TalonFX ClimberMotor2;
   public PIDController pidController1;
   public PIDController pidController2;
   public DigitalInput limitSwitch;
-  public ArmFeedforward feedforward; 
   public DigitalInput limitSwitch2;
-  double ClimberOffset;
-  int MaxClimberEncoderLeft =-120000;
-  int MaxClimberEncoderRight = 0;
+  private PositionVoltage setVoltage;
 
   int negative;
-//30.5 inches
 
   public ClimberSubsystem() {
-
+    
     // 1 = right
     // 2 = left
+    //Quick Info = Max encoder pos is 175000/2048 (encoder to motor spins)
+    // length is 26.75 inches, can be used to convert encoder to distance if ur feelin special 
     ClimberMotor1 = new LazyTalonFX(Constants.CLIMBER_MOTOR1.id, Constants.CLIMBER_MOTOR1.busName);
     ClimberMotor2 = new LazyTalonFX(Constants.CLIMBER_MOTOR2.id, Constants.CLIMBER_MOTOR1.busName);
-    ClimberMotor1.configFactoryDefault();
-    ClimberMotor1.setNeutralMode(NeutralMode.Brake);
-        ClimberMotor2.setNeutralMode(NeutralMode.Brake);
 
-    ClimberMotor2.configFactoryDefault();
-   // ClimberMotor2.follow(ClimberMotor1);
     limitSwitch = new DigitalInput(Constants.CLIMBER_SWITCH_LEFT);
     limitSwitch2 = new DigitalInput(Constants.CLIMBER_SWITCH_RIGHT);
     negative =1;
     pidController1 = new PIDController(0.00003, 0, 0.000005);//right
     pidController2 = new PIDController(0.00003, 0, 0.000005);
-  SmartDashboard.putNumber("setypoint",100);
+    setVoltage = new PositionVoltage(0).withSlot(0); 
 
-    //feedforward = new ArmFeedforward(0.1, 0.1,0.1 );//needs characterization maybe do this?
 
+   SetUpClimberMotors(); 
   }
+
+public void SetUpClimberMotors(){
+TalonFXConfiguration config = new TalonFXConfiguration();
+
+config.Slot0.kP = 0.00003;
+config.Slot0.kD = 0.000005;
+
+config.MotorOutput.NeutralMode  = NeutralModeValue.Brake;
+config.MotorOutput.PeakForwardDutyCycle = 10;
+config.MotorOutput.PeakReverseDutyCycle = -10; // can bump up to 12 or something
+
+
+
+ClimberMotor1.getConfigurator().apply(config);
+ClimberMotor2.getConfigurator().apply(config);
+}
+
   public void ClimberOnLeft(double desiredEncoderValue){
 
 
-double variable = pidController2.calculate(getEncoderValue2(),desiredEncoderValue);
-SmartDashboard.putNumber("LeftClimb", variable);
+    // double variable = pidController2.calculate(getEncoderValue2(),desiredEncoderValue);
+    // SmartDashboard.putNumber("LeftClimb", variable);
 
- variable = getSign(variable)*Math.min(1, Math.abs(variable));
+    //   variable = getSign(variable)*Math.min(1, Math.abs(variable));
 
-      ClimberMotor2.set(variable);  
-    
+     ClimberMotor2.setControl(setVoltage.withPosition(desiredEncoderValue));  
   }
 
  public void ClimberOnRight(double desiredEncoderValue){
-
-    double variable = pidController1.calculate(getEncoderValue(),desiredEncoderValue);
-
-  SmartDashboard.putNumber("RightClimba", variable);
-
-     variable = getSign(variable)*Math.min(1, Math.abs(variable)); //prev 7.2
-      ClimberMotor1.set(variable);  
-  SmartDashboard.putNumber("RightCurrent",     ClimberMotor1.getSupplyCurrent());
-    
+  //   double variable = pidController1.calculate(getEncoderValue(),desiredEncoderValue);
+  // SmartDashboard.putNumber("RightClimba", variable);
+    //  variable = getSign(variable)*Math.min(1, Math.abs(variable)); //prev 7.2
+      ClimberMotor1.setControl(setVoltage.withPosition(desiredEncoderValue));      
   }
 
   public void ClimberRightTest(double speed){
@@ -87,17 +90,12 @@ SmartDashboard.putNumber("LeftClimb", variable);
   }
     public void ClimberLefttTest(double speed){
     ClimberMotor2.set(speed);
-  }
-  public double getDesiredEncoder(){
-    return getDesiredEncoder();
-  }
-
-
+    }
   public void zeroEncoder1(){
-    ClimberMotor1.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    ClimberMotor1.setPosition(0);
   }
     public void zeroEncoder2(){
-    ClimberMotor2.getSensorCollection().setIntegratedSensorPosition(0.0,0);
+    ClimberMotor2.setPosition(0);
   }
 
   public boolean getLimitSwitch(){
@@ -111,10 +109,11 @@ SmartDashboard.putNumber("LeftClimb", variable);
      ClimberMotor2.set(0);
   }
   public double getEncoderValue(){
-     return ClimberMotor1.getSelectedSensorPosition();
+     return ClimberMotor1.getPosition().getValueAsDouble();
    }
+
   public double getEncoderValue2(){
-     return ClimberMotor2.getSelectedSensorPosition();
+     return ClimberMotor2.getPosition().getValueAsDouble();
    }
   public int getSign(double num){
     if (num < 0){
@@ -127,15 +126,10 @@ SmartDashboard.putNumber("LeftClimb", variable);
   @Override
   public void periodic() {
     // 1 = left 2 = right
-
-
-
-
     SmartDashboard.putBoolean("LeftClimberSwitch", getLimitSwitch());
     SmartDashboard.putBoolean("RightClimberSwitch", getLimitSwitch2());
 SmartDashboard.putNumber("rightEncoder", getEncoderValue());
 //-175000=right
-//158482 = left
 SmartDashboard.putNumber("leftEncoder", getEncoderValue2());
 //setypointy = SmartDashboard.getNumber("setypoint",100);
 //SmartDashboard.putNumber("somethin", setypointy);

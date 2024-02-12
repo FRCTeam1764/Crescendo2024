@@ -5,7 +5,10 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,21 +27,34 @@ public class Shooter extends SubsystemBase {
 
 
     flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
-    flyWheel1.configFactoryDefault();
-    flyWheel1.setInverted(true);
-flyWheel1.setNeutralMode(NeutralMode.Coast);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
-    flyWheel2.configFactoryDefault();
-    flyWheel2.setNeutralMode(NeutralMode.Coast);
-/** 
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
-    holderRoller.configFactoryDefault();
+
+    setupMotors();
+
+    flyWheel1.setInverted(true);
+flyWheel1.setNeutralMode(NeutralModeValue.Coast);
+    flyWheel2.setNeutralMode(NeutralModeValue.Coast);
+
+
     holderRoller.setInverted(true);
-    holderRoller.setNeutralMode(NeutralMode.Coast);
-    */
+    holderRoller.setNeutralMode(NeutralModeValue.Coast);
+    
         breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
+
+public void setupMotors(){
+TalonFXConfiguration config1 = new TalonFXConfiguration();
+TalonFXConfiguration config2 = new TalonFXConfiguration();
+TalonFXConfiguration configRoller = new TalonFXConfiguration();
+
+flyWheel1.getConfigurator().apply(config1);
+flyWheel2.getConfigurator().apply(config2);
+
+holderRoller.getConfigurator().apply(configRoller);
+}
+
   public void shooterOn() {
     flyWheel1.set(1);
     flyWheel2.set(1);

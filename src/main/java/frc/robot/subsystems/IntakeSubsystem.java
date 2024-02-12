@@ -4,8 +4,11 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.SparkAbsoluteEncoder;
+import com.revrobotics.SparkPIDController;
+import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 //168 up
@@ -22,34 +25,34 @@ import frc.robot.state.IntakeState;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR1.id, MotorType.kBrushless);
-    private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id, MotorType.kBrushless);
 private final IntakeState intakeState;
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
-
+private SparkPIDController pidController;
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0, 0.05);
   private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor.getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
   // private PIDController m_flexPidController;
- // private ArmFeedforward m_feedForward = new ArmFeedforward(0.11202, 0.11202,2.0024); 
-  // private ArmFeedforward down_Feedforward = new ArmFeedforward(0.15488,7.1406E+15 , 1.9548);
-  // private ArmFeedforward up_Feedforward = new ArmFeedforward(0.15245, 0.16345, 1.9801);
   private DigitalInput breakBeamIntake;
 
   
   public IntakeSubsystem(IntakeState intakeState) {
     
-    super();
     m_intakeMotor.restoreFactoryDefaults();
     m_flexMotor.restoreFactoryDefaults();
     m_flexMotor.setInverted(false);
-    // m_flexMotor.setInverted(true);
+
+    
     m_flexMotor.setIdleMode(IdleMode.kBrake);
-    m_flexMotor2.setIdleMode(IdleMode.kCoast);
-   // m_flexMotor2.setInverted(false);
-  // m_flexMotor2.follow(m_flexMotor);
-this.intakeState = intakeState;
+    pidController = m_flexMotor.getPIDController();
+    pidController.setP(.025); //dropped in half, prev .05
+    pidController.setD(0.00001);
+    pidController.setFeedbackDevice(m_angleEncoder);
+    pidController.setOutputRange(-1, 1);
+    pidController.setSmartMotionAllowedClosedLoopError(0, 0);
+
+    this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
-    m_angleEncoder.setZeroOffset(1);//2.07
+    m_angleEncoder.setZeroOffset(1);
 
     m_intakeMotor.setInverted(true);
     m_angleEncoder.setInverted(false);
@@ -72,7 +75,7 @@ this.intakeState = intakeState;
 
     SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
       if(!breakBeamIntake.get()) {
-          m_intakeMotor.set(speed); // .1*negative
+          m_intakeMotor.set(speed); 
       } else {
           m_intakeMotor.set(speed);
       }
@@ -95,27 +98,25 @@ this.intakeState = intakeState;
   double kd;
   
   public void flexClosedLoop(double desired) {
-    //todo: t une
 
-   // SmartDashboard.putNumber("kpIntake", kp);
-   //num: kp = 0.01, kD = 0.0001
    // pid = new PIDController(SmartDashboard.getNumber("kP", 0), 0.0, SmartDashboard.getNumber("kD", 0));
-    pid = new PIDController(0.05, 0, 0.00001); //previouslt .05
+  //  pid = new PIDController(0.05, 0, 0.00001); //previouslt .05
   //  double upfeedForward = m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);
     setpoint = desired;
    
  // setpoint =   SmartDashboard.getNumber("SetPointSet",300);
 SmartDashboard.putNumber("da point", setpoint);
-    pid.setSetpoint(setpoint);
+   // pid.setSetpoint(setpoint);
     SmartDashboard.putNumber("getPosition", m_angleEncoder.getPosition());
   
-    pidValue = pid.calculate(m_angleEncoder.getPosition()); //calculate feed forward
+   // pidValue = pid.calculate(m_angleEncoder.getPosition()); //calculate feed forward
       if(Math.abs(setpoint - m_angleEncoder.getPosition())< .0175){
         pidValue = 0;   
       }
     SmartDashboard.putNumber("intakePID", pidValue);
     SmartDashboard.putNumber("totalMotorSet", pidValue);
    // m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
+   // pidController.setReference(setpoint, ControlType.kPosition);
     }
     //234902788.15639588
     //160, 0.4 - p, 0.005-d, 0.8 velo
