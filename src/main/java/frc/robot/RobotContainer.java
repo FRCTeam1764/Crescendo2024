@@ -34,12 +34,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
     private final Joystick secondaryController = new Joystick(1);
 
-    //auto choosa
+    // auto choosa
     // private final SendableChooser<Command> autoChooser;
 
     /* Drive Controls */
@@ -52,75 +51,75 @@ public class RobotContainer {
 
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
-    private final JoystickAxis LeftTrigger = new JoystickAxis(driver,XboxController.Axis.kLeftTrigger.value);
+    private final JoystickAxis LeftTrigger = new JoystickAxis(driver, XboxController.Axis.kLeftTrigger.value);
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
     private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
-    
+
     /* CoPilot Buttons */
 
-    private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
-    private final JoystickButton groundPickup = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton shoot = new JoystickButton(secondaryController,
+            XboxController.Button.kRightBumper.value);
+    private final JoystickButton groundPickup = new JoystickButton(secondaryController,
+            XboxController.Button.kLeftBumper.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
 
     private final JoystickButton scoreAmp = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
-    private final POVButton climbRight = new POVButton(secondaryController,90);
-    private final POVButton climbLeft = new POVButton(secondaryController,270);
-    private final POVButton climbCenter = new POVButton(secondaryController,0);
-    private final POVButton climbDown = new POVButton(secondaryController,180);
+    private final POVButton climbRight = new POVButton(secondaryController, 90);
+    private final POVButton climbLeft = new POVButton(secondaryController, 270);
+    private final POVButton climbCenter = new POVButton(secondaryController, 0);
+    private final POVButton climbDown = new POVButton(secondaryController, 180);
 
-    private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
-    private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
-
+    private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController,
+            XboxController.Button.kBack.value);
+    private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController,
+            XboxController.Button.kStart.value);
 
     /* Subsystems */
 
     public RobotState robotState = new RobotState(driver);
-    
-    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
-   // private final Swerve s_Swerve = new Swerve();
+
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
+            new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+    // private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-  //  private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
+    // private final IntakeSubsystem intakeSubsystem = new
+    // IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
-    //Hunter was here
+    // Hunter was here
 
-    //Limelights
+    // Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
     private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
-    private final LimelightSubsystem thePi =  new LimelightSubsystem("TopCam");
-
+    private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
 
     private Trajectory[] trajectories;
 
-
     public RobotContainer() {
-        //autoChooser =  AutoBuilder.buildAutoChooser();
+        // autoChooser = AutoBuilder.buildAutoChooser();
 
+        // teleop drive for yagsl
 
-    //teleop drive for yagsl
-
-         s_Swerve.setDefaultCommand(
-             new TeleopDrive(
-                 s_Swerve, 
-                 () -> -driver.getRawAxis(translationAxis), 
-                 () -> -driver.getRawAxis(strafeAxis), 
-                 () -> -driver.getRawAxis(rotationAxis), 
-                 () -> robotCentric.getAsBoolean()
-             )
-         );
-    // teleop swerve for 365
+        s_Swerve.setDefaultCommand(
+                new TeleopDrive(
+                        s_Swerve,
+                        () -> -driver.getRawAxis(translationAxis),
+                        () -> -driver.getRawAxis(strafeAxis),
+                        () -> -driver.getRawAxis(rotationAxis),
+                        () -> robotCentric.getAsBoolean()));
+        // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
-        //     new TeleopSwerve(
-        //         s_Swerve, 
-        //         () -> driver.getRawAxis(translationAxis), 
-        //         () -> driver.getRawAxis(strafeAxis), 
-        //         () -> -driver.getRawAxis(rotationAxis), 
-        //         () -> robotCentric.getAsBoolean(),
-        //         robotState
-        //     )
+        // new TeleopSwerve(
+        // s_Swerve,
+        // () -> driver.getRawAxis(translationAxis),
+        // () -> driver.getRawAxis(strafeAxis),
+        // () -> -driver.getRawAxis(rotationAxis),
+        // () -> robotCentric.getAsBoolean(),
+        // robotState
+        // )
         // );
 
         configurePilotButtonBindings();
@@ -129,53 +128,59 @@ public class RobotContainer {
 
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        //limelighs
-        //todo: need to conert back and forth from bronco to out swer
+        // limelighs
+        // todo: need to conert back and forth from bronco to out swer
         // SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
         // RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
         // AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
 
     }
-    
+
     private void configureCoPilotButtonBindings() {
 
-        //left bumper
-     //   groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
-     //   groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
-        //right bumper
-     //   shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+        // left bumper
+        // groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
+        // robotState.intakeState));
+        // groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
+        // robotState.intakeState));
+        // right bumper
+        // shoot.onTrue(new Shoot(shooter,intakeSubsystem));
 
-        //x button
-       // scoreAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
-       // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem, robotState.intakeState));
-/* 
-        //dpad (bane of humanity) 1 = left 2 = right 
-        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem,-160000/2048,-100000/2048)
-        );
-        climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000/2048 ,-160000/2048)
-        );
-        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000/2048 ,-100000/2048)
-        );
-        climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
-        //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
-       ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
-       ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-*/
+        // x button
+        // scoreAmp.whileTrue(new
+        // GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
+        // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem,
+        // robotState.intakeState));
+        /*
+         * //dpad (bane of humanity) 1 = left 2 = right
+         * climbLeft.toggleOnTrue(new
+         * ClimberCommand(climberSubsystem,-160000/2048,-100000/2048)
+         * );
+         * climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000/2048
+         * ,-160000/2048)
+         * );
+         * climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000/2048
+         * ,-100000/2048)
+         * );
+         * climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
+         * //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+         * ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
+         * ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
+         */
     }
 
     public Command getAutonomousCommand() {
         return null;
-        //return s_Swerve.getAutonomousCommand("Test", false);
-        //return autoChooser.getSelected();
+        // return s_Swerve.getAutonomousCommand("Test", false);
+        // return autoChooser.getSelected();
     }
 
-
     public SwerveSubsystem getDrivetrainSubsystem() {
-      return s_Swerve;
+        return s_Swerve;
     }
 
     // public Swerve getDrivetrainSubsystem(){
-    //     return s_Swerve;
+    // return s_Swerve;
     // }
 
     public Superstructure getSuperstructure() {
@@ -190,7 +195,7 @@ public class RobotContainer {
         return driver;
     }
 
-   public Trajectory[] getTrajectories() {
-       return trajectories;
-   }
+    public Trajectory[] getTrajectories() {
+        return trajectories;
+    }
 }

@@ -17,14 +17,12 @@ import frc.robot.libraries.internal.LazyTalonFX;
 
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
-   public LazyTalonFX flyWheel1;
-   public LazyTalonFX flyWheel2;
-   public LazyTalonFX holderRoller;
-   private DigitalInput breakBeamHolder;
+  public LazyTalonFX flyWheel1;
+  public LazyTalonFX flyWheel2;
+  public LazyTalonFX holderRoller;
+  private DigitalInput breakBeamHolder;
 
   public Shooter() {
-   
-
 
     flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
@@ -33,64 +31,60 @@ public class Shooter extends SubsystemBase {
     setupMotors();
 
     flyWheel1.setInverted(true);
-flyWheel1.setNeutralMode(NeutralModeValue.Coast);
+    flyWheel1.setNeutralMode(NeutralModeValue.Coast);
     flyWheel2.setNeutralMode(NeutralModeValue.Coast);
-
 
     holderRoller.setInverted(true);
     holderRoller.setNeutralMode(NeutralModeValue.Coast);
-    
-        breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
+
+    breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
   }
 
-public void setupMotors(){
-TalonFXConfiguration config1 = new TalonFXConfiguration();
-TalonFXConfiguration config2 = new TalonFXConfiguration();
-TalonFXConfiguration configRoller = new TalonFXConfiguration();
+  public void setupMotors() {
+    TalonFXConfiguration config1 = new TalonFXConfiguration();
+    TalonFXConfiguration config2 = new TalonFXConfiguration();
+    TalonFXConfiguration configRoller = new TalonFXConfiguration();
 
-flyWheel1.getConfigurator().apply(config1);
-flyWheel2.getConfigurator().apply(config2);
+    flyWheel1.getConfigurator().apply(config1);
+    flyWheel2.getConfigurator().apply(config2);
 
-holderRoller.getConfigurator().apply(configRoller);
-}
+    holderRoller.getConfigurator().apply(configRoller);
+  }
 
   public void shooterOn() {
     flyWheel1.set(1);
     flyWheel2.set(1);
   }
+
   public void shooterOff() {
     flyWheel1.set(0);
     flyWheel2.set(0);
   }
-  public void roller(double speed){
+
+  public void roller(double speed) {
     int negative = 1;
-    if (speed > 0){
+    if (speed > 0) {
       negative = 1;
-    }else{
+    } else {
       negative = -1;
     }
     double newspeed = speed;
-        if (!breakBeamHolder.get()) {
-          newspeed = negative*.05; //stall
-        }
-    //holderRoller.set(newspeed);
-  }
-  public void rollerOff(){
-    //holderRoller.set(0);
-  }
-  /* public void roller() {
-    if (!breakBeamHolder.get()) {
-    holderRoller.set(0);
-    } else {
-      holderRoller.set(0.5);
-    }
-  }
-  **/
 
-  public boolean RollerBreakBeamBroken(){
+    if (!breakBeamHolder.get()) {
+      newspeed = negative * .05; // stall
+    }
+    holderRoller.set(newspeed);
+  }
+
+  public void rollerOff() {
+    holderRoller.set(0);
+  }
+
+  public boolean RollerBreakBeamBroken() {
     return !breakBeamHolder.get();
   }
+
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("RollerBreakBeam", RollerBreakBeamBroken());

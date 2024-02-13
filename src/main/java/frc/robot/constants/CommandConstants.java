@@ -1,7 +1,5 @@
 package frc.robot.constants;
 
-import frc.robot.common.CanPort;
-
 public final class CommandConstants {
     
     public static final int INTAKE_UP_ENCODERVALUE = 169;//placeholder may need to be changed
@@ -18,9 +16,5 @@ public final class CommandConstants {
     public static final double SHOOTER_STALL_SPEED = 0.1;//placeholder may need to be changed
 
 
-
-    
-    
- 
 
 }
