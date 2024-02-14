@@ -32,13 +32,15 @@ public class returnGroundPickUp extends SequentialCommandGroup {
       new WristCommand(intake,intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false)
     , 
 //    new InstantCommand()
-      new IntakeCommand(intake,CommandConstants.INTAKE_STALL_SPEED,false)
+      new IntakeCommand(intake,CommandConstants.INTAKE_SLOW_SPEED,false)
     );
+
+
 
 ParallelRaceGroup movePiece =  new ParallelRaceGroup(
 
 new simpleWaitCommand(0.2),
-      new IntakeCommand(intake, -CommandConstants.INTAKE_SLOW_SPEED,false),
+      new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false),
       new RollerCommand(shooter, CommandConstants.SHOOTER_INTAKE_SPEED,true)
     );
     addCommands(
