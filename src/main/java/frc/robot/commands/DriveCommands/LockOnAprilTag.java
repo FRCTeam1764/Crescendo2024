@@ -18,7 +18,7 @@ public class LockOnAprilTag extends Command {
   private LimelightSubsystem LimeLight;
   private SwerveSubsystem Drivetrain;
 
-  private PIDController thetaController = new PIDController(SwerveConstantsYAGSL.Auton.angleAutoPID.p, SwerveConstantsYAGSL.Auton.angleAutoPID.i, SwerveConstantsYAGSL.Auton.angleAutoPID.d);
+  private PIDController thetaController = new PIDController(SwerveConstantsYAGSL.Auton.angleAutoPID.kP, SwerveConstantsYAGSL.Auton.angleAutoPID.kI, SwerveConstantsYAGSL.Auton.angleAutoPID.kD);
   public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline) {
     addRequirements(drivetrain);
     this.Drivetrain = drivetrain;

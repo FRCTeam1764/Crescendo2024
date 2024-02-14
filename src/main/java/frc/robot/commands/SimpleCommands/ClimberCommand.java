@@ -12,13 +12,14 @@ public class ClimberCommand extends Command {
   ClimberSubsystem climber;
   double encoderValue;
 double encoderValue2;
-  public ClimberCommand(ClimberSubsystem climber,int encoderValue,int encoderValue2) {
-    addRequirements(climber);
+  public ClimberCommand(ClimberSubsystem climber,double encoderValue,double encoderValue2) {
 this.climber = climber;
 this.encoderValue =encoderValue;
 this.encoderValue2 = encoderValue2;
 
     // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(climber);
+
   }
 // hi
   // Called when the command is initially scheduled.
@@ -35,8 +36,8 @@ this.encoderValue2 = encoderValue2;
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    climber.ClimberOnRight(encoderValue);
-    climber.ClimberOnLeft(encoderValue2);
+ //   climber.ClimberOnRight(encoderValue);
+  //  climber.ClimberOnLeft(encoderValue2);
   }
 
   // Called once the command ends or is interrupted.

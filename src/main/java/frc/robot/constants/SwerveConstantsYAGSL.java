@@ -4,6 +4,8 @@
 
 package frc.robot.constants;
 
+import com.pathplanner.lib.util.PIDConstants;
+
 /** Add your docs here. */
 
     // Copyright (c) FIRST and other WPILib contributors.
@@ -33,8 +35,8 @@ public final class SwerveConstantsYAGSL
   public static final class Auton
   {
 
-    public static final PIDFConfig TranslationPID     = new PIDFConfig(0.7, 0, 0);
-    public static final PIDFConfig angleAutoPID = new PIDFConfig(0.4, 0, 0.01);
+    public static final PIDConstants TranslationPID     = new PIDConstants(0.7, 0, 0);
+    public static final PIDConstants angleAutoPID = new PIDConstants(0.4, 0, 0.01);
 
     public static final double MAX_ACCELERATION = 2;
   }

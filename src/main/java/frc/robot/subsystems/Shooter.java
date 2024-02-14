@@ -71,9 +71,9 @@ public class Shooter extends SubsystemBase {
     }
     double newspeed = speed;
 
-    if (!breakBeamHolder.get()) {
-      newspeed = negative * .05; // stall
-    }
+    // if (!breakBeamHolder.get()) {
+    //   newspeed = negative * .05; // stall
+    // }
     holderRoller.set(newspeed);
   }
 

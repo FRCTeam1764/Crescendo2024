@@ -27,6 +27,8 @@ public class IntakeSubsystem extends SubsystemBase {
   private final IntakeState intakeState;
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   private SparkPIDController pidController;
+
+  ArmFeedforward armfeed = new ArmFeedforward(0,0.3,0);
   // private final PIDController m_flexPIDController = new PIDController(1.1, 0,
   // 0.05);
   private final SparkAbsoluteEncoder m_angleEncoder = m_flexMotor
@@ -39,15 +41,15 @@ public class IntakeSubsystem extends SubsystemBase {
 
     m_intakeMotor.restoreFactoryDefaults();
     m_flexMotor.restoreFactoryDefaults();
-    m_flexMotor.setInverted(false);
+    m_flexMotor.setInverted(true);
 
     m_flexMotor.setIdleMode(IdleMode.kBrake);
     pidController = m_flexMotor.getPIDController();
-    pidController.setP(.025); // dropped in half, prev .05
-    pidController.setD(0.00001);
-    pidController.setFeedbackDevice(m_angleEncoder);
-    pidController.setOutputRange(-1, 1);
+    pidController.setP(.007); // dropped in half, prev .05
+    pidController.setD(0.5);
     
+    pidController.setFeedbackDevice(m_angleEncoder);
+    pidController.setOutputRange(-.7, .7);
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;
@@ -57,11 +59,10 @@ public class IntakeSubsystem extends SubsystemBase {
 
     m_intakeMotor.setInverted(true);
     m_angleEncoder.setInverted(false);
-    breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM);
-    SmartDashboard.putNumber("SetPointSet", setpoint);
-    SmartDashboard.putNumber("kP", 0);
 
-    SmartDashboard.putNumber("kD", 0);
+    breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM_INNER);
+    SmartDashboard.putNumber("SetPointSet", setpoint);
+
 
   }
 
@@ -76,8 +77,8 @@ public class IntakeSubsystem extends SubsystemBase {
     }
 
     SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
-    if (!breakBeamIntake.get()) {
-      m_intakeMotor.set(speed);
+    if (!breakBeamIntake.get() || negative ==1) {
+      m_intakeMotor.set(0);
     } else {
       m_intakeMotor.set(speed);
     }
@@ -111,20 +112,24 @@ public class IntakeSubsystem extends SubsystemBase {
     // m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);
     setpoint = desired;
 
-    // setpoint = SmartDashboard.getNumber("SetPointSet",300);
-    SmartDashboard.putNumber("da point", setpoint);
+   //  setpoint = SmartDashboard.getNumber("SetPointSet",300);
+   // SmartDashboard.putNumber("da point", setpoint);
     // pid.setSetpoint(setpoint);
     SmartDashboard.putNumber("getPosition", m_angleEncoder.getPosition());
 
     // pidValue = pid.calculate(m_angleEncoder.getPosition()); //calculate feed
     // forward
+
     if (Math.abs(setpoint - m_angleEncoder.getPosition()) < .0175) {
       pidValue = 0;
     }
-    SmartDashboard.putNumber("intakePID", pidValue);
-    SmartDashboard.putNumber("totalMotorSet", pidValue);
+    
+    // SmartDashboard.putNumber("intakePID", pidValue);
+    // SmartDashboard.putNumber("totalMotorSet", pidValue);
     // m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
-    // pidController.setReference(setpoint, ControlType.kPosition);
+   //m_flexMotor.setVoltage(armfeed.calculate(getEncoderPos()*Math.PI/180, .2));
+   
+      pidController.setReference(setpoint, ControlType.kPosition);
   }
 
   public double getEncoderPos() {
@@ -136,6 +141,6 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     // m_angleEncoder.setZeroOffset(140);
     SmartDashboard.putBoolean("IntakeBreakbeam", getIntakeBreakbeam());
-    // flexClosedLoop(intakeState.getEncoderValue());
+    flexClosedLoop(intakeState.getEncoderValue());
   }
 }

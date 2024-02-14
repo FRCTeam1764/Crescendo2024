@@ -15,6 +15,7 @@ import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
+import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.constants.SwerveConstantsYAGSL;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -86,15 +87,14 @@ public class RobotContainer {
     // private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-    // private final IntakeSubsystem intakeSubsystem = new
-    // IntakeSubsystem(robotState.intakeState);
+     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
     // Hunter was here
 
     // Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
     private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
-    private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
+  //  private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
 
     private Trajectory[] trajectories;
 
@@ -109,7 +109,8 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(translationAxis),
                         () -> -driver.getRawAxis(strafeAxis),
                         () -> -driver.getRawAxis(rotationAxis),
-                        () -> robotCentric.getAsBoolean()));
+                        () -> true));
+                        
         // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
         // new TeleopSwerve(
@@ -129,44 +130,46 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
-        // todo: need to conert back and forth from bronco to out swer
-        // SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
-        // RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
-        // AmpPhotonVision.whileTrue(new LockOnAprilTag(s_Swerve,thePi,0));
+         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
+         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
 
     }
 
     private void configureCoPilotButtonBindings() {
 
         // left bumper
-        // groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
-        // robotState.intakeState));
-        // groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
-        // robotState.intakeState));
+         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
+         robotState.intakeState));
+         groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
+         robotState.intakeState));
         // right bumper
-        // shoot.onTrue(new Shoot(shooter,intakeSubsystem));
-
+         shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+       // shoot.whileTrue( new IntakeCommand(intakeSubsystem,.4,false));
         // x button
         // scoreAmp.whileTrue(new
         // GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
         // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem,
         // robotState.intakeState));
-        /*
-         * //dpad (bane of humanity) 1 = left 2 = right
-         * climbLeft.toggleOnTrue(new
-         * ClimberCommand(climberSubsystem,-160000/2048,-100000/2048)
-         * );
-         * climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-100000/2048
-         * ,-160000/2048)
-         * );
-         * climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-100000/2048
-         * ,-100000/2048)
-         * );
-         * climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
-         * //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
-         * ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
-         * ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-         */
+        
+          //dpad (bane of humanity) 1 = left 2 = right
+          
+          climbLeft.toggleOnTrue(new
+          ClimberCommand(climberSubsystem,-80,-60)
+          );
+          climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-60
+          ,-80)
+          );
+          climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-60
+          ,-60)
+          );
+          climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
+          
+          //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+          ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
+          ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
+         
+        //             climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
+        //   climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
     }
 
     public Command getAutonomousCommand() {

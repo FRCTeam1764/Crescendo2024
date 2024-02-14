@@ -54,7 +54,7 @@ public class WristCommand extends Command {
   @Override
   public boolean isFinished() {
     if(finish){
-      return this.intake.getEncoderPos() <= this.desired+3 && this.intake.getEncoderPos() >= this.desired-3;
+      return this.intake.getEncoderPos() <= this.desired+10 && this.intake.getEncoderPos() >= this.desired-10;
     } else {
       return false;
    }

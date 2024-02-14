@@ -6,7 +6,7 @@ package frc.robot.state;
 
 /** Add your docs here. */
 public class IntakeState {
-    double desired =169;
+    double desired =166;
     
 public void setEncoderValue(double value) {
     desired = value;
