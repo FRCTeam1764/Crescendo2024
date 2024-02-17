@@ -6,9 +6,12 @@ package frc.robot.commands.DriveCommands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.SwerveConstantsYAGSL;
+import frc.robot.constants.SwerveConstants.Swerve;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -18,11 +21,13 @@ public class LockOnAprilTag extends Command {
   private LimelightSubsystem LimeLight;
   private SwerveSubsystem Drivetrain;
 
+  private Joystick controller;
   private PIDController thetaController = new PIDController(SwerveConstantsYAGSL.Auton.angleAutoPID.kP, SwerveConstantsYAGSL.Auton.angleAutoPID.kI, SwerveConstantsYAGSL.Auton.angleAutoPID.kD);
-  public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline) {
+  public LockOnAprilTag(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline, Joystick controller) {
     addRequirements(drivetrain);
     this.Drivetrain = drivetrain;
     this.LimeLight = limelight;
+    this.controller = controller;
     limelight.setPipeline(pipeline);
   }
 
@@ -37,8 +42,8 @@ public class LockOnAprilTag extends Command {
   @Override
   public void execute() {
     double thetaOutput = 0;
-    double xOutput = 0;
-    double yOutput = 0;
+    double xOutput = controller.getRawAxis(XboxController.Axis.kLeftY.value)*Swerve.maxSpeed;
+    double yOutput = controller.getRawAxis(XboxController.Axis.kLeftX.value)*Swerve.maxSpeed;
    // System.out.print("Here");
 		if (LimeLight.hasTarget()){
     //  System.out.print("Got");

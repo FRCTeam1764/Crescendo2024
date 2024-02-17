@@ -130,8 +130,8 @@ public class RobotContainer {
     private void configurePilotButtonBindings() {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
-         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
-         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,1));
+         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0,driver));
+         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,1, driver));
 
     }
 
@@ -148,7 +148,7 @@ public class RobotContainer {
 
         
           //dpad (bane of humanity) 1 = left 2 = right
-          
+        
           climbLeft.toggleOnTrue(new
           ClimberCommand(climberSubsystem,-80,-60)
           );
@@ -158,6 +158,7 @@ public class RobotContainer {
           climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-60
           ,-60)
           );
+          //replcae 
           climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
           
           //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));

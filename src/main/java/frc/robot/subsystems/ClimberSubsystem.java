@@ -91,11 +91,19 @@ setVoltage2.UpdateFreqHz = 10;
     // variable = getSign(variable)*Math.min(1, Math.abs(variable)); //prev 7.2
 
   public void ClimberRightTest(double speed) {
-    ClimberMotor1.set(speed);
+    double newspeed = speed;
+    if(getLimitSwitch2()){
+      newspeed = 0;
+    }
+    ClimberMotor1.set(newspeed);
   }
 
   public void ClimberLefttTest(double speed) {
-    ClimberMotor2.set(speed);
+    double newspeed = speed;
+    if(getLimitSwitch()){
+      newspeed = 0;
+    }
+    ClimberMotor2.set(newspeed);
   }
 
   public void zeroEncoder1() {
@@ -129,6 +137,7 @@ setVoltage2.UpdateFreqHz = 10;
 
   public int getSign(double num) {
     if (num < 0) {
+      
       return -1;
     }
     return 1;

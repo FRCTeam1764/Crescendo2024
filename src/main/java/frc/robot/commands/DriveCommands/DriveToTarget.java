@@ -17,9 +17,10 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.SwerveConstantsYAGSL;
+import frc.robot.constants.SwerveConstants.Swerve;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
-/* 
+
 public class DriveToTarget extends Command {
 
   private LimelightSubsystem m_LimeLight;
@@ -56,7 +57,7 @@ public class DriveToTarget extends Command {
   @Override
   public void initialize() {
     thetaController.reset();
-    thetaController.setTolerance(LimeLightConstants.ALLIGNMENT_TOLLERANCE_RADIANS);
+    thetaController.setTolerance(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -67,8 +68,10 @@ public class DriveToTarget extends Command {
     double yOutput = 0;
     
   	if (m_LimeLight.hasTarget()){
-      Translation2d t = new Translation2d(InterpolationConstants.GAME_PIECE_INTERPOLATOR.getInterpolatedValue(m_LimeLight.getTy().getDouble(0.0)), 0);
-      Rotation2d r = new Rotation2d(m_Drivetrain.getRotation3d().getAngle()+m_LimeLight.getTxAngleRadians());
+      // prev InterpolationConstants.GAME_PIECE_INTERPOLATOR.getInterpolatedValue(m_LimeLight.getTy().getDouble(0.0)
+      //this probably wont work 
+      Translation2d t = new Translation2d(m_LimeLight.getTy().getDouble(0), 0);
+      Rotation2d r = new Rotation2d(m_Drivetrain.getHeading().getRadians()+m_LimeLight.getTxAngleRadians());
       Transform2d i = new Transform2d(t, r);
       m_Game_Piece_Pose = m_Drivetrain.getPose().transformBy(i);
 
@@ -92,13 +95,14 @@ public class DriveToTarget extends Command {
     SmartDashboard.putNumber("Robot Angle", Math.toDegrees(m_Drivetrain.getPose().getRotation().getRadians()));
     SmartDashboard.putNumber("Calculated Angle", Math.toDegrees(setpoint));
 
-    m_Drivetrain.setControl(drive.withVelocityX(xOutput*m_speed_modifier).withVelocityY(yOutput*m_speed_modifier).withRotationalRate(thetaOutput));
+    m_Drivetrain.drive(new Translation2d(xOutput * Swerve.maxSpeed,yOutput*Swerve.maxSpeed),thetaOutput, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Drivetrain.setControl(drive.withVelocityX(0).withVelocityY(0).withRotationalRate(0));
+
+    m_Drivetrain.drive(new Translation2d(0,0), 0, interrupted);
   }
 
   // Returns true when the command should end.
@@ -107,4 +111,3 @@ public class DriveToTarget extends Command {
     return false;
   }
 }
-*/

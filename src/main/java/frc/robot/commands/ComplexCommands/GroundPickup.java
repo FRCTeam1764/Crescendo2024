@@ -28,7 +28,7 @@ public class GroundPickup extends SequentialCommandGroup {
     addRequirements(intakeSubsystem,shooter);
     addCommands (
       new ParallelDeadlineGroup(new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
-              new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false)
+      new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false)
  ),
       
 
