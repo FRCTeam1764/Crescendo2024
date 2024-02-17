@@ -36,8 +36,7 @@ public final class SwerveConstantsYAGSL
   {
 
     public static final PIDConstants TranslationPID     = new PIDConstants(0.7, 0, 0);
-    public static final PIDConstants angleAutoPID = new PIDConstants(0.4, 0, 0.01);
-
+    public static final PIDConstants angleAutoPID = new PIDConstants(4, 0, 0.5); //prev .6
     public static final double MAX_ACCELERATION = 2;
   }
 

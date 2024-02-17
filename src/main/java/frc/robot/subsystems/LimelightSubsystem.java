@@ -23,6 +23,7 @@ public class LimelightSubsystem extends SubsystemBase {
   private NetworkTableEntry ty;
   private NetworkTableEntry ta;
   private NetworkTableEntry tv;
+  private double horizontal_offset = 0;
 
 
 
@@ -43,13 +44,31 @@ public class LimelightSubsystem extends SubsystemBase {
 
   }
 
+  public LimelightSubsystem(String name,double offset) {
+    /**
+     * tx - Horizontal Offset
+     * ty - Vertical Offset 
+     * ta - Area of target 
+     * tv - Target Visible
+     */
+
+    this.table = NetworkTableInstance.getDefault().getTable(name);
+    this.tx = table.getEntry("tx");
+    this.ty = table.getEntry("ty");
+    this.ta = table.getEntry("ta");
+    this.tv = table.getEntry("tv");
+    this.horizontal_offset = offset;
+
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 
   public double getHorizontalAngleOfErrorDegrees(){
-    return getTx().getDouble(0.0) +0;
+    System.out.println(String.valueOf(getTx().getDouble(0)));
+    return getTx().getDouble(0.0) +horizontal_offset;
+
   }
 
   public double getVerticalAngleOfErrorDegrees(){

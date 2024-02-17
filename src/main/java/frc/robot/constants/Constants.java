@@ -24,10 +24,10 @@ public final class Constants {
     public static final int HOLDER_BREAK_BEAM = 0;
     public static final int CLIMBER_SWITCH_LEFT = 6;
     public static final int CLIMBER_SWITCH_RIGHT = 7;
-    public static final int INTAKE_BREAK_BEAM_FEED = 4;
+    public static final int INTAKE_BREAK_BEAM_FEED = 5;
         
-    public static final int INTAKE_BREAK_BEAM_INNER = 8;
-        public static final int INTAKE_BREAK_BEAM_MIDDLE = 2;
+    public static final int INTAKE_BREAK_BEAM_INNER = 2;
+        public static final int INTAKE_BREAK_BEAM_MIDDLE = 4;
 
  
     // public static final CanPort SIDE_INTAKE_MOTOR =     new CanPort(22);

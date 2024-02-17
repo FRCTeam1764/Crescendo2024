@@ -51,12 +51,12 @@ public class RobotContainer {
     /* Driver Buttons */
 
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
-    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kX.value);
+    private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickAxis LeftTrigger = new JoystickAxis(driver, XboxController.Axis.kLeftTrigger.value);
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
-    private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
+    //private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
 
     /* CoPilot Buttons */
 
@@ -92,8 +92,8 @@ public class RobotContainer {
     // Hunter was here
 
     // Limelights
-    private final LimelightSubsystem limelight3 = new LimelightSubsystem("Limelight3");
-    private final LimelightSubsystem limelight2 = new LimelightSubsystem("Limelight2");
+    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three",-2);
+    private final LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two");
   //  private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
 
     private Trajectory[] trajectories;
@@ -109,7 +109,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(translationAxis),
                         () -> -driver.getRawAxis(strafeAxis),
                         () -> -driver.getRawAxis(rotationAxis),
-                        () -> true));
+                        () -> !robotCentric.getAsBoolean()));
                         
         // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
@@ -131,7 +131,7 @@ public class RobotContainer {
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
          SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0));
-         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,0));
+         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,1));
 
     }
 
@@ -144,12 +144,8 @@ public class RobotContainer {
          robotState.intakeState));
         // right bumper
          shoot.onTrue(new Shoot(shooter,intakeSubsystem));
-       // shoot.whileTrue( new IntakeCommand(intakeSubsystem,.4,false));
         // x button
-        // scoreAmp.whileTrue(new
-        // GoToAmpPositionCommand(robotState.intakeState,intakeSubsystem,shooter));
-        // scoreAmp.onFalse(new ScoreAmpCommand(intakeSubsystem,
-        // robotState.intakeState));
+
         
           //dpad (bane of humanity) 1 = left 2 = right
           

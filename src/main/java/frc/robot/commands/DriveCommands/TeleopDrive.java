@@ -58,8 +58,8 @@ public class TeleopDrive extends Command
   @Override
   public void execute()
   {
-    double xVelocity   = Math.pow(MathUtil.applyDeadband(vX.getAsDouble(),SwerveConstantsYAGSL.OperatorConstants.LEFT_X_DEADBAND), 3);
-    double yVelocity   = Math.pow(MathUtil.applyDeadband(vY.getAsDouble(),SwerveConstantsYAGSL.OperatorConstants.LEFT_Y_DEADBAND), 3);
+    double xVelocity   = Math.pow(MathUtil.applyDeadband(vX.getAsDouble(),SwerveConstantsYAGSL.OperatorConstants.LEFT_X_DEADBAND), 1);
+    double yVelocity   = Math.pow(MathUtil.applyDeadband(vY.getAsDouble(),SwerveConstantsYAGSL.OperatorConstants.LEFT_Y_DEADBAND), 1);
     double angVelocity = Math.pow(MathUtil.applyDeadband(omega.getAsDouble(),SwerveConstantsYAGSL.OperatorConstants.TURN_CONSTANT), 3);
     SmartDashboard.putNumber("vX", xVelocity);
     SmartDashboard.putNumber("vY", yVelocity);

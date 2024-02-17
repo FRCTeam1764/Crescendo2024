@@ -29,7 +29,7 @@ public class returnGroundPickUp extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(intake, shooter);
   ParallelDeadlineGroup intakeBack = new ParallelDeadlineGroup(
-      new WristCommand(intake,intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false)
+      new WristCommand(intake,intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,2)
     , 
 //    new InstantCommand()
       new IntakeCommand(intake,CommandConstants.INTAKE_SLOW_SPEED,false)
@@ -39,7 +39,7 @@ public class returnGroundPickUp extends SequentialCommandGroup {
 
 ParallelRaceGroup movePiece =  new ParallelRaceGroup(
 
-new simpleWaitCommand(0.2),
+new simpleWaitCommand(0.4),
       new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false),
       new RollerCommand(shooter, CommandConstants.SHOOTER_INTAKE_SPEED,true)
     );

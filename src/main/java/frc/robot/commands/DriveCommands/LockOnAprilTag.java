@@ -39,13 +39,17 @@ public class LockOnAprilTag extends Command {
     double thetaOutput = 0;
     double xOutput = 0;
     double yOutput = 0;
+   // System.out.print("Here");
 		if (LimeLight.hasTarget()){
+    //  System.out.print("Got");
 			double horizontal_amgle = -LimeLight.getHorizontalAngleOfErrorDegrees() ;
 			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
-			if (!thetaController.atSetpoint() ){
+
+			if (!thetaController.atSetpoint()){
 				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);
 			}
+      System.out.print(String.valueOf(thetaOutput));
 		} 
     Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,true);
   }

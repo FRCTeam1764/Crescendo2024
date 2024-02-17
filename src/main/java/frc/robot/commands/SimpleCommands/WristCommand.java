@@ -15,6 +15,7 @@ public class WristCommand extends Command {
   int desired;
   boolean finish;
   boolean returns;
+  double offset = 10;
   IntakeSubsystem intake;
   public WristCommand(IntakeSubsystem intake ,IntakeState intakeState, int desiredEncoderValue, boolean finish, boolean returns) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -23,8 +24,16 @@ public class WristCommand extends Command {
     this.finish = finish;
     this.returns = returns;
     this.intake = intake;
+    offset = 10;
   }
 
+  public WristCommand(IntakeSubsystem intake, IntakeState intakeState, int desiredEncoderValue, boolean finish, double tolerance){
+    this.state = intakeState;
+    this.desired = desiredEncoderValue;
+    this.finish = finish;
+    this.offset = tolerance;
+    this.intake = intake;
+  }
 
     //TODO Auto-generated constructor stub
 
@@ -54,7 +63,7 @@ public class WristCommand extends Command {
   @Override
   public boolean isFinished() {
     if(finish){
-      return this.intake.getEncoderPos() <= this.desired+10 && this.intake.getEncoderPos() >= this.desired-10;
+      return this.intake.getEncoderPos() <= this.desired+offset && this.intake.getEncoderPos() >= this.desired-offset;
     } else {
       return false;
    }

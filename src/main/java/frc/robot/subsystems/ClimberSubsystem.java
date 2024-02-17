@@ -80,12 +80,10 @@ setVoltage2.UpdateFreqHz = 10;
 
   public void ClimberOnLeft(double desiredEncoderValue) {
   StatusCode val =   ClimberMotor2.setControl(setVoltage.withPosition(desiredEncoderValue).withSlot(0));
-  System.out.print(val.toString());
   }
 
   public void ClimberOnRight(double desiredEncoderValue) {
   StatusCode val =   ClimberMotor1.setControl(setVoltage2.withPosition(desiredEncoderValue).withSlot(0));
-  System.out.print(val.toString());
   }
       // double variable =
     // pidController1.calculate(getEncoderValue(),desiredEncoderValue);
