@@ -4,7 +4,15 @@
 
 package frc.robot.commands.AutoCommands;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.simpleWaitCommand;
+import frc.robot.commands.SimpleCommands.AmpCommand;
+import frc.robot.commands.SimpleCommands.IntakeCommand;
+import frc.robot.commands.SimpleCommands.RollerCommand;
+import frc.robot.commands.SimpleCommands.ShooterAmpCommand;
+import frc.robot.subsystems.AmpScoreSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
 
@@ -13,12 +21,19 @@ import frc.robot.subsystems.Shooter;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutoAmpCommand extends SequentialCommandGroup {
   /** Creates a new AutoAmpCommand. */
-  public AutoAmpCommand(Shooter shooter, IntakeSubsystem intake) {
+  public AutoAmpCommand(Shooter shooter, IntakeSubsystem intake, AmpScoreSubsystem amp) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addRequirements(shooter, intake);
-
+    ParallelDeadlineGroup shoot = new ParallelDeadlineGroup(
+      new simpleWaitCommand(1),
+        new ParallelCommandGroup(
+          new ShooterAmpCommand(shooter),
+          new RollerCommand(shooter,0.2,false), // speed needs tuning, half of SHOOTER_INTAKE_SPEED
+          new IntakeCommand(intake, -0.25,false) // speed needs tuning, half of INTAKE_FAST_SPEED
+        )
+    );
     
-    addCommands();
+    addCommands(shoot, 
+    new AmpCommand(amp, 0)); // EDITTTTTTTTTTT
   }
 }

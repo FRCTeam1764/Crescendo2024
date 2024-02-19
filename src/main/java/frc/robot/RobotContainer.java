@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
-import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
+import frc.robot.commands.ComplexCommands.OldScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;

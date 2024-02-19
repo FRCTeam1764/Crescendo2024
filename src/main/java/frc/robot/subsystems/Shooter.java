@@ -57,6 +57,11 @@ public class Shooter extends SubsystemBase {
     flyWheel2.set(1);
   }
 
+  public void shooterAmp() {
+    flyWheel1.set(0.5);
+    flyWheel1.set(0.5);
+  }
+
   public void shooterOff() {
     flyWheel1.set(0);
     flyWheel2.set(0);
