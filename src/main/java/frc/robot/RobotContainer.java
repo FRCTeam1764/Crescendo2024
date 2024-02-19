@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
+import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
@@ -160,7 +161,7 @@ public class RobotContainer {
           ,-60)
           );
           //replcae 
-          climbDown.toggleOnTrue( new ClimberCommand(climberSubsystem,0,0));
+          climbDown.toggleOnTrue( new ClimbDownCommand(climberSubsystem));
           
           //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
           ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
