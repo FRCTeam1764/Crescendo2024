@@ -21,17 +21,21 @@ public class AmpCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    amp.setEncoderValue(desired);
+    amp.setPidPosition(desired); // maybe just set it permanent up variable? figure out how high it has to go
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    amp.setPidPosition(desired);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
-
+  public void end(boolean interrupted) {
+    amp.setPidPosition(0); // go back down
+  }
+  
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {

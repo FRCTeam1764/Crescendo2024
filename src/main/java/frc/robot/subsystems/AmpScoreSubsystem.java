@@ -41,17 +41,9 @@ public class AmpScoreSubsystem extends SubsystemBase {
 
   double setpoint;
 
-  public void flexClosedLoop(double desired) {
+  public void setPidPosition(double desired) {
     setpoint = desired;
     pidController.setReference(setpoint, ControlType.kPosition);
-  }
-
-  public void setEncoderValue(double value) {
-    desired = value;
-  }
-
-  public double getEncoderValue() {
-    return desired;
   }
 
   @Override
