@@ -66,7 +66,6 @@ public class LimelightSubsystem extends SubsystemBase {
   }
 
   public double getHorizontalAngleOfErrorDegrees(){
-    System.out.println(String.valueOf(getTx().getDouble(0)));
     return getTx().getDouble(0.0) +horizontal_offset;
 
   }

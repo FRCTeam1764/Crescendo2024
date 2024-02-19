@@ -80,7 +80,6 @@ public class IntakeSubsystem extends SubsystemBase {
       negative = 1;
     }
 
-    SmartDashboard.putNumber("intake speed", m_intakeMotor.get());
      if (!breakBeamIntake.get() && negative ==1) {
        m_intakeMotor.set(0.1);
      } else {

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.DriveCommands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Joystick;
@@ -42,8 +43,8 @@ public class LockOnAprilTag extends Command {
   @Override
   public void execute() {
     double thetaOutput = 0;
-    double xOutput = controller.getRawAxis(XboxController.Axis.kLeftY.value)*Swerve.maxSpeed;
-    double yOutput = controller.getRawAxis(XboxController.Axis.kLeftX.value)*Swerve.maxSpeed;
+    double xOutput =MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value)*Swerve.maxSpeed,.1);
+    double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value)*Swerve.maxSpeed,.1);
    // System.out.print("Here");
 		if (LimeLight.hasTarget()){
     //  System.out.print("Got");
@@ -56,13 +57,13 @@ public class LockOnAprilTag extends Command {
 			}
       System.out.print(String.valueOf(thetaOutput));
 		} 
-    Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,true);
+    Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,false);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Drivetrain.drive(new Translation2d(0,0),0,true);
+    Drivetrain.drive(new Translation2d(0,0),0,false);
   }
 
   // Returns true when the command should end.

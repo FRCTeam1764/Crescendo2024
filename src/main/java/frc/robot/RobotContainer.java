@@ -11,6 +11,7 @@ import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
+import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
@@ -66,7 +67,7 @@ public class RobotContainer {
             XboxController.Button.kLeftBumper.value);
     private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
 
-    private final JoystickButton scoreAmp = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     private final POVButton climbRight = new POVButton(secondaryController, 90);
     private final POVButton climbLeft = new POVButton(secondaryController, 270);
@@ -145,7 +146,7 @@ public class RobotContainer {
         // right bumper
          shoot.onTrue(new Shoot(shooter,intakeSubsystem));
         // x button
-
+        index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
         
           //dpad (bane of humanity) 1 = left 2 = right
         

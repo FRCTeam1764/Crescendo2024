@@ -27,6 +27,7 @@ public class Shooter extends SubsystemBase {
     flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
+    SmartDashboard.putBoolean("RollerBreakBeam", false);
 
     setupMotors();
 
