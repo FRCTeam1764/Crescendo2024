@@ -10,7 +10,7 @@ import frc.robot.commands.*;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
-import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
+import frc.robot.commands.ComplexCommands.OldScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
 import frc.robot.commands.ComplexCommands.SpitOutNoteCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
