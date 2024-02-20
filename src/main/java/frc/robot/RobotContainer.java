@@ -12,12 +12,16 @@ import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
+import frc.robot.commands.ComplexCommands.SpitOutNoteCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
+import frc.robot.commands.SimpleCommands.RollerCommand;
+import frc.robot.commands.SimpleCommands.ShooterCommand;
+import frc.robot.commands.SimpleCommands.ShooterSpecial;
 import frc.robot.constants.SwerveConstantsYAGSL;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -66,7 +70,8 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton groundPickup = new JoystickButton(secondaryController,
             XboxController.Button.kLeftBumper.value);
-    private final JoystickButton climb = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton shootlow = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
 
     private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
@@ -84,14 +89,13 @@ public class RobotContainer {
 
     public RobotState robotState = new RobotState(driver);
 
-    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
+  private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
             new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
-    // private final Swerve s_Swerve = new Swerve();
+  //   private final Swerve s_Swerve = new Swerve();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
      private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
-    // Hunter was here
 
     // Limelights
     private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three",-2);
@@ -112,7 +116,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(strafeAxis),
                         () -> -driver.getRawAxis(rotationAxis),
                         () -> !robotCentric.getAsBoolean()));
-                        
+                 
         // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
         // new TeleopSwerve(
@@ -130,6 +134,7 @@ public class RobotContainer {
     }
 
     private void configurePilotButtonBindings() {
+        
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
          SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0,driver));
@@ -138,6 +143,7 @@ public class RobotContainer {
     }
 
     private void configureCoPilotButtonBindings() {
+   shootlow.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
 
         // left bumper
          groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
@@ -146,9 +152,13 @@ public class RobotContainer {
          robotState.intakeState));
         // right bumper
          shoot.onTrue(new Shoot(shooter,intakeSubsystem));
+         
         // x button
         index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
         
+        //b button
+     //   spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem, robotState.intakeState));
+
           //dpad (bane of humanity) 1 = left 2 = right
         
           climbLeft.toggleOnTrue(new
@@ -169,6 +179,7 @@ public class RobotContainer {
          
         //             climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
         //   climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
+    
     }
 
     public Command getAutonomousCommand() {
@@ -177,9 +188,9 @@ public class RobotContainer {
         // return autoChooser.getSelected();
     }
 
-    public SwerveSubsystem getDrivetrainSubsystem() {
-        return s_Swerve;
-    }
+    // public SwerveSubsystem getDrivetrainSubsystem() {
+    //     return s_Swerve;
+    // }
 
     // public Swerve getDrivetrainSubsystem(){
     // return s_Swerve;

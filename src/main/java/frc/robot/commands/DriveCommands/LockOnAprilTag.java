@@ -43,11 +43,9 @@ public class LockOnAprilTag extends Command {
   @Override
   public void execute() {
     double thetaOutput = 0;
-    double xOutput =MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value)*Swerve.maxSpeed,.1);
-    double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value)*Swerve.maxSpeed,.1);
-   // System.out.print("Here");
+    double xOutput =MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value),SwerveConstantsYAGSL.OperatorConstants.LEFT_X_DEADBAND)*Swerve.maxSpeed;
+    double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value),SwerveConstantsYAGSL.OperatorConstants.RIGHT_X_DEADBAND)*Swerve.maxSpeed;
 		if (LimeLight.hasTarget()){
-    //  System.out.print("Got");
 			double horizontal_amgle = -LimeLight.getHorizontalAngleOfErrorDegrees() ;
 			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);

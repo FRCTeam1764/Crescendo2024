@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.controls.NeutralOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.NetworkTableType;
@@ -21,6 +23,8 @@ public class Shooter extends SubsystemBase {
   public LazyTalonFX flyWheel2;
   public LazyTalonFX holderRoller;
   private DigitalInput breakBeamHolder;
+  private VelocityVoltage controlVoltage;
+  private NeutralOut brake;
 
   public Shooter() {
 
@@ -40,11 +44,26 @@ public class Shooter extends SubsystemBase {
 
     breakBeamHolder = new DigitalInput(Constants.HOLDER_BREAK_BEAM);
 
+    controlVoltage = new VelocityVoltage(0);
+brake = new NeutralOut();
   }
 
   public void setupMotors() {
     TalonFXConfiguration config1 = new TalonFXConfiguration();
+
+
+
     TalonFXConfiguration config2 = new TalonFXConfiguration();
+
+    config1.Slot0.kP = .4; //prev .7
+    config1.Slot0.kD = .00015;
+
+    config2.Slot0.kP = .4;
+    config2.Slot0.kD = .00015;
+    
+    
+  
+
     TalonFXConfiguration configRoller = new TalonFXConfiguration();
 
     flyWheel1.getConfigurator().apply(config1);
@@ -61,6 +80,16 @@ public class Shooter extends SubsystemBase {
   public void shooterOff() {
     flyWheel1.set(0);
     flyWheel2.set(0);
+  }
+
+  public void shooterPIDOff(){
+flyWheel1.setControl(brake);
+flyWheel2.setControl(brake);
+  }
+  public void shooterPID(double speed ){
+flyWheel1.setControl(controlVoltage.withFeedForward(0.6).withSlot(0).withVelocity(speed));
+flyWheel2.setControl(controlVoltage.withFeedForward(0.6).withSlot(0).withVelocity(speed));
+
   }
 
   public void roller(double speed) {
