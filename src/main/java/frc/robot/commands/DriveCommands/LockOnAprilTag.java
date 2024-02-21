@@ -36,7 +36,7 @@ public class LockOnAprilTag extends Command {
   @Override
   public void initialize() {
     thetaController.reset();
-    thetaController.setTolerance(Math.toRadians(3)); //fix later?
+    thetaController.setTolerance(Math.toRadians(1)); //fix later?
   }
 
   // Called every time the scheduler runs while the command is scheduled.
