@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkPIDController;
 import com.revrobotics.CANSparkBase.ControlType;
 import com.revrobotics.CANSparkBase.IdleMode;
@@ -16,6 +17,7 @@ import frc.robot.constants.Constants;
 public class AmpScoreSubsystem extends SubsystemBase {
   /** Creates a new AmpScoreSubsystem. */
   private final CANSparkMax ampMotor = new CANSparkMax(Constants.AMP_MOTOR.id, MotorType.kBrushless);
+  private final RelativeEncoder encoder = ampMotor.getEncoder();
   private SparkPIDController pidController;
   double desired =166;
   Shooter shooter;

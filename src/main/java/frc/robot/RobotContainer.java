@@ -33,6 +33,7 @@ import frc.robot.state.RobotState;
 import java.io.File;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -47,7 +48,6 @@ public class RobotContainer {
     private final Joystick secondaryController = new Joystick(1);
 
     // auto choosa
-    // private final SendableChooser<Command> autoChooser;
 
     /* Drive Controls */
 
@@ -63,7 +63,8 @@ public class RobotContainer {
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
-    //private final JoystickButton AmpPhotonVision = new JoystickButton(driver, XboxController.Button.kX.value);
+    // private final JoystickButton AmpPhotonVision = new JoystickButton(driver,
+    // XboxController.Button.kX.value);
 
     /* CoPilot Buttons */
 
@@ -90,23 +91,24 @@ public class RobotContainer {
 
     public RobotState robotState = new RobotState(driver);
 
-  private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
             new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
-  //   private final Swerve s_Swerve = new Swerve();
+    // private final Swerve s_Swerve = new Swerve();
+       // private  SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+
     private final Superstructure superstructure = new Superstructure();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
-     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
+   // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
 
     // Limelights
-    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three",1);
+    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1);
     private final LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two");
-  //  private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
+    // private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
 
     private Trajectory[] trajectories;
 
     public RobotContainer() {
-        // autoChooser = AutoBuilder.buildAutoChooser();
 
         // teleop drive for yagsl
 
@@ -117,7 +119,7 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(strafeAxis),
                         () -> -driver.getRawAxis(rotationAxis),
                         () -> !robotCentric.getAsBoolean()));
-                 
+
         // teleop swerve for 365
         // s_Swerve.setDefaultCommand(
         // new TeleopSwerve(
@@ -129,68 +131,70 @@ public class RobotContainer {
         // robotState
         // )
         // );
-
+        configAutoCommands();
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
     }
 
     private void configurePilotButtonBindings() {
-        
+
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
-         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight2,0,driver));
-         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve,limelight3,1, driver));
+        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver));
+        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver));
 
     }
 
     private void configureCoPilotButtonBindings() {
-   shootlow.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
+        shootlow.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
 
         // left bumper
-         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
-         robotState.intakeState));
-         groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
-         robotState.intakeState));
+        groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
+                robotState.intakeState));
+        groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
+                robotState.intakeState));
+
         // right bumper
-         shoot.onTrue(new Shoot(shooter,intakeSubsystem));
-         
+        shoot.onTrue(new Shoot(shooter, intakeSubsystem));
+
         // x button
         index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
-        
-        //b button
-     //   spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem, robotState.intakeState));
 
-          //dpad (bane of humanity) 1 = left 2 = right
-        
-          climbLeft.toggleOnTrue(new
-          ClimberCommand(climberSubsystem,-80,-60)
-          );
-          climbRight.toggleOnTrue( new ClimberCommand(climberSubsystem,-60
-          ,-80)
-          );
-          climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem,-60
-          ,-60)
-          );
-          //replcae 
-          climbDown.toggleOnTrue( new ClimbDownCommand(climberSubsystem));
-          
-          //climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
-          ZeroRightArm.whileTrue( new testClimberRight(climberSubsystem, .2));
-          ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-         
-        //             climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
-        //   climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
-    
+        // b button
+        // spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
+        // robotState.intakeState));
+
+
+
+        // dpad (bane of humanity) 1 = left 2 = right
+/* 
+        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -80, -60));
+        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -80));
+        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -60));
+        // replcae
+        climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
+
+        // climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+        ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
+        ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
+*/
+        // climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
+        // climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
+
+    }
+
+    public void configAutoCommands() {
+        NamedCommands.registerCommand(null, getAutonomousCommand());
+
     }
 
     public Command getAutonomousCommand() {
-        return null;
-        // return s_Swerve.getAutonomousCommand("Test", false);
-        // return autoChooser.getSelected();
+         return s_Swerve.getAutonomousCommand("Test");
+       // return autoChooser.getSelected();
     }
 
     // public SwerveSubsystem getDrivetrainSubsystem() {
-    //     return s_Swerve;
+    // return s_Swerve;
     // }
 
     // public Swerve getDrivetrainSubsystem(){

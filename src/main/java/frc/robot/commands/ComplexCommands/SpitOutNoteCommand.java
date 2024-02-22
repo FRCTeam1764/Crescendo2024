@@ -26,7 +26,7 @@ public class SpitOutNoteCommand extends ParallelCommandGroup {
       new WristCommand(intakeSubsystem,intakeState,300,true,false),
 
       new ParallelCommandGroup(
-        new IntakeCommand(intakeSubsystem,-CommandConstants.INTAKE_PICKUP_SPEED,false),
+        new IntakeCommand(intakeSubsystem,-CommandConstants.INTAKE_SLOW_SPEED,false),
         new WristCommand(intakeSubsystem,intakeState, 300,false,true)
     )
     );

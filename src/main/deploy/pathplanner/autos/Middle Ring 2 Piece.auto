@@ -12,9 +12,9 @@
     "data": {
       "commands": [
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "AutoScore"
+            "pathName": "TopShootSpawn"
           }
         },
         {
@@ -24,21 +24,9 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "GroundPickUpAuto"
-          }
-        },
-        {
           "type": "path",
           "data": {
             "pathName": "TopMidToShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "AutoScore"
           }
         },
         {
