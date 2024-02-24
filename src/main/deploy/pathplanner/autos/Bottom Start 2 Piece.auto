@@ -1,12 +1,6 @@
 {
   "version": 1.0,
-  "startingPose": {
-    "position": {
-      "x": 1.3473171105886368,
-      "y": 6.993104356579084
-    },
-    "rotation": 0.0
-  },
+  "startingPose": null,
   "command": {
     "type": "sequential",
     "data": {
@@ -14,25 +8,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopShootSpawn"
+            "pathName": "BottomStartToShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "StarttoTopMid"
+            "pathName": "BottomShootToStageRing"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "TopMidToShoot"
+            "pathName": "StageRingToShoot"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "TopScoreToLeave"
+            "pathName": "BottomShootToLeave"
           }
         }
       ]

@@ -92,7 +92,7 @@ setVoltage2.UpdateFreqHz = 10;
 
   public void ClimberRightTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch2()){
+    if(getLimitSwitch2() || Math.abs(ClimberMotor1.getPosition().getValue()) < 5){
       newspeed = 0;
     }
     ClimberMotor1.set(newspeed);
@@ -100,7 +100,7 @@ setVoltage2.UpdateFreqHz = 10;
 
   public void ClimberLefttTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch()){
+    if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 5){
       newspeed = 0;
     }
     ClimberMotor2.set(newspeed);
@@ -115,7 +115,7 @@ setVoltage2.UpdateFreqHz = 10;
   }
 
   public boolean getLimitSwitch() {
-    return !limitSwitch.get();
+    return !limitSwitch.get();                                                                                     
   }
 
   public boolean getLimitSwitch2() {
@@ -162,6 +162,10 @@ setVoltage2.UpdateFreqHz = 10;
     if (getLimitSwitch2()) {
       zeroEncoder1();
     }
+
+
+    ClimberMotor1.getPosition().refresh();
+    ClimberMotor2.getPosition().refresh();
     // ClimberOnLeft(-setypointy);
     // ClimberOnRight(-setypointy);
     // This method will be called once per scheduler run

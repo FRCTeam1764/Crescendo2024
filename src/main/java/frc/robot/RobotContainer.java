@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
+import frc.robot.commands.AutoCommands.AutoGroundPickUp;
+import frc.robot.commands.AutoCommands.LimeLightAuto;
+import frc.robot.commands.AutoCommands.LockOnAprilTagAuto;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
@@ -93,11 +96,13 @@ public class RobotContainer {
 
     private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
             new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
+
+
     // private final Swerve s_Swerve = new Swerve();
-       // private  SendableChooser<Command> autoChooser = AutoBuilder.buildAutoChooser();
+     private  SendableChooser<Command> autoChooser;
 
     private final Superstructure superstructure = new Superstructure();
-   // private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+ //   private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
 
@@ -134,6 +139,9 @@ public class RobotContainer {
         configAutoCommands();
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
+
+         autoChooser =  AutoBuilder.buildAutoChooser();
+        SmartDashboard.putData(autoChooser);
     }
 
     private void configurePilotButtonBindings() {
@@ -165,9 +173,9 @@ public class RobotContainer {
         // robotState.intakeState));
 
 
-
-        // dpad (bane of humanity) 1 = left 2 = right
 /* 
+        // dpad (bane of humanity) 1 = left 2 = right
+
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -80, -60));
         climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -80));
         climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -60));
@@ -178,19 +186,23 @@ public class RobotContainer {
         ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
         ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
 */
+
+//test commands - send climber back up 
         // climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
         // climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
 
     }
 
     public void configAutoCommands() {
-        NamedCommands.registerCommand(null, getAutonomousCommand());
+        NamedCommands.registerCommand("AutoScore", new Shoot(shooter,intakeSubsystem));
+        NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
+        NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
+        NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
 
     }
 
     public Command getAutonomousCommand() {
-         return s_Swerve.getAutonomousCommand("Test");
-       // return autoChooser.getSelected();
+        return autoChooser.getSelected();
     }
 
     // public SwerveSubsystem getDrivetrainSubsystem() {
