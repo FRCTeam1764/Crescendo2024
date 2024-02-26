@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.8969423693833152,
-      "y": 6.829386194384925
+      "x": 1.9203306782681937,
+      "y": 5.55
     },
-    "rotation": 180.0
+    "rotation": 0
   },
   "command": {
     "type": "sequential",
@@ -14,13 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopShootSpawn"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LimeLightSpeaker"
+            "pathName": "MidStartToShoot"
           }
         },
         {
@@ -32,13 +26,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "StarttoTopMid"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LimeLightRing"
+            "pathName": "ShootToMidRing"
           }
         },
         {
@@ -50,13 +38,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopMidToShoot"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LimeLightSpeaker"
+            "pathName": "MidRingToShoot"
           }
         },
         {
@@ -68,7 +50,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "TopScoreToLeave"
+            "pathName": "MidShootToLeave"
           }
         }
       ]
