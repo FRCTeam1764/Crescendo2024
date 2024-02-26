@@ -32,8 +32,9 @@ public class AutoGroundPickUp extends SequentialCommandGroup {
       new ParallelDeadlineGroup(new simpleWaitCommand(1),
         new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false),
         new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,false,false),
-        new DriveBasic(swerve,.1)
+        new DriveBasic(swerve,.25)
     ),
+
     new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,false,false),
     new ParallelDeadlineGroup(new simpleWaitCommand(.4),     new indexRingCommand(shooter, intakeSubsystem)
 )

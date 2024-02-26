@@ -24,13 +24,13 @@ import pabeles.concurrency.ConcurrencyOps.NewInstance;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ScoreAmpCommand extends SequentialCommandGroup {
+public class ScoreTrapCommand extends SequentialCommandGroup {
   /** Creates a new ScoreAmpCommand. */
-  public ScoreAmpCommand(IntakeSubsystem intake, Shooter shooter) {
+  public ScoreTrapCommand(IntakeSubsystem intake, Shooter shooter) {
     addRequirements(intake);
     ParallelDeadlineGroup score = new ParallelDeadlineGroup(
-      new simpleWaitCommand(0.5),
-      new ShooterSpecial(shooter,9.5,false)
+      new simpleWaitCommand(1),
+      new ShooterSpecial(shooter,32,false)
 
     );
 
@@ -40,10 +40,9 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
       score,
       
       new ParallelDeadlineGroup(
-
-      new ShooterSpecial(shooter,9.5,false),
-      new RollerCommand(shooter, 0.4, false)
-    //  new IntakeCommand(intake, -0.2, false)
+      new ShooterSpecial(shooter,32,false),
+      new RollerCommand(shooter, 0.2, false),
+      new IntakeCommand(intake, -0.2, false)
       )
 // new ParallelDeadlineGroup( new simpleWaitCommand(1),
 // new ShooterSpecial(shooter, 30, false)

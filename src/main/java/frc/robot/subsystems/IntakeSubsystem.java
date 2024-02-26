@@ -46,11 +46,12 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setIdleMode(IdleMode.kBrake);
   
     pidController = m_flexMotor.getPIDController();
-    pidController.setP(.007); // dropped in half, prev .05
+    pidController.setP(.007); 
     pidController.setD(0.5);
     
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.8, .8);
+  
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;
@@ -110,12 +111,6 @@ public class IntakeSubsystem extends SubsystemBase {
   double kd;
 
   public void flexClosedLoop(double desired) {
-
-    // pid = new PIDController(SmartDashboard.getNumber("kP", 0), 0.0,
-    // SmartDashboard.getNumber("kD", 0));
-    // pid = new PIDController(0.05, 0, 0.00001); //previouslt .05
-    // double upfeedForward =
-    // m_feedForward.calculate(m_angleEncoder.getPosition(),0.1);
     setpoint = desired;
 
    //  setpoint = SmartDashboard.getNumber("SetPointSet",300);
@@ -123,14 +118,9 @@ public class IntakeSubsystem extends SubsystemBase {
     // pid.setSetpoint(setpoint);
    // SmartDashboard.putNumber("getPosition", m_angleEncoder.getPosition());
 
-    // pidValue = pid.calculate(m_angleEncoder.getPosition()); //calculate feed
-    // forward
 
     // SmartDashboard.putNumber("intakePID", pidValue);
     // SmartDashboard.putNumber("totalMotorSet", pidValue);
-    // m_flexMotor.setVoltage(Math.min(pidValue,4));// remove 4 now previously 6
-   //m_flexMotor.setVoltage(armfeed.calculate(getEncoderPos()*Math.PI/180, .2));
-   
       pidController.setReference(setpoint, ControlType.kPosition);
   }
 

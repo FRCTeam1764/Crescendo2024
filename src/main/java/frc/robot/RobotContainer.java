@@ -15,6 +15,7 @@ import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.OldScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
+import frc.robot.commands.ComplexCommands.ScoreTrapCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
 import frc.robot.commands.ComplexCommands.SpitOutNoteCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
@@ -75,7 +76,8 @@ public class RobotContainer {
             XboxController.Button.kRightBumper.value);
     private final JoystickButton groundPickup = new JoystickButton(secondaryController,
             XboxController.Button.kLeftBumper.value);
-    private final JoystickButton shootlow = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton shootAmp = new JoystickButton(secondaryController, XboxController.Button.kA.value);
+    private final JoystickButton shootTrap = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
 
     private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
@@ -142,6 +144,7 @@ public class RobotContainer {
 
          autoChooser =  AutoBuilder.buildAutoChooser();
         SmartDashboard.putData(autoChooser);
+        
     }
 
     private void configurePilotButtonBindings() {
@@ -154,7 +157,12 @@ public class RobotContainer {
     }
 
     private void configureCoPilotButtonBindings() {
-        shootlow.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
+        //y button
+        
+        shootAmp.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
+
+        //a button
+        shootTrap.whileTrue(new ScoreTrapCommand(intakeSubsystem, shooter));
 
         // left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
@@ -172,7 +180,7 @@ public class RobotContainer {
         // spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
         // robotState.intakeState));
 
-
+            
 /* 
         // dpad (bane of humanity) 1 = left 2 = right
 
@@ -194,11 +202,12 @@ public class RobotContainer {
     }
 
     public void configAutoCommands() {
+        /* 
         NamedCommands.registerCommand("AutoScore", new Shoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
         NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
         NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
-
+*/
     }
 
     public Command getAutonomousCommand() {

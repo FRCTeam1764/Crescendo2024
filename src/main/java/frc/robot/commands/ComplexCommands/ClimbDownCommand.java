@@ -41,6 +41,7 @@ public class ClimbDownCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return climber.getLimitSwitch() && climber.getLimitSwitch2();
+    return (climber.getLimitSwitch() && climber.getLimitSwitch2()) 
+    ||(Math.abs(climber.getEncoderValue()) <=6 &&Math.abs(climber.getEncoderValue2()) <=6 );
   }
 }

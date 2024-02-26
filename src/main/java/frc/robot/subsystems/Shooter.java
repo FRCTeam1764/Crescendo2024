@@ -55,11 +55,11 @@ brake = new NeutralOut();
 
     TalonFXConfiguration config2 = new TalonFXConfiguration();
 
-    config1.Slot0.kP = .4; //prev .7
-    config1.Slot0.kD = .00015;
+    config1.Slot0.kP = .4; //prev .65
+    config1.Slot0.kD = .005;
 
     config2.Slot0.kP = .4;
-    config2.Slot0.kD = .00015;
+    config2.Slot0.kD = .005;
     
     
   
@@ -92,8 +92,8 @@ flyWheel1.setControl(brake);
 flyWheel2.setControl(brake);
   }
   public void shooterPID(double speed ){
-flyWheel1.setControl(controlVoltage.withFeedForward(0.6).withSlot(0).withVelocity(speed));
-flyWheel2.setControl(controlVoltage.withFeedForward(0.6).withSlot(0).withVelocity(speed));
+flyWheel1.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocity(speed).withLimitReverseMotion(true));
+flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocity(speed).withLimitReverseMotion(true));
 
   }
 
@@ -123,6 +123,10 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.6).withSlot(0).withVelocit
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("RollerBreakBeam", RollerBreakBeamBroken());
+
+    SmartDashboard.putNumber("flywheel1-velo", flyWheel1.getVelocity().getValueAsDouble());
+     SmartDashboard.putNumber("flywheel2-velo", flyWheel2.getVelocity().getValueAsDouble());
+
     // This method will be called once per scheduler run
   }
 }

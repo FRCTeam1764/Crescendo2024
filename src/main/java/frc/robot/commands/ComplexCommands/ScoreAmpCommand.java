@@ -29,8 +29,8 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
   public ScoreAmpCommand(IntakeSubsystem intake, Shooter shooter) {
     addRequirements(intake);
     ParallelDeadlineGroup score = new ParallelDeadlineGroup(
-      new simpleWaitCommand(0.5),
-      new ShooterSpecial(shooter,9.5,false)
+      new simpleWaitCommand(1),
+      new ShooterSpecial(shooter,5,false)
 
     );
 
@@ -41,9 +41,9 @@ public class ScoreAmpCommand extends SequentialCommandGroup {
       
       new ParallelDeadlineGroup(
 
-      new ShooterSpecial(shooter,9.5,false),
-      new RollerCommand(shooter, 0.4, false)
-    //  new IntakeCommand(intake, -0.2, false)
+      new ShooterSpecial(shooter,5,false),
+      new RollerCommand(shooter, 0.1, false),
+      new IntakeCommand(intake, -0.1, false)
       )
 // new ParallelDeadlineGroup( new simpleWaitCommand(1),
 // new ShooterSpecial(shooter, 30, false)
