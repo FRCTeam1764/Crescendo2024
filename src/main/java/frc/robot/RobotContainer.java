@@ -104,14 +104,16 @@ public class RobotContainer {
      private  SendableChooser<Command> autoChooser;
 
     private final Superstructure superstructure = new Superstructure();
- //   private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter();
 
     // Limelights
-    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1);
-    private final LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two");
-    // private final LimelightSubsystem thePi = new LimelightSubsystem("TopCam");
+    // 3 is front intake
+    //2 is back shooter
+    //4,7,15,16,14,12,11,13,6,5 - tags that 2 should see
+    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1,s_Swerve);
+    private final LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two",0,s_Swerve);
 
     private Trajectory[] trajectories;
 
@@ -151,8 +153,10 @@ public class RobotContainer {
 
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
-        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver));
-        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver));
+        //a
+        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true));
+        //b
+        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false));
 
     }
 
@@ -181,33 +185,36 @@ public class RobotContainer {
         // robotState.intakeState));
 
             
-/* 
+
         // dpad (bane of humanity) 1 = left 2 = right
 
-        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -80, -60));
-        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -80));
-        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -60, -60));
+        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -140, -100));
+        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -140));
+        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -100));
         // replcae
         climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
 
         // climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
         ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
         ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-*/
 
+/* 
+        ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
+        ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
 //test commands - send climber back up 
-        // climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
-        // climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
+        climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
+         climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
+         */
 
     }
 
     public void configAutoCommands() {
-        /* 
+        
         NamedCommands.registerCommand("AutoScore", new Shoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
         NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
         NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
-*/
+
     }
 
     public Command getAutonomousCommand() {

@@ -42,7 +42,7 @@ public class DriveBasic extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-swerve.drive(new Translation2d(-.1 *swerve.maximumSpeed,0), 0 ,false);
+swerve.drive(new Translation2d(-speed *swerve.maximumSpeed,0), 0 ,false);
   }
 
   // Called once the command ends or is interrupted.

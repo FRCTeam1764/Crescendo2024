@@ -46,9 +46,8 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setIdleMode(IdleMode.kBrake);
   
     pidController = m_flexMotor.getPIDController();
-    pidController.setP(.007); 
+    pidController.setP(.012); 
     pidController.setD(0.5);
-    
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.8, .8);
   
@@ -66,8 +65,6 @@ public class IntakeSubsystem extends SubsystemBase {
     breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM_INNER);
     breakBeamIntakeOut = new DigitalInput(Constants.INTAKE_BREAK_BEAM_FEED);
     breakBeamIntakeMid = new DigitalInput(Constants.INTAKE_BREAK_BEAM_MIDDLE);
-    //SmartDashboard.putNumber("SetPointSet", setpoint);
-
 
   }
 

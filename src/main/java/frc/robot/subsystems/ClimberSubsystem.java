@@ -98,10 +98,27 @@ setVoltage2.UpdateFreqHz = 10;
     ClimberMotor1.set(newspeed);
   }
 
+  public void ClimberRightTestReal(double speed) {
+    double newspeed = speed;
+    if(getLimitSwitch2()){
+      newspeed = 0;
+    }
+    ClimberMotor1.set(newspeed);
+  }
+
   public void ClimberLefttTest(double speed) {
     double newspeed = speed;
     if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 5){
       newspeed = 0;
+    }
+    ClimberMotor2.set(newspeed);
+  }
+
+
+  public void ClimberLefttTestReal(double speed) {
+    double newspeed = speed;
+    if(getLimitSwitch()){
+     newspeed = 0;
     }
     ClimberMotor2.set(newspeed);
   }
@@ -150,10 +167,10 @@ setVoltage2.UpdateFreqHz = 10;
     // 1 = left 2 = right
      SmartDashboard.putBoolean("LeftClimberSwitch", getLimitSwitch());
      SmartDashboard.putBoolean("RightClimberSwitch", getLimitSwitch2());
-   // SmartDashboard.putNumber("rightEncoder", getEncoderValue());
+    SmartDashboard.putNumber("rightEncoder", getEncoderValue());
     // -175000=right
 
-  //  SmartDashboard.putNumber("leftEncoder", getEncoderValue2());
+    SmartDashboard.putNumber("leftEncoder", getEncoderValue2());
     // setypointy = SmartDashboard.getNumber("setypoint",100);
     // SmartDashboard.putNumber("somethin", setypointy);
     if (getLimitSwitch()) {

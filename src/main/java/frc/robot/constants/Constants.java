@@ -8,8 +8,8 @@ public final class Constants {
     public static final int PRESSURE_SENSOR_PORT =   0;
 
 
-    public static final CanPort CLIMBER_MOTOR1 =     new CanPort(10); //right
-    public static final CanPort CLIMBER_MOTOR2 =     new CanPort(20); //left
+    public static final CanPort CLIMBER_MOTOR1 =     new CanPort(20); //right
+    public static final CanPort CLIMBER_MOTOR2 =     new CanPort(10); //left
 
     public static final CanPort FLYWHEEL_MOTOR1 =     new CanPort(8); //right
     public static final CanPort FLYWHEEL_MOTOR2 =     new CanPort(36); //left
@@ -24,6 +24,8 @@ public final class Constants {
 
     public static final int HOLDER_BREAK_BEAM = 0;
     public static final int CLIMBER_SWITCH_LEFT = 6;
+
+
     public static final int CLIMBER_SWITCH_RIGHT = 7;
     public static final int INTAKE_BREAK_BEAM_FEED = 5;
         

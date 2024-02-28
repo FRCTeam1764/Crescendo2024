@@ -21,13 +21,13 @@ public class testClimberLeft extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-climber.ClimberLefttTest(speed);
+climber.ClimberLefttTestReal(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-climber.ClimberLefttTest(speed);
+climber.ClimberLefttTestReal(speed);
   }
 
   // Called once the command ends or is interrupted.

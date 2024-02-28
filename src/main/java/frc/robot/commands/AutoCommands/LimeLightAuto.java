@@ -18,7 +18,7 @@ public class LimeLightAuto extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-new simpleWaitCommand(2),
+new simpleWaitCommand(1),
     new LockOnAprilTagAuto(swerve, limelight, pipeline)
     );
   }

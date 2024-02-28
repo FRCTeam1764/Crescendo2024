@@ -12,6 +12,7 @@ import frc.robot.commands.simpleWaitCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.RollerCommand;
 import frc.robot.commands.SimpleCommands.ShooterCommand;
+import frc.robot.commands.SimpleCommands.ShooterSpecial;
 import frc.robot.constants.CommandConstants;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
@@ -27,14 +28,14 @@ public class Shoot extends SequentialCommandGroup {
     addRequirements(shooter, intake);
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
-      new simpleWaitCommand(1.5),
-      new ShooterCommand(shooter, true)
+      new simpleWaitCommand(.2),
+      new ShooterSpecial(shooter,60,false)
     );
     
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(1),
         new ParallelCommandGroup(
-          new ShooterCommand(shooter, true),
+           new ShooterSpecial(shooter,60,false),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )

@@ -3,7 +3,7 @@ package frc.robot.constants;
 public final class CommandConstants {
     
     public static final int INTAKE_UP_ENCODERVALUE = 169;//placeholder may need to be changed
-    public static final int INTAKE_DOWN_ENCODERVALUE = 351;//placeholder may need to be changed
+    public static final int INTAKE_DOWN_ENCODERVALUE = 348;//placeholder may need to be changed
     public static final int INTAKE_AMP_ENCODERVALUE = 169;//placeholder may need to be changed
 
     public static final double INTAKE_PICKUP_SPEED = 0.4;//placeholder

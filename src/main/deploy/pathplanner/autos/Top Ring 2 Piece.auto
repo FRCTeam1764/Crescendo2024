@@ -2,21 +2,15 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.8969423693833152,
-      "y": 6.829386194384925
+      "x": 0.75,
+      "y": 6.7
     },
-    "rotation": 180.0
+    "rotation": -120.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
-        {
-          "type": "path",
-          "data": {
-            "pathName": "TopShootSpawn"
-          }
-        },
         {
           "type": "named",
           "data": {
@@ -69,6 +63,18 @@
           "type": "path",
           "data": {
             "pathName": "TopScoreToLeave"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightRing"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "GroundPickUpAuto"
           }
         }
       ]

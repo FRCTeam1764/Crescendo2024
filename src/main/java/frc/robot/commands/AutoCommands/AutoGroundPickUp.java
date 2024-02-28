@@ -15,6 +15,7 @@ import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -29,14 +30,14 @@ public class AutoGroundPickUp extends SequentialCommandGroup {
     addCommands(
             new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
  
-      new ParallelDeadlineGroup(new simpleWaitCommand(1),
+      new ParallelDeadlineGroup(new simpleWaitCommand(1.5),
         new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false),
         new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,false,false),
-        new DriveBasic(swerve,.25)
+        new DriveBasic(swerve, 0.35)
     ),
 
-    new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,false,false),
-    new ParallelDeadlineGroup(new simpleWaitCommand(.4),     new indexRingCommand(shooter, intakeSubsystem)
+    new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),
+    new ParallelDeadlineGroup(new simpleWaitCommand(.3),     new indexRingCommand(shooter, intakeSubsystem)
 )
 
 

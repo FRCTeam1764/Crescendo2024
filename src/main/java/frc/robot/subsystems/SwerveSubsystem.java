@@ -21,6 +21,7 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
+import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.constants.SwerveConstantsYAGSL.Auton;
 import java.io.File;
 import java.util.function.DoubleSupplier;
@@ -183,6 +184,10 @@ public class SwerveSubsystem extends SubsystemBase
                                      );
   }
 
+  public Command followPath(PathPlannerPath path){
+
+return AutoBuilder.followPath(path);
+  }
   /**
    * Command to drive the robot using translative values and heading as a setpoint.
    *
@@ -513,6 +518,11 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Add a fake vision reading for testing purposes.
    */
+
+   public void addVisionMeasurement(Pose2d pos, double time){
+    swerveDrive.addVisionMeasurement(pos,time);
+
+   }
   public void addFakeVisionReading()
   {
     swerveDrive.addVisionMeasurement(new Pose2d(3, 3, Rotation2d.fromDegrees(65)), Timer.getFPGATimestamp());

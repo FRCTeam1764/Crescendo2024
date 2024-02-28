@@ -106,9 +106,9 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocit
     }
     double newspeed = speed;
 
-    // if (!breakBeamHolder.get()) {
-    //   newspeed = negative * .05; // stall
-    // }
+    //  if (!breakBeamHolder.get() ) {
+    //   newspeed =0; 
+    //  }
     holderRoller.set(newspeed);
   }
 
