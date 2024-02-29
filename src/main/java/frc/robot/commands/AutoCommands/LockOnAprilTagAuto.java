@@ -45,7 +45,7 @@ public class LockOnAprilTagAuto extends Command {
     double xOutput =0;
     double yOutput = 0;
 		if (LimeLight.hasTarget()){
-			double horizontal_amgle = -LimeLight.getHorizontalAngleOfErrorDegrees() ;
+			double horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees() -1);
 			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
 
@@ -66,6 +66,6 @@ public class LockOnAprilTagAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return LimeLight.getHorizontalAngleOfErrorDegrees() < 2;
+    return LimeLight.getHorizontalAngleOfErrorDegrees() -1 < 1;
   }
 }

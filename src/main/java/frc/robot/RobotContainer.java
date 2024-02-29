@@ -3,11 +3,13 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.commands.AutoCommands.AutoGroundPickUp;
+import frc.robot.commands.AutoCommands.AutoShoot;
 import frc.robot.commands.AutoCommands.LimeLightAuto;
 import frc.robot.commands.AutoCommands.LockOnAprilTagAuto;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
@@ -210,10 +212,11 @@ public class RobotContainer {
 
     public void configAutoCommands() {
         
-        NamedCommands.registerCommand("AutoScore", new Shoot(shooter,intakeSubsystem));
+        NamedCommands.registerCommand("AutoScore", new AutoShoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
         NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
         NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
+NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem)));
 
     }
 

@@ -42,9 +42,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "TopMidToShoot"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopMidToShoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "IndexRing"
+                }
+              }
+            ]
           }
         },
         {
@@ -75,6 +88,37 @@
           "type": "named",
           "data": {
             "name": "GroundPickUpAuto"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "IndexRing"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidRingToShootTop"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoScore"
           }
         }
       ]

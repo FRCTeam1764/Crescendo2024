@@ -16,6 +16,18 @@
           "data": {
             "pathName": "testpath"
           }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "testUp"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "TestDown"
+          }
         }
       ]
     }

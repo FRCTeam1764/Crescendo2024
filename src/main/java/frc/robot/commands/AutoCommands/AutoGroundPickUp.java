@@ -30,17 +30,16 @@ public class AutoGroundPickUp extends SequentialCommandGroup {
     addCommands(
             new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
  
-      new ParallelDeadlineGroup(new simpleWaitCommand(1.5),
+      new ParallelDeadlineGroup(new simpleWaitCommand(1),
         new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false),
         new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,false,false),
-        new DriveBasic(swerve, 0.35)
+        new DriveBasic(swerve, 0.45)
     ),
 
-    new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),
-    new ParallelDeadlineGroup(new simpleWaitCommand(.3),     new indexRingCommand(shooter, intakeSubsystem)
-)
+    new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false)
+);
 
 
-    );
+
   }
 }
