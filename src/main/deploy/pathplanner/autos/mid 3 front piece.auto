@@ -5,16 +5,41 @@
       "x": 1.35,
       "y": 5.55
     },
-    "rotation": 0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "ShootToMidRing"
+            "name": "AutoScore"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "ShootToMidRing"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightRing"
           }
         },
         {
@@ -24,9 +49,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "MidRingToShoot"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WristUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IndexRing"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidRingToSpeaker"
+                }
+              }
+            ]
           }
         },
         {
@@ -36,9 +87,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SpeakerToBottomRing"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SpeakerToBottomRing"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightRing"
           }
         },
         {
@@ -48,9 +118,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "BottomRingToSpeaker"
+            "commands": [
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WristUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IndexRing"
+                      }
+                    }
+                  ]
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BottomRingToSpeaker"
+                }
+              }
+            ]
           }
         },
         {
@@ -60,9 +156,28 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "SpeakerToTopRing"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "SpeakerToTopRing"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "WristDown"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightRing"
           }
         },
         {
@@ -72,9 +187,35 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "TopRingToSpeaker"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "TopRingToSpeaker"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "WristUp"
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "IndexRing"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {

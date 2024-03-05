@@ -12,8 +12,10 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 import frc.robot.constants.Constants;
 import frc.robot.libraries.internal.LazyTalonFX;
 
@@ -98,13 +100,14 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocit
   }
 
   public void roller(double speed) {
+
     int negative = 1;
     if (speed > 0) {
       negative = 1;
     } else {
       negative = -1;
     }
-    double newspeed = speed;
+    double newspeed = getPercentFromBattery(speed);
 
     //  if (!breakBeamHolder.get() ) {
     //   newspeed =0; 
@@ -120,6 +123,10 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocit
     return !breakBeamHolder.get();
   }
 
+
+  public double getPercentFromBattery(double speed){
+        return speed * 12 / RobotController.getBatteryVoltage();
+}
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("RollerBreakBeam", RollerBreakBeamBroken());

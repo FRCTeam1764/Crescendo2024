@@ -28,14 +28,14 @@ public class AutoShoot extends SequentialCommandGroup {
     addRequirements(shooter, intake);
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
-      new simpleWaitCommand(.2),
-      new ShooterSpecial(shooter,60,false)
+      new simpleWaitCommand(.25),
+      new ShooterSpecial(shooter,70,false)
     );
     
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(.3),
         new ParallelCommandGroup(
-           new ShooterSpecial(shooter,60,false),
+           new ShooterSpecial(shooter,70,false),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )

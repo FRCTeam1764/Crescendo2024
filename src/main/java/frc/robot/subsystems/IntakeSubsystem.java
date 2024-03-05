@@ -16,6 +16,7 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.Constants;
@@ -47,7 +48,7 @@ public class IntakeSubsystem extends SubsystemBase {
   
     pidController = m_flexMotor.getPIDController();
     pidController.setP(.012); 
-    pidController.setD(0.5);
+    pidController.setD(0.65);
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.8, .8);
   
@@ -81,7 +82,7 @@ public class IntakeSubsystem extends SubsystemBase {
      if (!breakBeamIntake.get() && negative ==1) {
        m_intakeMotor.set(0);
      } else {
-       m_intakeMotor.set(speed);
+       m_intakeMotor.set(getPercentFromBattery(speed));
      }
      
   }
@@ -95,6 +96,10 @@ public class IntakeSubsystem extends SubsystemBase {
    m_intakeMotor.set(speed);
    
   }
+
+    public double getPercentFromBattery(double speed){
+        return speed * 12 / RobotController.getBatteryVoltage();
+}
 
   public void stop() {
     m_intakeMotor.set(0);

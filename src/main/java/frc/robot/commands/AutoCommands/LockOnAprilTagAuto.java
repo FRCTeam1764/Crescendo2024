@@ -66,6 +66,6 @@ public class LockOnAprilTagAuto extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return LimeLight.getHorizontalAngleOfErrorDegrees() -1 < 1;
+    return false;// Math.abs(LimeLight.getHorizontalAngleOfErrorDegrees()) < .5;
   }
 }

@@ -9,9 +9,11 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import frc.robot.commands.*;
 import frc.robot.commands.AutoCommands.AutoGroundPickUp;
+import frc.robot.commands.AutoCommands.AutoGroundPickUpShort;
 import frc.robot.commands.AutoCommands.AutoShoot;
 import frc.robot.commands.AutoCommands.LimeLightAuto;
 import frc.robot.commands.AutoCommands.LockOnAprilTagAuto;
+import frc.robot.commands.ComplexCommands.AmpIntakeCommand;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
@@ -24,11 +26,14 @@ import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
+import frc.robot.commands.SimpleCommands.AmpCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.RollerCommand;
 import frc.robot.commands.SimpleCommands.ShooterCommand;
 import frc.robot.commands.SimpleCommands.ShooterSpecial;
+import frc.robot.commands.SimpleCommands.WristCommand;
+import frc.robot.constants.CommandConstants;
 import frc.robot.constants.SwerveConstantsYAGSL;
 import frc.robot.subsystems.*;
 import frc.robot.libraries.external.control.Path;
@@ -43,15 +48,17 @@ import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class RobotContainer {
     private final Joystick driver = new Joystick(0);
-    private final Joystick secondaryController = new Joystick(1);
+    private final Joystick secondaryController = new Joystick(1); 
 
     // auto choosa
 
@@ -163,11 +170,11 @@ public class RobotContainer {
     }
 
     private void configureCoPilotButtonBindings() {
-        //y button
-        
-        shootAmp.whileTrue(new ScoreAmpCommand(intakeSubsystem, shooter));
-
         //a button
+        
+        shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
+        shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
+        //y button
         shootTrap.whileTrue(new ScoreTrapCommand(intakeSubsystem, shooter));
 
         // left bumper
@@ -183,8 +190,8 @@ public class RobotContainer {
         index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
 
         // b button
-        // spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
-        // robotState.intakeState));
+         spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
+         robotState.intakeState));
 
             
 
@@ -211,13 +218,16 @@ public class RobotContainer {
     }
 
     public void configAutoCommands() {
-        
+        //oopsie, better practice next year or something :D
         NamedCommands.registerCommand("AutoScore", new AutoShoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
+        NamedCommands.registerCommand("GroundPickUpAutoShort", new AutoGroundPickUpShort(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
         NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
         NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
-NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem)));
-
+        NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem)));
+        NamedCommands.registerCommand("WristDown", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false));
+        NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
+        NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
     }
 
     public Command getAutonomousCommand() {
@@ -231,6 +241,9 @@ NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new sim
     // public Swerve getDrivetrainSubsystem(){
     // return s_Swerve;
     // }
+    public double getPercentFromBattery(double speed){
+        return speed * 12 / RobotController.getBatteryVoltage();
+}
 
     public Superstructure getSuperstructure() {
         return superstructure;
@@ -243,6 +256,7 @@ NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new sim
     public Joystick getPrimaryController() {
         return driver;
     }
+
 
     public Trajectory[] getTrajectories() {
         return trajectories;

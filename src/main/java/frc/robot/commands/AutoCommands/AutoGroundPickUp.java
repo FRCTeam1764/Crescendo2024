@@ -6,6 +6,7 @@ package frc.robot.commands.AutoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.simpleWaitCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
@@ -28,15 +29,13 @@ public class AutoGroundPickUp extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-            new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
  
-      new ParallelDeadlineGroup(new simpleWaitCommand(1),
-        new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false),
+      new ParallelRaceGroup(new simpleWaitCommand(1),
+        new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,true),
         new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,false,false),
-        new DriveBasic(swerve, 0.45)
-    ),
+        new DriveBasic(swerve, 0.4)
+    )
 
-    new WristCommand(intakeSubsystem, intakeState,CommandConstants.INTAKE_UP_ENCODERVALUE,true,false)
 );
 
 

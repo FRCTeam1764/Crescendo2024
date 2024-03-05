@@ -28,9 +28,9 @@ public class GoToAmpPositionCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(intake, shooter);
     ParallelRaceGroup rollInPiece = new ParallelRaceGroup(
-      new simpleWaitCommand(.2),
+      new simpleWaitCommand(.4),
 
-      new IntakeCommand(intake, -CommandConstants.INTAKE_SLOW_SPEED,true),// THIS MAY BE BAD
+      new IntakeCommand(intake, CommandConstants.INTAKE_SLOW_SPEED,true),// THIS MAY BE BAD
       new RollerCommand(shooter, -CommandConstants.SHOOTER_INTAKE_SPEED,false)
     
         );
@@ -40,8 +40,7 @@ public class GoToAmpPositionCommand extends SequentialCommandGroup {
       rollInPiece,
 
       new ParallelCommandGroup(
-        new WristCommand(intake,intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE, false, false),
-        new IntakeCommand(intake,CommandConstants.INTAKE_STALL_SPEED,false)
+        new WristCommand(intake,intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE, false, false)
       )
     ); 
   }
