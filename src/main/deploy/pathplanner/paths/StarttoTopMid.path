@@ -49,7 +49,7 @@
     "rotateFast": true
   },
   "reversed": false,
-  "folder": "top start 2 piece",
+  "folder": null,
   "previewStartingState": null,
   "useDefaultConstraints": true
 }
