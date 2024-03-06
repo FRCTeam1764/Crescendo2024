@@ -17,7 +17,6 @@ import frc.robot.commands.ComplexCommands.AmpIntakeCommand;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
 import frc.robot.commands.ComplexCommands.GroundPickup;
-import frc.robot.commands.ComplexCommands.OldScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.ScoreTrapCommand;
 import frc.robot.commands.ComplexCommands.Shoot;

@@ -28,7 +28,7 @@ public class Shoot extends SequentialCommandGroup {
     addRequirements(shooter, intake);
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
-      new simpleWaitCommand(.2),
+      new simpleWaitCommand(.25),
       new ShooterSpecial(shooter,60,false)
     );
     
