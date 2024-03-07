@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.hardware.TalonFX;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.pathplanner.lib.path.PathConstraints;
@@ -18,6 +20,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Config;
@@ -28,6 +31,7 @@ import java.util.function.DoubleSupplier;
 import swervelib.SwerveController;
 import swervelib.SwerveDrive;
 import swervelib.SwerveDriveTest;
+import swervelib.SwerveModule;
 import swervelib.math.SwerveMath;
 import swervelib.parser.SwerveControllerConfiguration;
 import swervelib.parser.SwerveDriveConfiguration;
@@ -83,6 +87,20 @@ public class SwerveSubsystem extends SubsystemBase
     
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
     swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
+
+for(SwerveModule mod : swerveDrive.getModules()){
+      TalonFX driveMotor = (TalonFX)mod.getDriveMotor().getMotor();
+    CurrentLimitsConfigs driveConfig =  new CurrentLimitsConfigs();
+
+    driveConfig.StatorCurrentLimitEnable = true;
+    driveConfig.StatorCurrentLimit = 150;
+    driveConfig.SupplyCurrentLimit = 40;
+    driveConfig.SupplyCurrentLimitEnable = true;
+    driveConfig.SupplyTimeThreshold = 0.00;
+    driveConfig.SupplyCurrentThreshold = 60; 
+    driveMotor.getConfigurator().apply(driveConfig);
+}
+
     setupPathPlanner();
   }
 
@@ -327,6 +345,10 @@ return AutoBuilder.followPath(path);
   @Override
   public void periodic()
   {
+   for(SwerveModule mod : swerveDrive.getModules()){
+TalonFX motor = (TalonFX) mod.getDriveMotor().getMotor(); // this causes a memory leak probably
+ SmartDashboard.putNumber("current-"+mod.moduleNumber,motor.getSupplyCurrent().getValueAsDouble());
+   }
   }
 
   @Override
