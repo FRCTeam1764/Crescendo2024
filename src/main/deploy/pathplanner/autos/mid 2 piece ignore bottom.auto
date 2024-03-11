@@ -2,10 +2,10 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.7041386162544403,
-      "y": 4.361919607030098
+      "x": 1.35,
+      "y": 5.55
     },
-    "rotation": 120.0
+    "rotation": 180.0
   },
   "command": {
     "type": "sequential",
@@ -22,15 +22,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "WristDown"
+                  "pathName": "ShootToMidRing"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "BottomShootToStageRing"
+                  "name": "WristDown"
                 }
               }
             ]
@@ -45,19 +45,13 @@
         {
           "type": "named",
           "data": {
-            "name": "GroundPickUpAutoShort"
+            "name": "GroundPickUpAuto"
           }
         },
         {
           "type": "parallel",
           "data": {
             "commands": [
-              {
-                "type": "path",
-                "data": {
-                  "pathName": "StageRingToShoot"
-                }
-              },
               {
                 "type": "sequential",
                 "data": {
@@ -76,8 +70,20 @@
                     }
                   ]
                 }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "MidRingToSpeaker"
+                }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightSpeaker"
           }
         },
         {
@@ -91,15 +97,15 @@
           "data": {
             "commands": [
               {
-                "type": "named",
+                "type": "path",
                 "data": {
-                  "name": "WristDown"
+                  "pathName": "SpeakerToTopRing"
                 }
               },
               {
-                "type": "path",
+                "type": "named",
                 "data": {
-                  "pathName": "BottomShootToLeave"
+                  "name": "WristDown"
                 }
               }
             ]
@@ -114,7 +120,7 @@
         {
           "type": "named",
           "data": {
-            "name": "GroundPickUpAutoShort"
+            "name": "GroundPickUpAuto"
           }
         },
         {
@@ -124,7 +130,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BottomLeaveToShoot"
+                  "pathName": "TopRingToSpeaker"
                 }
               },
               {

@@ -47,7 +47,7 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setIdleMode(IdleMode.kBrake);
   
     pidController = m_flexMotor.getPIDController();
-    pidController.setP(.012); 
+    pidController.setP(.012); //prev .012
     pidController.setD(0.65);
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.8, .8);

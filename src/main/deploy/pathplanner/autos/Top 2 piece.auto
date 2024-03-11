@@ -83,6 +83,12 @@
         {
           "type": "named",
           "data": {
+            "name": "LimeLightSpeaker"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
             "name": "AutoScore"
           }
         },
@@ -124,7 +130,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "TopMidToShoot"
+                  "pathName": "MidRingToShootTop"
                 }
               },
               {
@@ -147,6 +153,12 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "LimeLightSpeaker"
           }
         },
         {

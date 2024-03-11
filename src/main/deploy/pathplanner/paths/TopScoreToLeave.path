@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.973104168430559,
-        "y": 6.770915422172725
+        "x": 1.0549632495276386,
+        "y": 6.7241388044029655
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8852482149408742,
-        "y": 5.566417514601411
+        "x": 1.967107296037954,
+        "y": 5.5196408968316515
       },
       "isLocked": false,
       "linkedName": "TopShoot"
@@ -32,7 +32,7 @@
   "constraintZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 2.0,
+    "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0
@@ -45,5 +45,5 @@
   "reversed": false,
   "folder": null,
   "previewStartingState": null,
-  "useDefaultConstraints": true
+  "useDefaultConstraints": false
 }
