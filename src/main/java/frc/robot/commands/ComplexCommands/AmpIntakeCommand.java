@@ -29,8 +29,9 @@ public class AmpIntakeCommand extends SequentialCommandGroup {
  new ParallelDeadlineGroup(
   new simpleWaitCommand(.4)
   ,
+  // previously .65 speed
       new ParallelCommandGroup(
-        new IntakeCommand(intakeSubsystem,-.6,false), // at 12.5 volts
+        new IntakeCommand(intakeSubsystem,-.525,false), // at 12.5 volts
         new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_AMP_ENCODERVALUE,false,false)
     )
  ),
