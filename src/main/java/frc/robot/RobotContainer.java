@@ -25,6 +25,7 @@ import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
+import frc.robot.commands.SimpleCommands.BlinkinCommand;
 import frc.robot.commands.SimpleCommands.AmpCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
@@ -72,6 +73,7 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickAxis LeftTrigger = new JoystickAxis(driver, XboxController.Axis.kLeftTrigger.value);
+    private final JoystickButton blinkin = new JoystickButton(driver, XboxController.Button.kX.value);
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
@@ -111,6 +113,7 @@ public class RobotContainer {
     // private final Swerve s_Swerve = new Swerve();
      private  SendableChooser<Command> autoChooser;
 
+    private final BlinkinSubsystem blinkinSubsystem = new BlinkinSubsystem();
     private final Superstructure superstructure = new Superstructure();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
@@ -165,6 +168,8 @@ public class RobotContainer {
         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true));
         //b
         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false));
+        //x
+        blinkin.whileTrue(new BlinkinCommand(blinkinSubsystem, 0.85));
 
     }
 
