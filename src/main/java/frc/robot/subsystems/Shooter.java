@@ -28,7 +28,7 @@ public class Shooter extends SubsystemBase {
   private VelocityVoltage controlVoltage;
   private NeutralOut brake;
 
-  public Shooter() {
+  public Shooter(Music lemusic) {
 
     flyWheel1 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR1.id, Constants.FLYWHEEL_MOTOR1.busName);
     flyWheel2 = new LazyTalonFX(Constants.FLYWHEEL_MOTOR2.id, Constants.FLYWHEEL_MOTOR2.busName);
@@ -48,6 +48,11 @@ public class Shooter extends SubsystemBase {
 
     controlVoltage = new VelocityVoltage(0);
 brake = new NeutralOut();
+
+//
+lemusic.AddDevice(flyWheel1);
+lemusic.AddDevice(flyWheel2);
+lemusic.AddDevice(holderRoller);
   }
 
   public void setupMotors() {

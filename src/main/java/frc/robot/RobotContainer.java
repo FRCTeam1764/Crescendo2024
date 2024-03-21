@@ -27,7 +27,6 @@ import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
-import frc.robot.commands.SimpleCommands.AmpCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.RollerCommand;
@@ -61,8 +60,6 @@ public class RobotContainer {
     private final Joystick driver = new Joystick(0);
     private final Joystick secondaryController = new Joystick(1); 
 
-    // auto choosa
-
     /* Drive Controls */
 
     private final int translationAxis = XboxController.Axis.kLeftY.value;
@@ -77,8 +74,6 @@ public class RobotContainer {
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
-    // private final JoystickButton AmpPhotonVision = new JoystickButton(driver,
-    // XboxController.Button.kX.value);
 
     /* CoPilot Buttons */
 
@@ -107,18 +102,24 @@ public class RobotContainer {
 
     public RobotState robotState = new RobotState(driver);
 
-    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
-            new File(Filesystem.getDeployDirectory(), "swerve/falcon"));
-
+  
+/*
+ * hiya, head programmer at frc 1764 here
+ * thanks for chceking out the code further generations/other teams
+ * i do NOT recommend using this as a refrence for anything, pls check out 5013 or 9410's github instead (i stole their code)
+ *  i wanna quit 
+ */
 
     // private final Swerve s_Swerve = new Swerve();
      private  SendableChooser<Command> autoChooser;
-
+private final Music THEMUSIC = new Music();
     private final Superstructure superstructure = new Superstructure();
-    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem();
+    private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
-    private final Shooter shooter = new Shooter();
+    private final Shooter shooter = new Shooter(THEMUSIC);
 
+      private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
+            new File(Filesystem.getDeployDirectory(), "swerve/falcon"),THEMUSIC);
     // Limelights
     // 3 is front intake
     //2 is back shooter
@@ -141,17 +142,6 @@ public class RobotContainer {
                         () -> -driver.getRawAxis(rotationAxis),
                         () -> !robotCentric.getAsBoolean()));
 
-        // teleop swerve for 365
-        // s_Swerve.setDefaultCommand(
-        // new TeleopSwerve(
-        // s_Swerve,
-        // () -> driver.getRawAxis(translationAxis),
-        // () -> driver.getRawAxis(strafeAxis),
-        // () -> -driver.getRawAxis(rotationAxis),
-        // () -> robotCentric.getAsBoolean(),
-        // robotState
-        // )
-        // );
         configAutoCommands();
         configurePilotButtonBindings();
         configureCoPilotButtonBindings();
@@ -236,13 +226,10 @@ public class RobotContainer {
         return autoChooser.getSelected();
     }
 
-    // public SwerveSubsystem getDrivetrainSubsystem() {
-    // return s_Swerve;
-    // }
 
-    // public Swerve getDrivetrainSubsystem(){
-    // return s_Swerve;
-    // }
+    public SwerveSubsystem getDrivetrainSubsystem(){
+     return s_Swerve;
+     }
     public double getPercentFromBattery(double speed){
         return speed * 12 / RobotController.getBatteryVoltage();
 }

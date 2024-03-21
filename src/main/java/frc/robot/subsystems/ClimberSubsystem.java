@@ -33,7 +33,7 @@ public class ClimberSubsystem extends SubsystemBase {
 
   int negative;
 
-  public ClimberSubsystem() {
+  public ClimberSubsystem(Music music) {
 
     // 1 = right
     // 2 = left
@@ -54,6 +54,9 @@ setVoltage.UpdateFreqHz = 10;
     setVoltage2 = new PositionDutyCycle(0).withSlot(0);
 setVoltage2.UpdateFreqHz = 10;
 
+
+music.AddDevice(ClimberMotor1);
+music.AddDevice(ClimberMotor2);
   }
 
   public void SetUpClimberMotors() {

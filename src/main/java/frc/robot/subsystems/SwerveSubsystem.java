@@ -59,7 +59,7 @@ public class SwerveSubsystem extends SubsystemBase
    *
    * @param directory Directory of swerve drive config files.
    */
-  public SwerveSubsystem(File directory)
+  public SwerveSubsystem(File directory, Music music)
   {
     // Angle conversion factor is 360 / (GEAR RATIO * ENCODER RESOLUTION)
     //  In this case the gear ratio is 12.8 motor revolutions per wheel rotation.
@@ -90,6 +90,14 @@ public class SwerveSubsystem extends SubsystemBase
     
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
     swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
+
+ for(SwerveModule mod : swerveDrive.getModules()){
+      TalonFX driveMotor = (TalonFX)mod.getDriveMotor().getMotor();
+      TalonFX angleMotor = (TalonFX)mod.getAngleMotor().getMotor();
+
+music.AddDevice(angleMotor);
+music.AddDevice(driveMotor);
+ }
 
 // for(SwerveModule mod : swerveDrive.getModules()){
 //       TalonFX driveMotor = (TalonFX)mod.getDriveMotor().getMotor();
