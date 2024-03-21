@@ -61,13 +61,13 @@ setVoltage2.UpdateFreqHz = 10;
 
     TalonFXConfiguration config2 = new TalonFXConfiguration();
 
-    config.Slot0.kP = 0.03;
+    config.Slot0.kP = 0.045;
     config.Slot0.kD = 0.00005;
 
     config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
     config.MotorOutput.PeakForwardDutyCycle = 1;
     config.MotorOutput.PeakReverseDutyCycle = -1; // can bump up to 12 or something
-      config2.Slot0.kP = 0.03; // prev .00003
+      config2.Slot0.kP = 0.435; // prev .00003
     config2.Slot0.kD = 0.00005;
 
     config2.MotorOutput.NeutralMode = NeutralModeValue.Brake;
@@ -92,7 +92,7 @@ setVoltage2.UpdateFreqHz = 10;
 
   public void ClimberRightTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch2() || Math.abs(ClimberMotor1.getPosition().getValue()) < 5){
+    if(getLimitSwitch2() || Math.abs(ClimberMotor1.getPosition().getValue()) < 5 || Math.abs(ClimberMotor1.getPosition().getValue()) >200  ){
       newspeed = 0;
     }
     ClimberMotor1.set(newspeed);
@@ -108,7 +108,7 @@ setVoltage2.UpdateFreqHz = 10;
 
   public void ClimberLefttTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 5){
+    if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 5 || Math.abs(ClimberMotor2.getPosition().getValue()) > 200 ){
       newspeed = 0;
     }
     ClimberMotor2.set(newspeed);

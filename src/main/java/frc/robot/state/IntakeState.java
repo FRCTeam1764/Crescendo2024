@@ -4,9 +4,11 @@
 
 package frc.robot.state;
 
+import frc.robot.constants.CommandConstants;
+
 /** Add your docs here. */
 public class IntakeState {
-    double desired =166;
+    double desired =CommandConstants.INTAKE_UP_ENCODERVALUE;
     
 public void setEncoderValue(double value) {
     desired = value;

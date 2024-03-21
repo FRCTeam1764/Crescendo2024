@@ -20,6 +20,8 @@ import frc.robot.commands.ComplexCommands.GroundPickup;
 import frc.robot.commands.ComplexCommands.ScoreAmpCommand;
 import frc.robot.commands.ComplexCommands.ScoreTrapCommand;
 import frc.robot.commands.ComplexCommands.Shoot;
+import frc.robot.commands.ComplexCommands.ShootRamp;
+import frc.robot.commands.ComplexCommands.ShootRampShoot;
 import frc.robot.commands.ComplexCommands.SpitOutNoteCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
@@ -82,6 +84,7 @@ public class RobotContainer {
 
     private final JoystickButton shoot = new JoystickButton(secondaryController,
             XboxController.Button.kRightBumper.value);
+        
     private final JoystickButton groundPickup = new JoystickButton(secondaryController,
             XboxController.Button.kLeftBumper.value);
     private final JoystickButton shootAmp = new JoystickButton(secondaryController, XboxController.Button.kA.value);
@@ -120,14 +123,15 @@ public class RobotContainer {
     // 3 is front intake
     //2 is back shooter
     //4,7,15,16,14,12,11,13,6,5 - tags that 2 should see
-    private final LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1,s_Swerve);
-    private final LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two",0,s_Swerve);
+    private  LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1,s_Swerve);
+    private  LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two",0,s_Swerve);
 
     private Trajectory[] trajectories;
 
     public RobotContainer() {
 
         // teleop drive for yagsl
+    limelight3.setPipeline(1);
 
         s_Swerve.setDefaultCommand(
                 new TeleopDrive(
@@ -174,8 +178,8 @@ public class RobotContainer {
         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
         shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
         //y button
-        shootTrap.whileTrue(new ScoreTrapCommand(intakeSubsystem, shooter));
-
+        shootTrap.whileTrue(new ShootRamp(shooter, intakeSubsystem));
+        shootTrap.onFalse(new ShootRampShoot(shooter,intakeSubsystem));
         // left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
                 robotState.intakeState));
@@ -195,7 +199,6 @@ public class RobotContainer {
             
 
         // dpad (bane of humanity) 1 = left 2 = right
-
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -140, -100));
         climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -140));
         climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -100));

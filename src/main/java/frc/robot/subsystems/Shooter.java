@@ -60,6 +60,7 @@ brake = new NeutralOut();
     config1.Slot0.kP = .4; //prev .65
     config1.Slot0.kD = .005;
 
+    
     config2.Slot0.kP = .4;
     config2.Slot0.kD = .005;
     

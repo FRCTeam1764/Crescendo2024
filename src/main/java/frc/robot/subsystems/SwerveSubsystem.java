@@ -11,8 +11,11 @@ import com.pathplanner.lib.path.PathConstraints;
 import com.pathplanner.lib.path.PathPlannerPath;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.ReplanningConfig;
+
+import edu.wpi.first.math.Vector;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -49,7 +52,7 @@ public class SwerveSubsystem extends SubsystemBase
   /**
    * Maximum speed of the robot in meters per second, used to limit acceleration.
    */
-  public        double      maximumSpeed = Units.feetToMeters(10); //prev 14.5
+  public        double      maximumSpeed = Units.feetToMeters(13); //prev 14.5
 
   /**
    * Initialize {@link SwerveDrive} with the directory provided.
@@ -88,18 +91,18 @@ public class SwerveSubsystem extends SubsystemBase
     swerveDrive.setHeadingCorrection(false); // Heading correction should only be used while controlling the robot via angle.
     swerveDrive.setCosineCompensator(!SwerveDriveTelemetry.isSimulation); // Disables cosine compensation for simulations since it causes discrepancies not seen in real life.
 
-for(SwerveModule mod : swerveDrive.getModules()){
-      TalonFX driveMotor = (TalonFX)mod.getDriveMotor().getMotor();
-    CurrentLimitsConfigs driveConfig =  new CurrentLimitsConfigs();
+// for(SwerveModule mod : swerveDrive.getModules()){
+//       TalonFX driveMotor = (TalonFX)mod.getDriveMotor().getMotor();
+//     CurrentLimitsConfigs driveConfig =  new CurrentLimitsConfigs();
 
-    driveConfig.StatorCurrentLimitEnable = true;
-    driveConfig.StatorCurrentLimit = 150;
-    driveConfig.SupplyCurrentLimit = 40;
-    driveConfig.SupplyCurrentLimitEnable = true;
-    driveConfig.SupplyTimeThreshold = 0.00;
-    driveConfig.SupplyCurrentThreshold = 60; 
-    driveMotor.getConfigurator().apply(driveConfig);
-}
+//     driveConfig.StatorCurrentLimitEnable = true;
+//     driveConfig.StatorCurrentLimit = 150;
+//     driveConfig.SupplyCurrentLimit = 40;
+//     driveConfig.SupplyCurrentLimitEnable = true;
+//     driveConfig.SupplyTimeThreshold = 0.00;
+//     driveConfig.SupplyCurrentThreshold = 60; 
+//     driveMotor.getConfigurator().apply(driveConfig);
+// }
 
     setupPathPlanner();
   }
@@ -345,10 +348,10 @@ return AutoBuilder.followPath(path);
   @Override
   public void periodic()
   {
-   for(SwerveModule mod : swerveDrive.getModules()){
-TalonFX motor = (TalonFX) mod.getDriveMotor().getMotor(); // this causes a memory leak probably
- SmartDashboard.putNumber("current-"+mod.moduleNumber,motor.getSupplyCurrent().getValueAsDouble());
-   }
+//    for(SwerveModule mod : swerveDrive.getModules()){
+// TalonFX motor = (TalonFX) mod.getDriveMotor().getMotor(); // this causes a memory leak probably
+//  SmartDashboard.putNumber("current-"+mod.moduleNumber,motor.getSupplyCurrent().getValueAsDouble());
+//    }
   }
 
   @Override
@@ -415,6 +418,7 @@ TalonFX motor = (TalonFX) mod.getDriveMotor().getMotor(); // this causes a memor
   {
     swerveDrive.zeroGyro();
   }
+
 
   /**
    * Sets the drive motors to brake/coast mode.

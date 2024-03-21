@@ -35,8 +35,8 @@ public class IntakeSubsystem extends SubsystemBase {
       .getAbsoluteEncoder(SparkAbsoluteEncoder.Type.kDutyCycle);// new
                                                                 // RevThroughBoreEncoder(Constants.WRIST_ANGLE_ENCODER);
   private DigitalInput breakBeamIntake;
-  private DigitalInput breakBeamIntakeOut;
-  private DigitalInput breakBeamIntakeMid;
+  // private DigitalInput breakBeamIntakeOut;
+  // private DigitalInput breakBeamIntakeMid;
 
   public IntakeSubsystem(IntakeState intakeState) {
 
@@ -48,29 +48,28 @@ public class IntakeSubsystem extends SubsystemBase {
   
     pidController = m_flexMotor.getPIDController();
     pidController.setP(.012); //prev .012
-    pidController.setD(0.65);
+    pidController.setD(0.65); // prev .65
     pidController.setFeedbackDevice(m_angleEncoder);
-    pidController.setOutputRange(-.8, .8);
-  
+    pidController.setOutputRange(-.8, .8); //prev .9
+   
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
-    m_angleEncoder.setZeroOffset(1);
+    m_angleEncoder.setZeroOffset(250);
 
     m_intakeMotor.setInverted(true);
     m_intakeMotor.setSecondaryCurrentLimit(50);
     m_angleEncoder.setInverted(false);
 
     breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM_INNER);
-    breakBeamIntakeOut = new DigitalInput(Constants.INTAKE_BREAK_BEAM_FEED);
-    breakBeamIntakeMid = new DigitalInput(Constants.INTAKE_BREAK_BEAM_MIDDLE);
+    // breakBeamIntakeOut = new DigitalInput(Constants.INTAKE_BREAK_BEAM_FEED);
+    // breakBeamIntakeMid = new DigitalInput(Constants.INTAKE_BREAK_BEAM_MIDDLE);
 
   }
 
   double negative;
-
   public void wheelsIntake(double speed) {
 
     if (speed < 0) {
@@ -135,9 +134,11 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     // m_angleEncoder.setZeroOffset(140);
     SmartDashboard.putBoolean("IntakeBreakbeam", getIntakeBreakbeam());
-    SmartDashboard.putBoolean("Intake2", !breakBeamIntakeOut.get());
-    SmartDashboard.putBoolean("Intake3",!breakBeamIntakeMid.get());
+    // SmartDashboard.putBoolean("Intake2", !breakBeamIntakeOut.get());
+    // SmartDashboard.putBoolean("Intake3",!breakBeamIntakeMid.get());
     SmartDashboard.putNumber("intakeCurre t", m_intakeMotor.getOutputCurrent());
+    SmartDashboard.putNumber("intakepos", m_angleEncoder.getPosition());
+    
     flexClosedLoop(intakeState.getEncoderValue());
   }
 }
