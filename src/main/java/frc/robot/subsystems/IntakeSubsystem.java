@@ -25,9 +25,11 @@ import frc.robot.state.IntakeState;
 public class IntakeSubsystem extends SubsystemBase {
   /** Creates a new IntakeSubsystem. */
   private final CANSparkMax m_flexMotor = new CANSparkMax(Constants.WRIST_MOTOR1.id, MotorType.kBrushless);
+  private final CANSparkMax m_flexMotor2 = new CANSparkMax(Constants.WRIST_MOTOR2.id,MotorType.kBrushless);
   private final IntakeState intakeState;
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   private SparkPIDController pidController;
+  private SparkPIDController pidController2;
 
   ArmFeedforward armfeed = new ArmFeedforward(0,0.3,0);
 
@@ -42,6 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
     m_intakeMotor.restoreFactoryDefaults();
     m_flexMotor.restoreFactoryDefaults();
+    m_flexMotor2.restoreFactoryDefaults();
     m_flexMotor.setInverted(true);
 
     m_flexMotor.setIdleMode(IdleMode.kBrake);
@@ -52,16 +55,22 @@ public class IntakeSubsystem extends SubsystemBase {
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.8, .8); //prev .9
    
+    pidController2 = m_flexMotor2.getPIDController();
+    pidController2.setP(.012); //prev .012
+    pidController2.setD(0.65); // prev .65
+    pidController2.setFeedbackDevice(m_angleEncoder);
+    pidController2.setOutputRange(-.8, .8); //prev .9
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;
 
     m_angleEncoder.setPositionConversionFactor(360);
     m_angleEncoder.setZeroOffset(250);
+    m_angleEncoder.setInverted(false);
 
     m_intakeMotor.setInverted(true);
     m_intakeMotor.setSecondaryCurrentLimit(50);
-    m_angleEncoder.setInverted(false);
+
 
     breakBeamIntake = new DigitalInput(Constants.INTAKE_BREAK_BEAM_INNER);
     // breakBeamIntakeOut = new DigitalInput(Constants.INTAKE_BREAK_BEAM_FEED);
@@ -104,25 +113,10 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeMotor.set(0);
   }
 
-  private PIDController pid;
-  double pidValue;
-  double setpoint;
-  double kP;
-  double ki;
-  double kd;
-
   public void flexClosedLoop(double desired) {
-    setpoint = desired;
 
-   //  setpoint = SmartDashboard.getNumber("SetPointSet",300);
-   // SmartDashboard.putNumber("da point", setpoint);
-    // pid.setSetpoint(setpoint);
-   // SmartDashboard.putNumber("getPosition", m_angleEncoder.getPosition());
-
-
-    // SmartDashboard.putNumber("intakePID", pidValue);
-    // SmartDashboard.putNumber("totalMotorSet", pidValue);
-      pidController.setReference(setpoint, ControlType.kPosition);
+      pidController.setReference(desired, ControlType.kPosition);
+      pidController2.setReference(desired, ControlType.kPosition);
   }
 
   public double getEncoderPos() {
@@ -132,7 +126,6 @@ public class IntakeSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    // m_angleEncoder.setZeroOffset(140);
     SmartDashboard.putBoolean("IntakeBreakbeam", getIntakeBreakbeam());
     // SmartDashboard.putBoolean("Intake2", !breakBeamIntakeOut.get());
     // SmartDashboard.putBoolean("Intake3",!breakBeamIntakeMid.get());
