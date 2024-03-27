@@ -13,6 +13,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 import edu.wpi.first.networktables.NetworkTableType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
@@ -114,10 +115,6 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocit
       negative = -1;
     }
     double newspeed = getPercentFromBattery(speed);
-
-    //  if (!breakBeamHolder.get() ) {
-    //   newspeed =0; 
-    //  }
     holderRoller.set(newspeed);
   }
 
@@ -136,10 +133,8 @@ flyWheel2.setControl(controlVoltage.withFeedForward(0.7).withSlot(0).withVelocit
   @Override
   public void periodic() {
     SmartDashboard.putBoolean("RollerBreakBeam", RollerBreakBeamBroken());
-
     SmartDashboard.putNumber("flywheel1-velo", flyWheel1.getVelocity().getValueAsDouble());
      SmartDashboard.putNumber("flywheel2-velo", flyWheel2.getVelocity().getValueAsDouble());
-
     // This method will be called once per scheduler run
   }
 }

@@ -29,15 +29,15 @@ public class Shoot extends SequentialCommandGroup {
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
       new simpleWaitCommand(.3),
-      new ShooterCommand(shooter, true)
-     // new ShooterSpecial(shooter,100,false)
+   //   new ShooterCommand(shooter, true)
+      new ShooterSpecial(shooter,70,false)
     );
     
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(1),
         new ParallelCommandGroup(
-           new ShooterCommand(shooter, true),
-         //  new ShooterSpecial(shooter,100,false),
+        //   new ShooterCommand(shooter, true),
+           new ShooterSpecial(shooter,70,false),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )

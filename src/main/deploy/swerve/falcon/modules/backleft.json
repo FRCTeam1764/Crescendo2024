@@ -15,10 +15,10 @@
     "canbus": "1764 canivore"
   },
   "inverted": {
-    "drive": false,
+    "drive": true,
     "angle": true
   },
-  "absoluteEncoderOffset": 164.90234375,
+  "absoluteEncoderOffset": 344.53125,
   "location": {
     "front": -7,
     "left": 7

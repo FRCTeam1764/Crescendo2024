@@ -29,7 +29,6 @@ public class IntakeSubsystem extends SubsystemBase {
   private final IntakeState intakeState;
   private final CANSparkMax m_intakeMotor = new CANSparkMax(Constants.INTAKE_MOTOR.id, MotorType.kBrushless);
   private SparkPIDController pidController;
-  private SparkPIDController pidController2;
 
   ArmFeedforward armfeed = new ArmFeedforward(0,0.3,0);
 
@@ -46,26 +45,27 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.restoreFactoryDefaults();
     m_flexMotor2.restoreFactoryDefaults();
     m_flexMotor.setInverted(true);
-
-    m_flexMotor.setIdleMode(IdleMode.kBrake);
+m_flexMotor2.setInverted(false);
+    m_flexMotor.setIdleMode(IdleMode.kCoast);
   
+
+m_flexMotor2.setIdleMode(IdleMode.kCoast);
+//m_flexMotor2.follow(m_flexMotor,true);
+
     pidController = m_flexMotor.getPIDController();
     pidController.setP(.012); //prev .012
     pidController.setD(0.65); // prev .65
     pidController.setFeedbackDevice(m_angleEncoder);
-    pidController.setOutputRange(-.8, .8); //prev .9
+    pidController.setOutputRange(-.1, .1); //prev .9
    
-    pidController2 = m_flexMotor2.getPIDController();
-    pidController2.setP(.012); //prev .012
-    pidController2.setD(0.65); // prev .65
-    pidController2.setFeedbackDevice(m_angleEncoder);
-    pidController2.setOutputRange(-.8, .8); //prev .9
+   
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;
-
+//66-260
+//68 255 - back and down pos 
     m_angleEncoder.setPositionConversionFactor(360);
-    m_angleEncoder.setZeroOffset(250);
+    m_angleEncoder.setZeroOffset(100);
     m_angleEncoder.setInverted(false);
 
     m_intakeMotor.setInverted(true);
@@ -113,10 +113,17 @@ public class IntakeSubsystem extends SubsystemBase {
     m_intakeMotor.set(0);
   }
 
+
+  public void startflex1(){
+m_flexMotor2.set(.2);
+  }
+
+  public void stopflex1(){
+    m_flexMotor2.set(0);
+  }
   public void flexClosedLoop(double desired) {
 
-      pidController.setReference(desired, ControlType.kPosition);
-      pidController2.setReference(desired, ControlType.kPosition);
+    //  pidController.setReference(desired, ControlType.kPosition);
   }
 
   public double getEncoderPos() {

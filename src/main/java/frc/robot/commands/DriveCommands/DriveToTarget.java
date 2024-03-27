@@ -17,7 +17,6 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.constants.SwerveConstantsYAGSL;
-import frc.robot.constants.SwerveConstants.Swerve;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -95,7 +94,7 @@ public class DriveToTarget extends Command {
     SmartDashboard.putNumber("Robot Angle", Math.toDegrees(m_Drivetrain.getPose().getRotation().getRadians()));
     SmartDashboard.putNumber("Calculated Angle", Math.toDegrees(setpoint));
 
-    m_Drivetrain.drive(new Translation2d(xOutput * Swerve.maxSpeed,yOutput*Swerve.maxSpeed),thetaOutput, true);
+    m_Drivetrain.drive(new Translation2d(xOutput * m_Drivetrain.maximumSpeed,yOutput*m_Drivetrain.maximumSpeed),thetaOutput, true);
   }
 
   // Called once the command ends or is interrupted.

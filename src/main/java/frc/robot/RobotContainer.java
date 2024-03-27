@@ -32,6 +32,7 @@ import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.RollerCommand;
 import frc.robot.commands.SimpleCommands.ShooterCommand;
 import frc.robot.commands.SimpleCommands.ShooterSpecial;
+import frc.robot.commands.SimpleCommands.TestWrist;
 import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
 import frc.robot.constants.SwerveConstantsYAGSL;
@@ -114,6 +115,7 @@ public class RobotContainer {
      private  SendableChooser<Command> autoChooser;
 private final Music THEMUSIC = new Music();
     private final Superstructure superstructure = new Superstructure();
+    
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter(THEMUSIC);
@@ -164,7 +166,7 @@ private final Music THEMUSIC = new Music();
 
     private void configureCoPilotButtonBindings() {
         //a button
-        
+        /* 
         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
         shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
         //y button
@@ -186,7 +188,9 @@ private final Music THEMUSIC = new Music();
          spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
          robotState.intakeState));
 
-            
+            */
+
+            shoot.whileTrue(new TestWrist(intakeSubsystem,.1,false));
 
         // dpad (bane of humanity) 1 = left 2 = right
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -140, -100));
@@ -210,6 +214,7 @@ private final Music THEMUSIC = new Music();
     }
 
     public void configAutoCommands() {
+        /* 
         //oopsie, better practice next year or something :D
         NamedCommands.registerCommand("AutoScore", new AutoShoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
@@ -220,6 +225,7 @@ private final Music THEMUSIC = new Music();
         NamedCommands.registerCommand("WristDown", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
+        */
     }
 
     public Command getAutonomousCommand() {

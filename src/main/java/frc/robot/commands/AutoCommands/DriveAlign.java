@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.commands.testClimberRight;
 import frc.robot.constants.SwerveConstantsYAGSL;
-import frc.robot.constants.SwerveConstants.Swerve;
 import frc.robot.subsystems.LimelightSubsystem;
 import frc.robot.subsystems.SwerveSubsystem;
 
@@ -60,7 +59,7 @@ public class DriveAlign extends Command {
 			}
       System.out.print(String.valueOf(thetaOutput));
 		} 
-    Drivetrain.drive(new Translation2d(-.35*Swerve.maxSpeed,0),thetaOutput,false);
+    Drivetrain.drive(new Translation2d(-.35*Drivetrain.maximumSpeed,0),thetaOutput,false);
   }
 
   // Called once the command ends or is interrupted.
