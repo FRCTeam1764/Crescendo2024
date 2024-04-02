@@ -47,7 +47,10 @@ public class IntakeSubsystem extends SubsystemBase {
     m_flexMotor.setInverted(true);
 m_flexMotor2.setInverted(false);
     m_flexMotor.setIdleMode(IdleMode.kCoast);
-  
+
+    
+  m_flexMotor.setSecondaryCurrentLimit(100);
+  m_flexMotor2.setSecondaryCurrentLimit(100);
 
 m_flexMotor2.setIdleMode(IdleMode.kCoast);
 m_flexMotor2.follow(m_flexMotor,true);

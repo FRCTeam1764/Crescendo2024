@@ -121,6 +121,7 @@ private final Music THEMUSIC = new Music();
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
     private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
     private final Shooter shooter = new Shooter(THEMUSIC);
+    private final Blinkin blinky = new Blinkin();
 
       private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
             new File(Filesystem.getDeployDirectory(), "swerve/falcon"),THEMUSIC);
@@ -228,6 +229,7 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
         
+
     }
 
     public Command getAutonomousCommand() {
