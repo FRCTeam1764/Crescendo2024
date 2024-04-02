@@ -50,14 +50,13 @@ m_flexMotor2.setInverted(false);
   
 
 m_flexMotor2.setIdleMode(IdleMode.kCoast);
-//m_flexMotor2.follow(m_flexMotor,true);
+m_flexMotor2.follow(m_flexMotor,true);
 
     pidController = m_flexMotor.getPIDController();
     pidController.setP(.012); //prev .012
-    pidController.setD(0.65); // prev .65
+    pidController.setD(0.7); // prev .65
     pidController.setFeedbackDevice(m_angleEncoder);
-    pidController.setOutputRange(-.1, .1); //prev .9
-   
+    pidController.setOutputRange(-.9, .9); //prev .9
    
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
@@ -115,15 +114,15 @@ m_flexMotor2.setIdleMode(IdleMode.kCoast);
 
 
   public void startflex1(){
-m_flexMotor2.set(.2);
+m_flexMotor.set(.2);
   }
 
   public void stopflex1(){
-    m_flexMotor2.set(0);
+    m_flexMotor.set(0);
   }
   public void flexClosedLoop(double desired) {
 
-    //  pidController.setReference(desired, ControlType.kPosition);
+      pidController.setReference(desired, ControlType.kPosition);
   }
 
   public double getEncoderPos() {

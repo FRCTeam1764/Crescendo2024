@@ -25,6 +25,7 @@ import frc.robot.commands.ComplexCommands.ShootRampShoot;
 import frc.robot.commands.ComplexCommands.SpitOutNoteCommand;
 import frc.robot.commands.ComplexCommands.indexRingCommand;
 import frc.robot.commands.ComplexCommands.returnGroundPickUp;
+import frc.robot.commands.DriveCommands.DoA180;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
@@ -72,6 +73,7 @@ public class RobotContainer {
     private final JoystickButton zeroGyro = new JoystickButton(driver, XboxController.Button.kY.value);
     private final JoystickButton robotCentric = new JoystickButton(driver, XboxController.Button.kRightBumper.value);
     private final JoystickAxis LeftTrigger = new JoystickAxis(driver, XboxController.Axis.kLeftTrigger.value);
+    private final JoystickButton FLIPURSELF = new JoystickButton(driver, XboxController.Button.kX.value);
 
     private final JoystickButton SpeakerLimelight = new JoystickButton(driver, XboxController.Button.kA.value);
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
@@ -161,12 +163,13 @@ private final Music THEMUSIC = new Music();
         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true));
         //b
         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false));
-
+//x
+FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     }
 
     private void configureCoPilotButtonBindings() {
         //a button
-        /* 
+        
         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
         shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
         //y button
@@ -188,9 +191,8 @@ private final Music THEMUSIC = new Music();
          spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
          robotState.intakeState));
 
-            */
+            
 
-            shoot.whileTrue(new TestWrist(intakeSubsystem,.1,false));
 
         // dpad (bane of humanity) 1 = left 2 = right
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -140, -100));
@@ -214,7 +216,7 @@ private final Music THEMUSIC = new Music();
     }
 
     public void configAutoCommands() {
-        /* 
+        
         //oopsie, better practice next year or something :D
         NamedCommands.registerCommand("AutoScore", new AutoShoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
@@ -225,7 +227,7 @@ private final Music THEMUSIC = new Music();
         NamedCommands.registerCommand("WristDown", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
-        */
+        
     }
 
     public Command getAutonomousCommand() {
@@ -238,7 +240,7 @@ private final Music THEMUSIC = new Music();
      }
     public double getPercentFromBattery(double speed){
         return speed * 12 / RobotController.getBatteryVoltage();
-}
+    }
 
     public Superstructure getSuperstructure() {
         return superstructure;

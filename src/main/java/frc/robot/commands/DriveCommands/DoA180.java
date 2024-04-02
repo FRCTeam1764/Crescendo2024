@@ -10,6 +10,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.constants.SwerveConstantsYAGSL;
@@ -31,14 +32,17 @@ private boolean fieldRelative;
     this.Drivetrain = drivetrain;
     this.controller = controller;
     this.fieldRelative = fieldRelative;
-offset = drivetrain.getPose().getRotation().getDegrees()+180;
+//offset = drivetrain.getPose().getRotation().getDegrees()+180;
+SmartDashboard.putNumber("OffsetForRotation", offset);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     thetaController.reset();
-    thetaController.setTolerance(Math.toRadians(1)); //fix later?
+    offset = -Drivetrain.getPose().getRotation().getDegrees();
+
+    thetaController.setTolerance(Math.toRadians(2)); //fix later?
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -47,16 +51,14 @@ offset = drivetrain.getPose().getRotation().getDegrees()+180;
     double thetaOutput = 0;
     double xOutput =MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value),SwerveConstantsYAGSL.OperatorConstants.LEFT_X_DEADBAND)*Drivetrain.maximumSpeed;
     double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value),SwerveConstantsYAGSL.OperatorConstants.RIGHT_X_DEADBAND)*Drivetrain.maximumSpeed;
-		if (LimeLight.hasTarget()){
-			double horizontal_amgle = -offset;
-			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
+			double setpoint = Math.toRadians( offset);  //Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
-
+SmartDashboard.putNumber("rot!!!", Drivetrain.getPose().getRotation().getDegrees());
 			if (!thetaController.atSetpoint()){
 				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);
 			}
       System.out.print(String.valueOf(thetaOutput));
-		} 
+		
     Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,fieldRelative);
   }
 

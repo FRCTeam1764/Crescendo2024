@@ -24,11 +24,11 @@ public class SpitOutNoteCommand extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(shooter,intakeSubsystem);
     addCommands(
-      new WristCommand(intakeSubsystem,intakeState,300,true,false),
+      new WristCommand(intakeSubsystem,intakeState,CommandConstants.INTAKE_SPITOUT_ENCODERVALUE,true,false),
 
       new ParallelCommandGroup(
         new IntakeCommand(intakeSubsystem,-CommandConstants.INTAKE_PICKUP_SPEED,false),
-        new WristCommand(intakeSubsystem,intakeState, 300,false,true)
+        new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_SPITOUT_ENCODERVALUE,false,true)
     )
     );
   }

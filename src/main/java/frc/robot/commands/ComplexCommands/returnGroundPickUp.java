@@ -40,7 +40,7 @@ public class returnGroundPickUp extends SequentialCommandGroup {
 ParallelRaceGroup movePiece =  new ParallelRaceGroup(
 
 new simpleWaitCommand(0.3),
-      new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false),
+      new IntakeCommand(intake, -CommandConstants.INTAKE_SLOW_SPEED,false),
       new RollerCommand(shooter, CommandConstants.SHOOTER_INTAKE_SPEED,true)
     );
     addCommands(
