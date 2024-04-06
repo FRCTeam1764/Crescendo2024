@@ -63,12 +63,12 @@ lemusic.AddDevice(holderRoller);
 
     TalonFXConfiguration config2 = new TalonFXConfiguration();
 
-    config1.Slot0.kP = .4; //prev .65
-    config1.Slot0.kD = .005;
+    config1.Slot0.kP = .8; //prev .65
+    config1.Slot0.kD = .1;
 
     
-    config2.Slot0.kP = .4;
-    config2.Slot0.kD = .005;
+    config2.Slot0.kP = .8;
+    config2.Slot0.kD = .1;
     
     
   

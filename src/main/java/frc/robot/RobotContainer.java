@@ -11,8 +11,11 @@ import frc.robot.commands.*;
 import frc.robot.commands.AutoCommands.AutoGroundPickUp;
 import frc.robot.commands.AutoCommands.AutoGroundPickUpShort;
 import frc.robot.commands.AutoCommands.AutoShoot;
+import frc.robot.commands.AutoCommands.AutoShootFirst;
 import frc.robot.commands.AutoCommands.LimeLightAuto;
+import frc.robot.commands.AutoCommands.LimeLightAutoRing;
 import frc.robot.commands.AutoCommands.LockOnAprilTagAuto;
+import frc.robot.commands.AutoCommands.ShootAfterRamp;
 import frc.robot.commands.ComplexCommands.AmpIntakeCommand;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
 import frc.robot.commands.ComplexCommands.GoToAmpPositionCommand;
@@ -161,9 +164,9 @@ private final Music THEMUSIC = new Music();
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
         //a
-        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true));
+        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true,true));
         //b
-        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false));
+        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false,false));
 //x
 FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     }
@@ -196,9 +199,9 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
 
 
         // dpad (bane of humanity) 1 = left 2 = right
-        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -140, -100));
-        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -140));
-        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -100, -100));
+        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -150, -110));
+        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -150));
+        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -110));
         // replcae
         climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
 
@@ -222,14 +225,16 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         NamedCommands.registerCommand("AutoScore", new AutoShoot(shooter,intakeSubsystem));
         NamedCommands.registerCommand("GroundPickUpAuto", new AutoGroundPickUp(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
         NamedCommands.registerCommand("GroundPickUpAutoShort", new AutoGroundPickUpShort(s_Swerve,intakeSubsystem,robotState.intakeState,shooter));
-        NamedCommands.registerCommand("LimeLightRing", new LimeLightAuto(s_Swerve, limelight3, 1));
-        NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0));
+        NamedCommands.registerCommand("LimeLightRing", new LimeLightAutoRing(s_Swerve, limelight3, 1));
+        NamedCommands.registerCommand("LimeLightSpeaker", new LimeLightAuto(s_Swerve, limelight2, 0, true));
         NamedCommands.registerCommand("IndexRing",     new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem)));
         NamedCommands.registerCommand("WristDown", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
-        
+        NamedCommands.registerCommand("ShootFirst", new AutoShootFirst(shooter, intakeSubsystem));
 
+        NamedCommands.registerCommand("RampTheShooter", new ShooterSpecial(shooter, 110, false));
+        NamedCommands.registerCommand("ShootAfterRamp", new ShootAfterRamp(shooter,intakeSubsystem));
     }
 
     public Command getAutonomousCommand() {
@@ -244,6 +249,9 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         return speed * 12 / RobotController.getBatteryVoltage();
     }
 
+    public Shooter getShooter(){
+        return shooter;
+    }
     public Superstructure getSuperstructure() {
         return superstructure;
     }

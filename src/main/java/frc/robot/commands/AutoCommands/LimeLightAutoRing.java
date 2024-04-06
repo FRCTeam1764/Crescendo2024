@@ -12,14 +12,14 @@ import frc.robot.subsystems.SwerveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class LimeLightAuto extends ParallelRaceGroup {
+public class LimeLightAutoRing extends ParallelRaceGroup {
   /** Creates a new LimeLightAuto. */
-  public LimeLightAuto(SwerveSubsystem swerve, LimelightSubsystem limelight,int pipeline, boolean gottadoFunny) {
+  public LimeLightAutoRing(SwerveSubsystem swerve, LimelightSubsystem limelight,int pipeline) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-new simpleWaitCommand(.5), //used to be .75
-    new LockOnAprilTagAuto(swerve, limelight, pipeline, gottadoFunny)
+new simpleWaitCommand(.3), //used to be .75
+    new RingThing(swerve, limelight, pipeline)
     );
   }
 }

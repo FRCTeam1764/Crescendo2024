@@ -95,7 +95,7 @@ music.AddDevice(ClimberMotor2);
 
   public void ClimberRightTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch2() || Math.abs(ClimberMotor1.getPosition().getValue()) < 5 || Math.abs(ClimberMotor1.getPosition().getValue()) >200  ){
+    if(getLimitSwitch2() || Math.abs(ClimberMotor1.getPosition().getValue()) < 3 || Math.abs(ClimberMotor1.getPosition().getValue()) >200  ){
       newspeed = 0;
     }
     ClimberMotor1.set(newspeed);
@@ -111,7 +111,7 @@ music.AddDevice(ClimberMotor2);
 
   public void ClimberLefttTest(double speed) {
     double newspeed = speed;
-    if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 5 || Math.abs(ClimberMotor2.getPosition().getValue()) > 200 ){
+    if(getLimitSwitch() || Math.abs(ClimberMotor2.getPosition().getValue()) < 3 || Math.abs(ClimberMotor2.getPosition().getValue()) > 170 ){
       newspeed = 0;
     }
     ClimberMotor2.set(newspeed);

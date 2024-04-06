@@ -48,7 +48,7 @@ public class IntakeSubsystem extends SubsystemBase {
 m_flexMotor2.setInverted(false);
     m_flexMotor.setIdleMode(IdleMode.kCoast);
 
-    
+
   m_flexMotor.setSecondaryCurrentLimit(100);
   m_flexMotor2.setSecondaryCurrentLimit(100);
 
@@ -56,8 +56,8 @@ m_flexMotor2.setIdleMode(IdleMode.kCoast);
 m_flexMotor2.follow(m_flexMotor,true);
 
     pidController = m_flexMotor.getPIDController();
-    pidController.setP(.012); //prev .012
-    pidController.setD(0.7); // prev .65
+    pidController.setP(.010); //prev .012
+    pidController.setD(0.3); // prev .65 .9
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.9, .9); //prev .9
    

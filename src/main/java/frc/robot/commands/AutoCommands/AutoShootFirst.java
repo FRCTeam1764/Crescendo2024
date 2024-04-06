@@ -20,16 +20,16 @@ import frc.robot.subsystems.Shooter;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoShoot extends SequentialCommandGroup {
+public class AutoShootFirst extends SequentialCommandGroup {
   /** Creates a new Shoot. */
-  public AutoShoot(Shooter shooter, IntakeSubsystem intake) {
+  public AutoShootFirst(Shooter shooter, IntakeSubsystem intake) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(shooter, intake);
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
-      new simpleWaitCommand(.55), //prev .55 time
-      new ShooterSpecial(shooter,120,false)
+      new simpleWaitCommand(.7)//,
+    //  new ShooterSpecial(shooter,110,false)
       // new ShooerCommand(shooter,)
      // new ShooterSpecial(shooter,100,false)
     );
@@ -37,13 +37,13 @@ public class AutoShoot extends SequentialCommandGroup {
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(.3),
         new ParallelCommandGroup(
-      //  new ShooterSpecial(shooter,120,false),       //new ShooterCommand(shooter, true),
-          new RollerCommand(shooter,CommandConstants.SHOOTER_SHOOT_SPEED,false),
+      //  new ShooterSpecial(shooter,110,false),       //new ShooterCommand(shooter, true),
+          new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )
     );
     addCommands(
- //     shootprep,
+      shootprep,
       fire
     );
   }

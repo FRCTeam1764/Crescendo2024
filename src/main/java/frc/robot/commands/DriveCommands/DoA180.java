@@ -53,7 +53,6 @@ SmartDashboard.putNumber("OffsetForRotation", offset);
     double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value),SwerveConstantsYAGSL.OperatorConstants.RIGHT_X_DEADBAND)*Drivetrain.maximumSpeed;
 			double setpoint = Math.toRadians( offset);  //Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
-SmartDashboard.putNumber("rot!!!", Drivetrain.getPose().getRotation().getDegrees());
 			if (!thetaController.atSetpoint()){
 				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);
 			}

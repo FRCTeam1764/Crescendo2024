@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     //    robotContainer.getDrivetrainSubsystem().resetPose(RigidTransform2.ZERO);
     //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
-
+    robotContainer.getShooter().shooterPID(90);
         robotContainer.getAutonomousCommand().schedule();//fix later
    }
 
@@ -90,6 +90,7 @@ public class Robot extends TimedRobot {
 
    @Override
    public void teleopInit() {
+    robotContainer.getShooter().shooterPIDOff();
     CommandScheduler.getInstance().cancelAll();
    }
 

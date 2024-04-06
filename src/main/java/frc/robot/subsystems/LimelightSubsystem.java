@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
+import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.constants.Constants;
 //import webblib.util.RectanglePoseArea;
 
@@ -26,6 +27,7 @@ public class LimelightSubsystem extends SubsystemBase {
   private NetworkTableEntry ty;
   private NetworkTableEntry ta;
   private NetworkTableEntry tv;
+  private NetworkTableEntry tid;
   private double horizontal_offset = 0;
   private String name;
   private Pose2d botpose;
@@ -48,6 +50,8 @@ public class LimelightSubsystem extends SubsystemBase {
     this.ty = table.getEntry("ty");
     this.ta = table.getEntry("ta");
     this.tv = table.getEntry("tv");
+        this.tid = table.getEntry("tid");
+
 this.name = name;
 this.driveTrain = swerve;
   }
@@ -65,9 +69,10 @@ this.driveTrain = swerve;
     this.ty = table.getEntry("ty");
     this.ta = table.getEntry("ta");
     this.tv = table.getEntry("tv");
+    this.tid = table.getEntry("tid");
     this.horizontal_offset = offset;
-this.name = name;
-this.driveTrain = drivetrain;
+    this.name = name;
+    this.driveTrain = drivetrain;
   }
   @Override
   public void periodic() {
@@ -127,6 +132,10 @@ table.getEntry("pipeline").setNumber(pipe);
 
 
 
+  }
+
+  public int getID(){
+    return (int) this.tid.getInteger(0);
   }
 
   public double getTxAngleRadians() {

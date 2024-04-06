@@ -20,20 +20,25 @@ public class LockOnAprilTagAuto extends Command {
    
   private LimelightSubsystem LimeLight;
   private SwerveSubsystem Drivetrain;
-
+  private boolean fieldRelative;
   private Joystick controller;
+  private boolean gottadoFunny;
+  private int pipeline;
   private PIDController thetaController = new PIDController(SwerveConstantsYAGSL.Auton.angleAutoPID.kP, SwerveConstantsYAGSL.Auton.angleAutoPID.kI, SwerveConstantsYAGSL.Auton.angleAutoPID.kD);
-  public LockOnAprilTagAuto(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline) {
+  public LockOnAprilTagAuto(SwerveSubsystem drivetrain, LimelightSubsystem limelight, int pipeline, boolean gottadoFunny) {
     addRequirements(drivetrain);
     this.Drivetrain = drivetrain;
     this.LimeLight = limelight;
-    limelight.setPipeline(pipeline);
+    this.pipeline = pipeline;
+
+    this.gottadoFunny = gottadoFunny;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     thetaController.reset();
+    LimeLight.setPipeline(pipeline);
     thetaController.setTolerance(Math.toRadians(1)); //fix later?
   }
 
@@ -43,16 +48,24 @@ public class LockOnAprilTagAuto extends Command {
     double thetaOutput = 0;
     double xOutput =0;
     double yOutput = 0;
+    double horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees());
 		if (LimeLight.hasTarget()){
-			double horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees() -1);
-			double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
-      thetaController.setSetpoint(setpoint);
+      if(gottadoFunny == true){
+        if(LimeLight.getID() == 3 || LimeLight.getID() == 8){
+          LimeLight.setPipeline(2);
+           horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees()+22 );
+        }else{
 
+          LimeLight.setPipeline(1);
+        }
+      double setpoint = Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
+      thetaController.setSetpoint(setpoint);
 			if (!thetaController.atSetpoint()){
 				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);
 			}
       System.out.print(String.valueOf(thetaOutput));
 		} 
+  }
     Drivetrain.drive(new Translation2d(xOutput,yOutput),thetaOutput,false);
   }
 

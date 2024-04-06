@@ -14,7 +14,7 @@
         {
           "type": "named",
           "data": {
-            "name": "AutoScore"
+            "name": "ShootFirst"
           }
         },
         {
@@ -34,12 +34,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LimeLightRing"
           }
         },
         {
@@ -78,12 +72,6 @@
                 }
               }
             ]
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "LimeLightSpeaker"
           }
         },
         {
