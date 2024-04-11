@@ -36,7 +36,7 @@ public class Shooter extends SubsystemBase {
     holderRoller = new LazyTalonFX(Constants.HOLDER_MOTOR.id, Constants.HOLDER_MOTOR.busName);
     SmartDashboard.putBoolean("RollerBreakBeam", false);
 
-    setupMotors();11111111111111111 aaaaaaaaaaaaaaqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2222!!z
+    setupMotors();
 
     flyWheel1.setInverted(true);
     flyWheel1.setNeutralMode(NeutralModeValue.Coast);
