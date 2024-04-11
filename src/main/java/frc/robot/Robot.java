@@ -78,7 +78,7 @@ public class Robot extends TimedRobot {
     //    robotContainer.getDrivetrainSubsystem().resetPose(RigidTransform2.ZERO);
     //    robotContainer.getDrivetrainSubsystem().resetGyroAngle(Rotation2.ZERO);
 
-    robotContainer.getShooter().shooterPID(90);
+    robotContainer.getShooter().shooterPID(110);
         robotContainer.getAutonomousCommand().schedule();//fix later
    }
 

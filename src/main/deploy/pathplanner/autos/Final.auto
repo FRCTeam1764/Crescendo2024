@@ -14,7 +14,7 @@
         {
           "type": "wait",
           "data": {
-            "waitTime": 1.5
+            "waitTime": 1.0
           }
         },
         {
@@ -36,7 +36,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BottomShootToLeave"
+                  "pathName": "Copy of BottomShootToLeave"
                 }
               }
             ]
@@ -61,7 +61,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BottomLeaveToShoot"
+                  "pathName": "Copy of BottomLeaveToShoot"
                 }
               },
               {
