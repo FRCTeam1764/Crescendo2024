@@ -68,14 +68,14 @@ music.AddDevice(ClimberMotor2);
     config.Slot0.kD = 0.00005;
 
     config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    config.MotorOutput.PeakForwardDutyCycle = 1;
-    config.MotorOutput.PeakReverseDutyCycle = -1; // can bump up to 12 or something
+    config.MotorOutput.PeakForwardDutyCycle = .6;
+    config.MotorOutput.PeakReverseDutyCycle = -.6; // can bump up to 12 or something
       config2.Slot0.kP = 0.435; // prev .00003
     config2.Slot0.kD = 0.00005;
 
     config2.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-    config2.MotorOutput.PeakForwardDutyCycle = 1;
-    config2.MotorOutput.PeakReverseDutyCycle = -1; // can bump up to 12 or something
+    config2.MotorOutput.PeakForwardDutyCycle = .6;
+    config2.MotorOutput.PeakReverseDutyCycle = -.6; // can bump up to 12 or something
 
     ClimberMotor1.getConfigurator().apply(config);
     ClimberMotor2.getConfigurator().apply(config2);

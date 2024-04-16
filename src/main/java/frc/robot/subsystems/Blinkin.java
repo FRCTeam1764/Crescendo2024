@@ -18,7 +18,7 @@ public class Blinkin extends SubsystemBase {
   //-.09
   
 
-double[] colors = {
+double[] colors = { //https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf
   -0.41,
   -0.95,
   -0.75,

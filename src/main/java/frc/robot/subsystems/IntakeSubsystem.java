@@ -59,7 +59,7 @@ m_flexMotor2.follow(m_flexMotor,true);
     pidController.setP(.010); //prev .012
     pidController.setD(0.3); // prev .65 .9
     pidController.setFeedbackDevice(m_angleEncoder);
-    pidController.setOutputRange(-.9, .9); //prev .9
+    pidController.setOutputRange(-.5, .5); //prev .9
    
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 

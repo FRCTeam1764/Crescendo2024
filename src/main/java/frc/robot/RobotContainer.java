@@ -177,11 +177,11 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     private void configureCoPilotButtonBindings() {
         //a button
         
-        shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
-        shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState, s_Swerve));
+         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
+         shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState, s_Swerve));
         //y button
-        shootTrap.whileTrue(new ShootRamp(shooter, intakeSubsystem));
-        shootTrap.onFalse(new ShootRampShoot(shooter,intakeSubsystem));
+        // shootTrap.whileTrue(new ShootRamp(shooter, intakeSubsystem));
+        // shootTrap.onFalse(new ShootRampShoot(shooter,intakeSubsystem));
         // left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
                 robotState.intakeState, s_Swerve));
@@ -193,12 +193,12 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
 
         // x button
         //index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
-        changeColor.onTrue(new BlinkinCommand(blinky));
+        changeColor.onTrue(new BlinkinCommand(blinky, true));
         
 
         // b button
-         spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
-         robotState.intakeState));
+        //  spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
+        //  robotState.intakeState));
 
             
 

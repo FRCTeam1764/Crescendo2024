@@ -10,21 +10,28 @@ import frc.robot.subsystems.Blinkin;
 public class BlinkinCommand extends Command {
   /** Creates a new BlinkinCommand. */
   Blinkin blinkin;
-
-  public BlinkinCommand(Blinkin blinkin) {
+  boolean mode;
+  public BlinkinCommand(Blinkin blinkin, boolean mode) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.blinkin = blinkin;
+    this.mode = mode;
     addRequirements(blinkin);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (mode == true){
+        blinkin.setColorLoop();
+    } else {
+      blinkin.setColor(-0.97);
+    }
+    
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    blinkin.setColorLoop();
   }
 
   // Called once the command ends or is interrupted.
