@@ -10,10 +10,12 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.SwerveSubsystem;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.WristCommand;
 import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
+
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -22,10 +24,10 @@ public class GroundPickup extends SequentialCommandGroup {
   
 
   /** Creates a new GroundPickup. */
-  public GroundPickup(Shooter shooter, IntakeSubsystem intakeSubsystem, IntakeState intakeState) {
+  public GroundPickup(Shooter shooter, IntakeSubsystem intakeSubsystem, IntakeState intakeState, SwerveSubsystem swerveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addRequirements(intakeSubsystem,shooter);
+    addRequirements(intakeSubsystem,shooter,swerveSubsystem);
     addCommands (
       new ParallelDeadlineGroup(new WristCommand(intakeSubsystem,intakeState, CommandConstants.INTAKE_DOWN_ENCODERVALUE,true,false), 
       new IntakeCommand(intakeSubsystem, CommandConstants.INTAKE_PICKUP_SPEED,false)

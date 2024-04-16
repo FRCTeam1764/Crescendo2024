@@ -92,7 +92,8 @@ public class RobotContainer {
     private final JoystickButton shootTrap = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
 
-    private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    //private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton changeColor = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     private final POVButton climbRight = new POVButton(secondaryController, 90);
     private final POVButton climbLeft = new POVButton(secondaryController, 270);
@@ -122,9 +123,10 @@ private final Music THEMUSIC = new Music();
     private final Superstructure superstructure = new Superstructure();
     
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);
+    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);;
     private final Shooter shooter = new Shooter(THEMUSIC);
     private final Blinkin blinky = new Blinkin();
+
 
       private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
             new File(Filesystem.getDeployDirectory(), "swerve/falcon"),THEMUSIC);
@@ -141,7 +143,7 @@ private final Music THEMUSIC = new Music();
 
         // teleop drive for yagsl
     limelight3.setPipeline(1);
-
+    
         s_Swerve.setDefaultCommand(
                 new TeleopDrive(
                         s_Swerve,
@@ -175,21 +177,22 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         //a button
         
         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
-        shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
+        shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState, s_Swerve));
         //y button
         shootTrap.whileTrue(new ShootRamp(shooter, intakeSubsystem));
         shootTrap.onFalse(new ShootRampShoot(shooter,intakeSubsystem));
         // left bumper
         groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
-                robotState.intakeState));
+                robotState.intakeState, s_Swerve));
         groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
-                robotState.intakeState));
+                robotState.intakeState, s_Swerve));
 
         // right bumper
         shoot.onTrue(new Shoot(shooter, intakeSubsystem));
 
         // x button
-        index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
+        //index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
+        //changeColor.onTrue(new Blinkin());
 
         // b button
          spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,

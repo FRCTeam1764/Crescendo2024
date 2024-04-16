@@ -18,6 +18,7 @@ import frc.robot.constants.Constants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.SwerveSubsystem;
 import pabeles.concurrency.ConcurrencyOps.NewInstance;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -25,7 +26,7 @@ import pabeles.concurrency.ConcurrencyOps.NewInstance;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ScoreAmpCommand extends SequentialCommandGroup {
   /** Creates a new ScoreAmpCommand. */
-  public ScoreAmpCommand(IntakeSubsystem intake, Shooter shooter) {
+  public ScoreAmpCommand(IntakeSubsystem intake, Shooter shooter, SwerveSubsystem swerveSubsystem) {
     addRequirements(intake);
     ParallelDeadlineGroup score = new ParallelDeadlineGroup(
       new simpleWaitCommand(1),

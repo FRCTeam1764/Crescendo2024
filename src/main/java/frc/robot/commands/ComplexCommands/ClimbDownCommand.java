@@ -18,17 +18,17 @@ public class ClimbDownCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    climber.ClimberLefttTest(0.85);
+    climber.ClimberLefttTest(0.5);
 
-    climber.ClimberRightTest(0.85);
+    climber.ClimberRightTest(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        climber.ClimberLefttTest(0.85);
+        climber.ClimberLefttTest(0.5);
 
-    climber.ClimberRightTest(0.85);
+    climber.ClimberRightTest(0.5);
   }
 
   // Called once the command ends or is interrupted.

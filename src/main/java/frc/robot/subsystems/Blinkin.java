@@ -20,7 +20,7 @@ public class Blinkin extends SubsystemBase {
 
   Spark blinkin  = new Spark(Constants.BLINKIN_SPARKPORT);
   public Blinkin() {
-color = -0.41;
+    color = -0.41;
   }
 
   public void setColor(double color){

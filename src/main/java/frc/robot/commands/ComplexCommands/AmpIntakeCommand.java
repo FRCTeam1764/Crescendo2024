@@ -15,13 +15,14 @@ import frc.robot.constants.CommandConstants;
 import frc.robot.state.IntakeState;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.SwerveSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AmpIntakeCommand extends SequentialCommandGroup {
   /** Creates a new SpitOutNoteCommand. */
-  public AmpIntakeCommand(Shooter shooter, IntakeSubsystem intakeSubsystem, IntakeState intakeState) {
+  public AmpIntakeCommand(Shooter shooter, IntakeSubsystem intakeSubsystem, IntakeState intakeState, SwerveSubsystem swerveSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addRequirements(shooter,intakeSubsystem);
