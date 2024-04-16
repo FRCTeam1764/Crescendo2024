@@ -31,6 +31,7 @@ import frc.robot.commands.ComplexCommands.returnGroundPickUp;
 import frc.robot.commands.DriveCommands.DoA180;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
+import frc.robot.commands.SimpleCommands.BlinkinCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.commands.SimpleCommands.IntakeCommand;
 import frc.robot.commands.SimpleCommands.RollerCommand;
@@ -192,7 +193,8 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
 
         // x button
         //index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
-        //changeColor.onTrue(new Blinkin());
+        changeColor.onTrue(new BlinkinCommand(blinky));
+        
 
         // b button
          spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,

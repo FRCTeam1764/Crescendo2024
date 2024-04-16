@@ -18,14 +18,42 @@ public class Blinkin extends SubsystemBase {
   //-.09
   
 
+double[] colors = {
+  -0.41,
+  -0.95,
+  -0.75,
+  -0.65,
+  -0.29,
+  -0.15,
+  -0.97,
+  -0.77,
+  -0.67,
+  -0.53,
+  -0.43
+};
+
+int index = 0;
+
+
+
   Spark blinkin  = new Spark(Constants.BLINKIN_SPARKPORT);
   public Blinkin() {
     color = -0.41;
   }
 
   public void setColor(double color){
-this.color = color;
+    this.color = color;
   }
+
+
+public void setColorLoop(){
+  color = colors[index];
+  index = index+1;
+
+  if(index >= colors.length-1){
+    index = 0;
+  }
+}
 
   @Override
   public void periodic() {

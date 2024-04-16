@@ -5,11 +5,16 @@
 package frc.robot.commands.SimpleCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.Blinkin;
 
 public class BlinkinCommand extends Command {
   /** Creates a new BlinkinCommand. */
-  public BlinkinCommand() {
+  Blinkin blinkin;
+
+  public BlinkinCommand(Blinkin blinkin) {
     // Use addRequirements() here to declare subsystem dependencies.
+    this.blinkin = blinkin;
+    addRequirements(blinkin);
   }
 
   // Called when the command is initially scheduled.
@@ -18,7 +23,9 @@ public class BlinkinCommand extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    blinkin.setColorLoop();
+  }
 
   // Called once the command ends or is interrupted.
   @Override
