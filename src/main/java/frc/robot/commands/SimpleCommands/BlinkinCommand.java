@@ -22,7 +22,7 @@ public class BlinkinCommand extends Command {
   @Override
   public void initialize() {
     if (mode == true){
-        blinkin.setColorLoop();
+       blinkin.setColorLoop();
     } else {
       blinkin.setColor(-0.97);
     }
@@ -36,7 +36,9 @@ public class BlinkinCommand extends Command {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+     blinkin.setColorLoop();
+  }
 
   // Returns true when the command should end.
   @Override

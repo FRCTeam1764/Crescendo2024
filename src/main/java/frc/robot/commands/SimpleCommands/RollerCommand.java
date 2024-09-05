@@ -46,7 +46,7 @@ this.EndWithBreakBeam = EndWithBreakBeam;
   @Override
   public boolean isFinished() {
     if (EndWithBreakBeam == true) {
-      return shooter.RollerBreakBeamBroken();
+      return  false; //shooter.RollerBreakBeamBroken();
     }
     return false;
   }

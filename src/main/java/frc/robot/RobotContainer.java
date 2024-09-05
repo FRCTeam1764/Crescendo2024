@@ -83,8 +83,8 @@ public class RobotContainer {
     private final JoystickButton RingLimelight = new JoystickButton(driver, XboxController.Button.kB.value);
 
     /* CoPilot Buttons */
-
-    private final JoystickButton shoot = new JoystickButton(secondaryController,
+    /* 
+        private final JoystickButton shoot = new JoystickButton(secondaryController,
             XboxController.Button.kRightBumper.value);
         
     private final JoystickButton groundPickup = new JoystickButton(secondaryController,
@@ -92,6 +92,19 @@ public class RobotContainer {
     private final JoystickButton shootAmp = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton shootTrap = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+*/
+
+//copolt buttons but nah//
+
+    private final JoystickButton shoot = new JoystickButton(driver,
+            XboxController.Button.kRightBumper.value);
+        
+    private final JoystickButton groundPickup = new JoystickButton(driver,
+            XboxController.Button.kLeftBumper.value);
+    private final JoystickButton shootAmp = new JoystickButton(driver, XboxController.Button.kA.value);
+    private final JoystickButton shootTrap = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
+
 
     //private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
     private final JoystickButton changeColor = new JoystickButton(secondaryController, XboxController.Button.kX.value);
@@ -105,7 +118,6 @@ public class RobotContainer {
             XboxController.Button.kBack.value);
     private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController,
             XboxController.Button.kStart.value);
-
     /* Subsystems */
 
     public RobotState robotState = new RobotState(driver);
@@ -167,11 +179,11 @@ private final Music THEMUSIC = new Music();
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
         // limelighs
         //a
-        SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true,true));
+       // SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true,true));
         //b
-        RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false,false));
+       // RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false,false));
 //x
-FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
+//FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     }
 
     private void configureCoPilotButtonBindings() {
@@ -191,11 +203,12 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         // right bumper
         shoot.onTrue(new Shoot(shooter, intakeSubsystem));
 
+
         // x button
         //index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
         changeColor.onTrue(new BlinkinCommand(blinky, true));
-        
-
+        blinky.setColorLoop();
+//changeColor.onTrue(blinky.run(null));
         // b button
         //  spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
         //  robotState.intakeState));

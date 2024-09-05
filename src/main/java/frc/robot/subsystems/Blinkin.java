@@ -21,15 +21,19 @@ public class Blinkin extends SubsystemBase {
 double[] colors = { //https://www.revrobotics.com/content/docs/REV-11-1105-UM.pdf
   -0.41,
   -0.95,
+  -0.73,
   -0.75,
-  -0.65,
+-0.53,
   -0.29,
-  -0.15,
-  -0.97,
+  -0.99,
+    -0.97,
   -0.77,
   -0.67,
+  -0.55,
+  -0.59,
   -0.53,
   -0.43
+
 };
 
 int index = 0;
@@ -49,15 +53,14 @@ int index = 0;
 public void setColorLoop(){
   color = colors[index];
   index = index+1;
-
   if(index >= colors.length-1){
     index = 0;
   }
+  blinkin.set(color);
 }
 
   @Override
   public void periodic() {
-    blinkin.set(color);
     // This method will be called once per scheduler run
   }
 }
