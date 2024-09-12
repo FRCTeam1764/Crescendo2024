@@ -9,7 +9,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.simpleWaitCommand;
 import frc.robot.commands.SimpleCommands.BlinkinCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
-import frc.robot.commands.SimpleCommands.ShooterSpecial;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Blinkin;
 
@@ -31,7 +30,7 @@ public class EmoteCommand extends SequentialCommandGroup {
     );
     addCommands(
       new ParallelDeadlineGroup(
-        new SequentialCommandGroup(left, right, left, right),
+        new SequentialCommandGroup(left, right, left, right, left, right),
         new BlinkinCommand(blinkin, false) // default color is set to party palette
         ));
   }

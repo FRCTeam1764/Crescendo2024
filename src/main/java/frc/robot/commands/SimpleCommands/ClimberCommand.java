@@ -10,12 +10,12 @@ import frc.robot.subsystems.ClimberSubsystem;
 public class ClimberCommand extends Command {
   /** Creates a new ClimberCommand. */
   ClimberSubsystem climber;
-  double encoderValue;
-double encoderValue2;
-  public ClimberCommand(ClimberSubsystem climber,double encoderValue,double encoderValue2) {
+  double right;
+double left;
+  public ClimberCommand(ClimberSubsystem climber,double right,double left) {
 this.climber = climber;
-this.encoderValue =encoderValue;
-this.encoderValue2 = encoderValue2;
+this.right =right;
+this.left = left;
 
     // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(climber);
@@ -26,9 +26,9 @@ this.encoderValue2 = encoderValue2;
   @Override
   public void initialize() {
 
-    climber.ClimberOnRight(encoderValue);
+    climber.ClimberOnRight(right);
 
-      climber.ClimberOnLeft(encoderValue2);
+      climber.ClimberOnLeft(left);
 
 
   }
