@@ -12,6 +12,7 @@ import frc.robot.commands.AutoCommands.LimeLightAuto;
 import frc.robot.commands.AutoCommands.LimeLightAutoRing;
 import frc.robot.commands.AutoCommands.LockOnAprilTagAuto;
 import frc.robot.commands.ComplexCommands.ClimbDownCommand;
+import frc.robot.commands.ComplexCommands.EmoteCommand;
 import frc.robot.commands.DriveCommands.DoA180;
 import frc.robot.commands.DriveCommands.LockOnAprilTag;
 import frc.robot.commands.DriveCommands.TeleopDrive;
@@ -87,7 +88,8 @@ public class RobotContainer {
 
 
     //private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
-    private final JoystickButton changeColor = new JoystickButton(secondaryController, XboxController.Button.kX.value);
+    private final JoystickButton changeColor = new JoystickButton(secondaryController, XboxController.Button.kY.value);
+    private final JoystickButton dance = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     private final POVButton climbRight = new POVButton(secondaryController, 90);
     private final POVButton climbLeft = new POVButton(secondaryController, 270);
@@ -197,6 +199,7 @@ private final Music THEMUSIC = new Music();
 
 
         // dpad (bane of humanity) 1 = left 2 = right
+        dance.onTrue(new EmoteCommand(climberSubsystem));
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -150, -110));
         climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -150));
         climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -110));

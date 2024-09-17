@@ -17,7 +17,7 @@ import frc.robot.subsystems.Blinkin;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class EmoteCommand extends SequentialCommandGroup {
   /** Creates a new EmoteCommand. */
-  public EmoteCommand(ClimberSubsystem climberSubsystem, Blinkin blinkin) {
+  public EmoteCommand(ClimberSubsystem climberSubsystem/* , Blinkin blinkin*/) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     ParallelDeadlineGroup left = new ParallelDeadlineGroup(
@@ -30,8 +30,8 @@ public class EmoteCommand extends SequentialCommandGroup {
     );
     addCommands(
       new ParallelDeadlineGroup(
-        new SequentialCommandGroup(left, right, left, right, left, right),
-        new BlinkinCommand(blinkin, false) // default color is set to party palette
+        new SequentialCommandGroup(left, right, left, right, left, right)
+        //new BlinkinCommand(blinkin, false) // default color is set to party palette
         ));
   }
 }
