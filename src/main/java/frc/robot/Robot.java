@@ -5,7 +5,6 @@ package frc.robot;
 
 import com.fasterxml.jackson.databind.util.RootNameLookup;
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.RobotController;
 // import edu.wpi.first.wpilibj.DigitalInput;
