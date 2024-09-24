@@ -91,10 +91,10 @@ public class RobotContainer {
     private final JoystickButton changeColor = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton dance = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
-    private final POVButton climbRight = new POVButton(secondaryController, 90);
-    private final POVButton climbLeft = new POVButton(secondaryController, 270);
-    private final POVButton climbCenter = new POVButton(secondaryController, 0);
-    private final POVButton climbDown = new POVButton(secondaryController, 180);
+    // private final POVButton climbRight = new POVButton(secondaryController, 90);
+    // private final POVButton climbLeft = new POVButton(secondaryController, 270);
+    // private final POVButton climbCenter = new POVButton(secondaryController, 0);
+    // private final POVButton climbDown = new POVButton(secondaryController, 180);
 
     private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController,
             XboxController.Button.kBack.value);
@@ -118,7 +118,7 @@ private final Music THEMUSIC = new Music();
     private final Superstructure superstructure = new Superstructure();
     
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
-    private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);;
+    //private final IntakeSubsystem intakeSubsystem = new IntakeSubsystem(robotState.intakeState);;
     private final Shooter shooter = new Shooter(THEMUSIC);
     private final Blinkin blinky = new Blinkin();
 
@@ -188,9 +188,10 @@ private final Music THEMUSIC = new Music();
 
         // x button
         //index.whileTrue(new indexRingCommand(shooter, intakeSubsystem));
-        changeColor.onTrue(new BlinkinCommand(blinky, true));
-        blinky.setColorLoop();
-//changeColor.onTrue(blinky.run(null));
+        changeColor.onTrue(new BlinkinCommand(blinky));
+        
+        //blinky.setColorLoop();  <---------------------------------------------------------------------------------
+        //changeColor.onTrue(blinky.run(null));
         // b button
         //  spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
         //  robotState.intakeState));
@@ -199,12 +200,14 @@ private final Music THEMUSIC = new Music();
 
 
         // dpad (bane of humanity) 1 = left 2 = right
-        dance.onTrue(new EmoteCommand(climberSubsystem));
-        climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -150, -110));
-        climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -150));
-        climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -110));
+        //EmoteCommand dancing = new EmoteCommand(climberSubsystem, false);
+        dance.onTrue(new EmoteCommand(climberSubsystem, false));
+
+        //climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -150, -110));
+        //climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -150));
+        //climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -110));
         // replcae
-        climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
+        //climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
 
         // climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
         ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));

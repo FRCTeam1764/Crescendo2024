@@ -5,6 +5,7 @@
 package frc.robot.commands.ComplexCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.simpleWaitCommand;
 import frc.robot.commands.SimpleCommands.BlinkinCommand;
@@ -17,21 +18,30 @@ import frc.robot.subsystems.Blinkin;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class EmoteCommand extends SequentialCommandGroup {
   /** Creates a new EmoteCommand. */
-  public EmoteCommand(ClimberSubsystem climberSubsystem/* , Blinkin blinkin*/) {
+  boolean stopp;
+  public EmoteCommand(ClimberSubsystem climberSubsystem, boolean stopp) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    this.stopp = stopp;
     ParallelDeadlineGroup left = new ParallelDeadlineGroup(
       new simpleWaitCommand(1.5),
-      new ClimberCommand(climberSubsystem, -150, -110)
+      new ClimberCommand(climberSubsystem, -150, -70)
     );
     ParallelDeadlineGroup right = new ParallelDeadlineGroup(
       new simpleWaitCommand(1.5),
-      new ClimberCommand(climberSubsystem, -110, -150)
+      new ClimberCommand(climberSubsystem, -70, -150)
     );
+
     addCommands(
-      new ParallelDeadlineGroup(
-        new SequentialCommandGroup(left, right, left, right, left, right)
+      // new ParallelDeadlineGroup(
+      //   new simpleWaitCommand(1.5),
+        new ParallelDeadlineGroup(
+          new simpleWaitCommand(6),
+          new SequentialCommandGroup(left, right).repeatedly()
+        )
+
         //new BlinkinCommand(blinkin, false) // default color is set to party palette
-        ));
+      //)
+    );
   }
 }

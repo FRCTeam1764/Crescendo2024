@@ -103,7 +103,7 @@ m_flexMotor2.follow(m_flexMotor,true);
 
   public void run(double speed) {
     
-   m_intakeMotor.set(speed);
+   //m_intakeMotor.set(speed);
    
   }
 
@@ -117,7 +117,7 @@ m_flexMotor2.follow(m_flexMotor,true);
 
 
   public void startflex1(){
-m_flexMotor.set(.2);
+//m_flexMotor.set(.2);
   }
 
   public void stopflex1(){
@@ -125,7 +125,7 @@ m_flexMotor.set(.2);
   }
   public void flexClosedLoop(double desired) {
 
-      pidController.setReference(desired, ControlType.kPosition);
+      //pidController.setReference(desired, ControlType.kPosition);
   }
 
   public double getEncoderPos() {
