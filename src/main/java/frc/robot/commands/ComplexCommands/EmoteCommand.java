@@ -36,7 +36,7 @@ public class EmoteCommand extends SequentialCommandGroup {
       // new ParallelDeadlineGroup(
       //   new simpleWaitCommand(1.5),
         new ParallelDeadlineGroup(
-          new simpleWaitCommand(6),
+          new simpleWaitCommand(10),
           new SequentialCommandGroup(left, right).repeatedly()
         )
 
