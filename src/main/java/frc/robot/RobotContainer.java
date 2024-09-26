@@ -61,7 +61,9 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+
 public class RobotContainer {
+    
     private final Joystick driver = new Joystick(0);
     private final Joystick secondaryController = new Joystick(1); 
 
@@ -83,15 +85,11 @@ public class RobotContainer {
 
     /* CoPilot Buttons */
 
-    private final JoystickButton shoot = new JoystickButton(secondaryController,
-            XboxController.Button.kRightBumper.value);
-        
-    private final JoystickButton groundPickup = new JoystickButton(secondaryController,
-            XboxController.Button.kLeftBumper.value);
+    private final JoystickButton groundPickup = new JoystickButton(secondaryController, XboxController.Button.kLeftBumper.value);
+    private final JoystickButton shoot = new JoystickButton(secondaryController, XboxController.Button.kRightBumper.value);
     private final JoystickButton shootAmp = new JoystickButton(secondaryController, XboxController.Button.kA.value);
     private final JoystickButton shootTrap = new JoystickButton(secondaryController, XboxController.Button.kY.value);
     private final JoystickButton spitOut = new JoystickButton(secondaryController, XboxController.Button.kB.value);
-
     private final JoystickButton index = new JoystickButton(secondaryController, XboxController.Button.kX.value);
 
     private final POVButton climbRight = new POVButton(secondaryController, 90);
@@ -99,10 +97,8 @@ public class RobotContainer {
     private final POVButton climbCenter = new POVButton(secondaryController, 0);
     private final POVButton climbDown = new POVButton(secondaryController, 180);
 
-    private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController,
-            XboxController.Button.kBack.value);
-    private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController,
-            XboxController.Button.kStart.value);
+    private final JoystickButton ZeroLeftArm = new JoystickButton(secondaryController, XboxController.Button.kBack.value);
+    private final JoystickButton ZeroRightArm = new JoystickButton(secondaryController, XboxController.Button.kStart.value);
 
     /* Subsystems */
 
@@ -111,14 +107,13 @@ public class RobotContainer {
   
 /*
  * hiya, head programmer at frc 1764 here
- * thanks for chceking out the code further generations/other teams
+ * thanks for checking out the code further generations/other teams
  * i do NOT recommend using this as a refrence for anything, pls check out 5013 or 9410's github instead (i stole their code)
  *  i wanna quit 
  */
 
-    // private final Swerve s_Swerve = new Swerve();
-     private  SendableChooser<Command> autoChooser;
-private final Music THEMUSIC = new Music();
+    private  SendableChooser<Command> autoChooser;
+    private final Music THEMUSIC = new Music();
     private final Superstructure superstructure = new Superstructure();
     
     private final ClimberSubsystem climberSubsystem = new ClimberSubsystem(THEMUSIC);
@@ -126,14 +121,13 @@ private final Music THEMUSIC = new Music();
     private final Shooter shooter = new Shooter(THEMUSIC);
     private final Blinkin blinky = new Blinkin();
 
-      private final SwerveSubsystem s_Swerve = new SwerveSubsystem(
-            new File(Filesystem.getDeployDirectory(), "swerve/falcon"),THEMUSIC);
+    private final SwerveSubsystem s_Swerve = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(), "swerve/falcon"),THEMUSIC);
     // Limelights
-    // 3 is front intake
-    //2 is back shooter
-    //4,7,15,16,14,12,11,13,6,5 - tags that 2 should see
-    private  LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1,s_Swerve);
-    private  LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two",0,s_Swerve);
+    // limelight 3 is front intake
+    // limelight 2 is back shooter
+    // 4,7,15,16,14,12,11,13,6,5 - april id tags that limelight 2 should see
+    private LimelightSubsystem limelight3 = new LimelightSubsystem("limelight-three", 1,s_Swerve);
+    private LimelightSubsystem limelight2 = new LimelightSubsystem("limelight-two",0,s_Swerve);
 
     private Trajectory[] trajectories;
 
@@ -160,30 +154,28 @@ private final Music THEMUSIC = new Music();
     }
 
     private void configurePilotButtonBindings() {
-
+        //y
         zeroGyro.onTrue(new InstantCommand(() -> s_Swerve.zeroGyro()));
-        // limelighs
         //a
         SpeakerLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight2, 0, driver,true,true));
         //b
         RingLimelight.whileTrue(new LockOnAprilTag(s_Swerve, limelight3, 1, driver,false,false));
-//x
-FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
+        //x
+        FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     }
 
     private void configureCoPilotButtonBindings() {
-        //a button
-        
+        //a
         shootAmp.whileTrue(new GoToAmpPositionCommand(robotState.intakeState, intakeSubsystem, shooter));
         shootAmp.onFalse(new AmpIntakeCommand(shooter,intakeSubsystem,robotState.intakeState));
-        //y button
+        
+        //y
         shootTrap.whileTrue(new ShootRamp(shooter, intakeSubsystem));
         shootTrap.onFalse(new ShootRampShoot(shooter,intakeSubsystem));
+
         // left bumper
-        groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem,
-                robotState.intakeState));
-        groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter,
-                robotState.intakeState));
+        groundPickup.whileTrue(new GroundPickup(shooter, intakeSubsystem, robotState.intakeState));
+        groundPickup.onFalse(new returnGroundPickUp(intakeSubsystem, shooter, robotState.intakeState));
 
         // right bumper
         shoot.onTrue(new Shoot(shooter, intakeSubsystem));
@@ -195,27 +187,19 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
          spitOut.whileTrue(new SpitOutNoteCommand(shooter, intakeSubsystem,
          robotState.intakeState));
 
-            
-
-
         // dpad (bane of humanity) 1 = left 2 = right
+        //left
         climbLeft.toggleOnTrue(new ClimberCommand(climberSubsystem, -150, -110));
+        //right
         climbRight.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -150));
+        //up
         climbCenter.toggleOnTrue(new ClimberCommand(climberSubsystem, -110, -110));
-        // replcae
+        //down
         climbDown.toggleOnTrue(new ClimbDownCommand(climberSubsystem));
-
-        // climbDown.whileTrue(new testClimberLeft(climberSubsystem,.2));
+        
+        //zero arms, middle two buttons (home and screenshot)
         ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
         ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-
-/* 
-        ZeroRightArm.whileTrue(new testClimberRight(climberSubsystem, .2));
-        ZeroLeftArm.whileTrue(new testClimberLeft(climberSubsystem, .2));
-//test commands - send climber back up 
-        climbDown.whileTrue( new testClimberRight(climberSubsystem, -.2));
-         climbCenter.whileTrue(new testClimberLeft(climberSubsystem, -.2));
-         */
 
     }
 
@@ -232,7 +216,6 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
         NamedCommands.registerCommand("WristUp", new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false));
         NamedCommands.registerCommand("SetInPeace", new SequentialCommandGroup(new WristCommand(intakeSubsystem,robotState.intakeState, CommandConstants.INTAKE_UP_ENCODERVALUE,true,false),new ParallelDeadlineGroup(new simpleWaitCommand(.2),     new indexRingCommand(shooter, intakeSubsystem))));
         NamedCommands.registerCommand("ShootFirst", new AutoShootFirst(shooter, intakeSubsystem));
-
         NamedCommands.registerCommand("RampTheShooter", new ShooterSpecial(shooter, 110, false));
         NamedCommands.registerCommand("ShootAfterRamp", new ShootAfterRamp(shooter,intakeSubsystem));
     }
@@ -240,7 +223,6 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     public Command getAutonomousCommand() {
         return autoChooser.getSelected();
     }
-
 
     public SwerveSubsystem getDrivetrainSubsystem(){
      return s_Swerve;
@@ -263,7 +245,6 @@ FLIPURSELF.whileTrue(new DoA180(s_Swerve, driver, true));
     public Joystick getPrimaryController() {
         return driver;
     }
-
 
     public Trajectory[] getTrajectories() {
         return trajectories;
