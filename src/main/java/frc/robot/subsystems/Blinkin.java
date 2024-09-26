@@ -51,11 +51,13 @@ int index = 0;
 */
 
 public void setColorLoop(){
+  /*
   color = colors[index];
   index++;
   if(index >= colors.length-1){
     index = 0;
-  }
+  } */
+  color = -0.95;
   blinkin.set(color);
 }
 

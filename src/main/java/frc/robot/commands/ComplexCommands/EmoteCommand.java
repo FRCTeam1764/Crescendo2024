@@ -25,11 +25,11 @@ public class EmoteCommand extends SequentialCommandGroup {
     this.stopp = stopp;
     ParallelDeadlineGroup left = new ParallelDeadlineGroup(
       new simpleWaitCommand(1.5),
-      new ClimberCommand(climberSubsystem, -150, -70)
+      new ClimberCommand(climberSubsystem, -150, -50)
     );
     ParallelDeadlineGroup right = new ParallelDeadlineGroup(
       new simpleWaitCommand(1.5),
-      new ClimberCommand(climberSubsystem, -70, -150)
+      new ClimberCommand(climberSubsystem, -50, -150)
     );
 
     addCommands(
