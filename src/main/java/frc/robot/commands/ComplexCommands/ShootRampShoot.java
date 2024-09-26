@@ -31,8 +31,8 @@ public class ShootRampShoot extends SequentialCommandGroup {
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(1),
         new ParallelCommandGroup(
-           new ShooterCommand(shooter, true),
-         //  new ShooterSpecial(shooter,100,false),
+         //  new ShooterCommand(shooter, true),
+          new ShooterSpecial(shooter,110,false),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )
