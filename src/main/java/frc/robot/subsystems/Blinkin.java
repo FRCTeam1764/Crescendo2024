@@ -41,14 +41,14 @@ int index = 0;
 
 
   Spark blinkin  = new Spark(Constants.BLINKIN_SPARKPORT);
-  public Blinkin() {
+  /*public Blinkin() {
     color = -0.41;
-  }
-
+  }*/
+/* 
   public void setColor(double color){
     this.color = color;
   }
-
+*/
 
 public void setColorLoop(){
   color = colors[index];

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.simpleWaitCommand;
-import frc.robot.commands.SimpleCommands.BlinkinCommand;
+//import frc.robot.commands.SimpleCommands.BlinkinCommand;
 import frc.robot.commands.SimpleCommands.ClimberCommand;
 import frc.robot.subsystems.ClimberSubsystem;
 import frc.robot.subsystems.Blinkin;
@@ -36,7 +36,7 @@ public class EmoteCommand extends SequentialCommandGroup {
       // new ParallelDeadlineGroup(
       //   new simpleWaitCommand(1.5),
         new ParallelDeadlineGroup(
-          new simpleWaitCommand(10),
+          new simpleWaitCommand(60),
           new SequentialCommandGroup(left, right).repeatedly()
         )
 
