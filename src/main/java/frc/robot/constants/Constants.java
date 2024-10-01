@@ -11,8 +11,8 @@ public final class Constants {
     public static final CanPort CLIMBER_MOTOR1 =     new CanPort(20); //right
     public static final CanPort CLIMBER_MOTOR2 =     new CanPort(10); //left
 
-    public static final CanPort FLYWHEEL_MOTOR1 =     new CanPort(32); //right
-    public static final CanPort FLYWHEEL_MOTOR2 =     new CanPort(6); //left
+    public static final CanPort FLYWHEEL_MOTOR1 =     new CanPort(9); //right
+    public static final CanPort FLYWHEEL_MOTOR2 =     new CanPort(7); //left
     public static final CanPort HOLDER_MOTOR =     new CanPort(33); //index, climber, roller
 
     public static final CanPort INTAKE_MOTOR =     new CanPort(21);
