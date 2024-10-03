@@ -32,7 +32,7 @@ public class ShootRampShoot extends SequentialCommandGroup {
       new simpleWaitCommand(1),
         new ParallelCommandGroup(
          //  new ShooterCommand(shooter, true),
-           new ShooterSpecial(shooter,110,false),
+           new ShooterSpecial(shooter,90,false),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )

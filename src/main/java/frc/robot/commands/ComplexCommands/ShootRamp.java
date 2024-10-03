@@ -30,7 +30,7 @@ public class ShootRamp extends SequentialCommandGroup {
 
     addCommands(
       //new ShooterCommand(shooter, true)
-      new ShooterSpecial(shooter,110,false)
+      new ShooterSpecial(shooter,90,false)
 
     );
   }
