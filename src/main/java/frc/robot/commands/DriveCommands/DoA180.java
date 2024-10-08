@@ -23,25 +23,30 @@ public class DoA180 extends Command {
    
   private LimelightSubsystem LimeLight;
   private SwerveSubsystem Drivetrain;
-private boolean fieldRelative;
+  private boolean fieldRelative;
   private Joystick controller;
   private double offset = 0;
+  private double position = 0;
+  
   private PIDController thetaController = new PIDController(SwerveConstantsYAGSL.Auton.angleAutoPID.kP, SwerveConstantsYAGSL.Auton.angleAutoPID.kI, SwerveConstantsYAGSL.Auton.angleAutoPID.kD);
   public DoA180(SwerveSubsystem drivetrain, Joystick controller,boolean fieldRelative) {
     addRequirements(drivetrain);
     this.Drivetrain = drivetrain;
     this.controller = controller;
     this.fieldRelative = fieldRelative;
-//offset = drivetrain.getPose().getRotation().getDegrees()+180;
-SmartDashboard.putNumber("OffsetForRotation", offset);
+    //offset = drivetrain.getPose().getRotation().getDegrees()+180;
+    SmartDashboard.putNumber("OffsetForRotation", offset);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     thetaController.reset();
-    offset = -Drivetrain.getPose().getRotation().getDegrees();
-
+    position = Drivetrain.getPose().getRotation().getDegrees();
+    if (position <= 0) {
+      position += 360;
+    }
+    offset = position - 180;
     thetaController.setTolerance(Math.toRadians(2)); //fix later?
   }
 
@@ -51,7 +56,7 @@ SmartDashboard.putNumber("OffsetForRotation", offset);
     double thetaOutput = 0;
     double xOutput =MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftY.value),SwerveConstantsYAGSL.OperatorConstants.LEFT_X_DEADBAND)*Drivetrain.maximumSpeed;
     double yOutput = MathUtil.applyDeadband(-controller.getRawAxis(XboxController.Axis.kLeftX.value),SwerveConstantsYAGSL.OperatorConstants.RIGHT_X_DEADBAND)*Drivetrain.maximumSpeed;
-			double setpoint = Math.toRadians( offset);  //Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
+		double setpoint = Math.toRadians(offset);  //Math.toRadians(horizontal_amgle)+Drivetrain.getPose().getRotation().getRadians();
       thetaController.setSetpoint(setpoint);
 			if (!thetaController.atSetpoint()){
 				thetaOutput = thetaController.calculate(Drivetrain.getPose().getRotation().getRadians(), setpoint);

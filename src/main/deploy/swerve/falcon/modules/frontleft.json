@@ -15,7 +15,7 @@
     "canbus": "1764 canivore"
   },
   "inverted": {
-    "drive": true,
+    "drive": false,
     "angle": true
   },
   "absoluteEncoderOffset": 18.457031,
