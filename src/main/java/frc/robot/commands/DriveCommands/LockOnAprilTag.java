@@ -56,15 +56,15 @@ private boolean fieldRelative;
     double horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees());
 
 		if (LimeLight.hasTarget()){
-      if(gottadoFunny == true){
-        if(LimeLight.getID() == 3 || LimeLight.getID() == 8){
-          LimeLight.setPipeline(2);
-           horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees()+22 );
-        }else{
+      // if(gottadoFunny == true){
+      //   if(LimeLight.getID() == 3 || LimeLight.getID() == 8){
+      //     LimeLight.setPipeline(2);
+      //      horizontal_amgle = -(LimeLight.getHorizontalAngleOfErrorDegrees()+22 );
+      //   }else{
 
-          LimeLight.setPipeline(1);
-        }
-      }
+      //     LimeLight.setPipeline(1);
+      //   }
+      // }
       
 
 

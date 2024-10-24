@@ -60,7 +60,7 @@ m_flexMotor2.follow(m_flexMotor,true);
     pidController.setD(0.3); // prev .65 .9
     pidController.setFeedbackDevice(m_angleEncoder);
     pidController.setOutputRange(-.9, .9); //prev .9
-   
+   pidController.setPositionPIDWrappingEnabled(false);
     // pidController.setSmartMotionAllowedClosedLoopError(0, 0);
 
     this.intakeState = intakeState;

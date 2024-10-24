@@ -37,13 +37,13 @@ public class AutoShoot extends SequentialCommandGroup {
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
       new simpleWaitCommand(.3),
         new ParallelCommandGroup(
-      //  new ShooterSpecial(shooter,120,false),       //new ShooterCommand(shooter, true),
+        new ShooterSpecial(shooter,120,false),       //new ShooterCommand(shooter, true),
           new RollerCommand(shooter,CommandConstants.SHOOTER_SHOOT_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )
     );
     addCommands(
- //     shootprep,
+      shootprep,
       fire
     );
   }

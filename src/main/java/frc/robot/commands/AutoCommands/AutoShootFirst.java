@@ -28,16 +28,16 @@ public class AutoShootFirst extends SequentialCommandGroup {
     addRequirements(shooter, intake);
 
     ParallelDeadlineGroup shootprep = new ParallelDeadlineGroup(
-      new simpleWaitCommand(1.5),//,
-      new ShooterSpecial(shooter,130,false)
+      new simpleWaitCommand(.9),//,
+      new ShooterSpecial(shooter,100,false)
       // new ShooerCommand(shooter,)
      // new ShooterSpecial(shooter,100,false)
     );
     
     ParallelDeadlineGroup fire = new ParallelDeadlineGroup(
-      new simpleWaitCommand(.8),
+      new simpleWaitCommand(.4),
         new ParallelCommandGroup(
-        new ShooterSpecial(shooter,130,false),       //new ShooterCommand(shooter, true),
+        new ShooterSpecial(shooter,100,false),       //new ShooterCommand(shooter, true),
           new RollerCommand(shooter,CommandConstants.SHOOTER_INTAKE_SPEED,false),
           new IntakeCommand(intake, -CommandConstants.INTAKE_FAST_SPEED,false)
         )
